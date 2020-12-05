@@ -1,0 +1,19 @@
+title SEQUENCE DIAGRAM
+
+participant InputParser
+participant ConfigParser
+participant Dataset
+participant User
+participant Instance
+participant Label
+participant AssignedInstances
+participant Logger
+
+InputParser->Dataset:Create Dataset
+ConfigParser->User:Create Users
+Dataset->Instance: Create Instances
+Dataset->Label: Create Labels
+Instance->User: Get Instance
+Label->User: Get Labels
+User->AssignedInstances: Assign Labels
+User->Logger: Log User Operations
