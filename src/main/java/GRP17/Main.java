@@ -38,8 +38,6 @@ public class Main {
             for (User user : allUsers) {
 
                 AssignedInstance assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
-                Logger.getInstance().log(assignedInstance);
-
                 allAssignedInstance.add(assignedInstance);
             }
 

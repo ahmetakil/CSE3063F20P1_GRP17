@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+
 public abstract class User {
-    @SerializedName("user id")
-    private int id;
-    @SerializedName("user name")
-    private String name;
-    @SerializedName("user type")
-    private String type;
-    private List<AssignedInstance> labellingRequests;
+
+    @SerializedName("user id")private int id;
+    @SerializedName("user name")private String name;
+    @SerializedName("user type")private String type;
+
+    private List <AssignedInstance> labellingRequests;
 
     public User(int id, String name, String type) {
         this.id = id;
@@ -29,6 +29,8 @@ public abstract class User {
     public String getType() {
         return type;
     }
+
+    public String getName() { return name; }
 
     public List<AssignedInstance> getLabellingRequests() {
         return labellingRequests;

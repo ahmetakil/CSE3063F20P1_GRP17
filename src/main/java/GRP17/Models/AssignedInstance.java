@@ -1,4 +1,5 @@
 package GRP17.Models;
+import GRP17.Logger;
 import GRP17.UserModels.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -20,11 +21,16 @@ public class AssignedInstance {
         this.labels = labels;
         this.date = date;
         this.user = user;
+        Logger.getInstance().logLabelAssignment(this);
     }
 
     public Instance getInstance() {
         return instance;
     }
+    public User getUser() {
+        return user;
+    }
+    public List<Label> getLabels(){ return this.labels;}
 
     public JsonObject toJson(){
         JsonObject jsonObject = new JsonObject();

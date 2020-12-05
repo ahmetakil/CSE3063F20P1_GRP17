@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "userId": 0,
+      "userName": "ABC",
+      "type": "RandomBot"
+    },
+    {
+      "userId": 1,
+      "userName": "ABC1",
+      "type": "RandomBot"
+    }
+  ]
+}
