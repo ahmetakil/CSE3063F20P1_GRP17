@@ -35,10 +35,10 @@ public class OutputWriter {
 
             List<Label> labels = dataSet.getLabels();
             JsonArray classLabelsJson = gson.toJsonTree(labels).getAsJsonArray();
-           jsonObject.add("class labels",classLabelsJson );
+            jsonObject.add("class labels",classLabelsJson );
 
 
-           List<Instance> instances = dataSet.getInstances();
+            List<Instance> instances = dataSet.getInstances();
             JsonArray instancesJson = gson.toJsonTree(instances).getAsJsonArray();
             jsonObject.add("instances",instancesJson );
 

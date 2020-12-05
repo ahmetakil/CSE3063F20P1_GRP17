@@ -12,11 +12,13 @@ import java.util.List;
 
 public class Main {
 
-   public static void main(String[] args) {
+    public static void main(String[] args) {
 
 
         Parser inputParser = new InputParser("assets/input.json");
         Parser configParser = new ConfigParser("assets/config.json");
+
+        OutputWriter outputWriter = new OutputWriter("assets/output.json");
 
         ConfigSet configSet = ((ConfigParser) configParser).parse();
         DataSet dataSet = ((InputParser) inputParser).parse();
@@ -42,8 +44,7 @@ public class Main {
             }
 
         }
-        OutputWriter.write(allAssignedInstance,dataSet,allUsers);
+        outputWriter.write(allAssignedInstance,dataSet,allUsers);
 
     }
 }
-
