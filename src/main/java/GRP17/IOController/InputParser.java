@@ -1,6 +1,6 @@
 package GRP17.IOController;
 
-import GRP17.DataSet;
+import GRP17.Models.DataSet;
 import com.google.gson.Gson;
 
 import java.io.FileReader;
