@@ -4,9 +4,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Instance {
-    @SerializedName("id")private int id;
+    @SerializedName("id")
+    private int id;
     @Expose
-    @SerializedName ("instance")private String instance;
+    @SerializedName("instance")
+    private String instance;
 
     public Instance(int id, String content) {
         this.id = id;
@@ -29,9 +31,9 @@ public class Instance {
         this.instance = instance;
     }
 
-     public String toString(){
+    public String toString() {
         return this.instance;
-     }
+    }
 
 
 }

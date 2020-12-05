@@ -1,7 +1,5 @@
 package GRP17.IOController;
 
-import GRP17.IOController.ConfigSetParser;
-import GRP17.IOController.Parser;
 import GRP17.Models.ConfigSet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,6 +21,11 @@ public class ConfigParser extends Parser {
     public ConfigSet parse() {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
+
+        /*
+        The registerTyeAdapter allows us to customize the data parsing process
+        by providing a Custom JsonDeserializer
+         */
         gsonBuilder.registerTypeAdapter(ConfigSet.class, new ConfigSetParser());
 
         try (Reader reader = new FileReader(fileName)) {

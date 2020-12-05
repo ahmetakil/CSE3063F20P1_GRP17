@@ -14,6 +14,9 @@ public abstract class User {
     @SerializedName("user name")private String name;
     @SerializedName("user type")private String type;
 
+    /*
+    Holds all of the assignments a user makes, might be useful in the future.
+     */
     private List <AssignedInstance> labellingRequests;
 
     public User(int id, String name, String type) {
