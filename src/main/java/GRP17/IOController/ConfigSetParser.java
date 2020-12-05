@@ -1,5 +1,6 @@
 package GRP17.IOController;
 
+import GRP17.Logger;
 import GRP17.Models.ConfigSet;
 import GRP17.UserModels.RandomLabellingUser;
 import GRP17.UserModels.User;
@@ -43,9 +44,11 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                         break;
 
                 }
-
+                if (user == null){
+                    continue;
+                }
                 users.add(user);
-
+                Logger.getInstance().logUserCreation(user);
             }
             return new ConfigSet(users);
 

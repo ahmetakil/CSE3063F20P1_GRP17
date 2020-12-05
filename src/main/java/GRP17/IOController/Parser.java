@@ -1,17 +1,17 @@
 package GRP17.IOController;
 
- public abstract class Parser {
+public abstract class Parser {
 
      /*
      Custom interface for all the Parsing mechanisms.
       */
 
-     protected String fileName;
+    protected String fileName;
 
 
-     Parser(String fileName){
-         this.fileName = fileName;
-     }
+    Parser(String fileName){
+        this.fileName = fileName;
+    }
 
-     abstract Object parse();
+    abstract Object parse();
 }
