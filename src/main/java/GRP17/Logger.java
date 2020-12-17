@@ -28,11 +28,13 @@ public class Logger {
         }
         return instance;
     }
+
     private String getCurrentTime(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy, hh:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);
     }
+
     public void logUserCreation(User user){
         String output=getCurrentTime();
         output +=" [ConfigSetParser] ";
@@ -40,6 +42,7 @@ public class Logger {
         output += " as " + user.getType();
         log(output);
     }
+
     public void logLabelAssignment(AssignedInstance labelAssignment){
         String output = getCurrentTime();
         output += " [AssignmentInstance] INFO";

@@ -1,5 +1,6 @@
 package GRP17.Models;
 
+import GRP17.UserModels.User;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -15,6 +16,18 @@ public class DataSet {
     @SerializedName("class labels")
     private List<Label> labels;
     private List<Instance> instances; // Since the json key name is also the same we can skip the annotation
+    private List<User> users; //TODO
+
+    public double getCompleteness(){
+    //TODO [C-1] Loop the instances use isEmpty calculate percantage.
+        return 0;
+    }
+
+    public double getClassDistributionWithRespectToFinalLabels(){
+        //TODO [C-2] Loop through the instances use final labels.
+        return 0;
+    }
+
 
 
     public int getId() {

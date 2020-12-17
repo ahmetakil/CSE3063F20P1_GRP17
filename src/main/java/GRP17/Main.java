@@ -38,10 +38,27 @@ public class Main {
             for (User user : allUsers) {
 
                 AssignedInstance assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
+
+                if(assignedInstance == null){
+                    // The labelling mechanism decided not to label
+                    continue;
+                }
+
                 allAssignedInstance.add(assignedInstance);
+                assignedInstance.getInstance().determineFinalLabel();
+
+
+
+                //updateMetrics();
+                //writeToReportFile();
+
+
+
             }
 
         }
+
+
         outputWriter.write(allAssignedInstance,dataSet,allUsers);
 
     }
