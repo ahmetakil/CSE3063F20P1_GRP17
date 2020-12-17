@@ -92,6 +92,19 @@ public class Instance {
         return mostFrequent;
     }
 
+    //This method calculates entropy and returns it.
+    public Double entropy(){
+        Double entropy = 0;
+        HashMap<Label,Double> percentage = labelPercentage();
+        int size = frequency.size();
+        for (HashMap.Entry<Label, Double> entry : frequency.entrySet()) {
+            double propotion = entry.getValue()/size;
+            entropy += propotion*Math.log(propotion)/Math.log(2);
+        }
+        return entropy;
+
+    }
+
 
 
     public boolean isLabelled(){
