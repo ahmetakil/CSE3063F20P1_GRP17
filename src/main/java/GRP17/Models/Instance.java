@@ -45,14 +45,18 @@ public class Instance {
         }
     }
 
+
+    //This method takes all labels in the instance at the map and changes the value of finalLabel to most recurring label. (If equal selects randomly).
     public void determineFinalLabel(){
         int max = 0;
+        //For find max value we loop once.
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             //System.out.println(entry.getKey() + ":" + entry.getValue());
             if (entry.getValue() > max){
                 max = entry.getValue();
             }
         }
+        // Another loop for put the labels that have value of max frequnecy to array list
         ArrayList<Label> maxlabels = new ArrayList<>();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             //System.out.println(entry.getKey() + ":" + entry.getValue());
@@ -60,8 +64,35 @@ public class Instance {
                 maxlabels.add(entry.getKey());
             }
         }
-        finallabel = frequency.get( random.nextInt(frequency.size()));
+        //Select random from Array List
+        finallabel = maxlabels.get( random.nextInt(maxlabels.size()));
     }
+
+    //This method returns recurring percentages of assigned labels to a instance as in hashmap format.
+    public HashMap<Label,Double> labelPercentage(){
+        double totalSize = frequency.size();
+        HashMap<Label,Double> percentage = new HashMap<Label,Double> ();
+        for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
+            percentage.put(entry.getKey(), (entry.getValue()/totalSize)*100);
+        }
+        return percentage;
+    }
+
+    //This method returns most recurring label(s)? with using labelpercentage method.
+    public HashMap<Label,Double> mostFrequentLabel(){
+        double max = 0;
+        HashMap<Label,Double> percentage = labelPercentage();
+        HashMap<Label,Double> mostFrequent = new HashMap<Label,Double> ();
+        for (HashMap.Entry<Label, Double> entry : percentage.entrySet()) {
+            if(entry.getValue() > max){
+                mostFrequent.clear();
+                mostFrequent.put(entry.getKey(), entry.getValue());
+            }   
+        }
+        return mostFrequent;
+    }
+
+
 
     public boolean isLabelled(){
         return !frequency.isEmpty();
