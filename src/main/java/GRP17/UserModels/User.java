@@ -22,7 +22,7 @@ public abstract class User {
     private double consistencyCheckProbability;
 
     private List<AssignedInstance> labellingRequests;
-    private Map<Label,Integer> frequency;
+    private Map<Label, Integer> frequency;
 
     private List<Double> timeSpendings;
 
@@ -33,11 +33,11 @@ public abstract class User {
         this.type = type;
         this.consistencyCheckProbability = 0.1;
         labellingRequests = new ArrayList<AssignedInstance>();
-        frequency = new HashMap<Label,Integer>();
+        frequency = new HashMap<Label, Integer>();
         timeSpendings = new ArrayList<Double>();
     }
 
-    private void addFrequencyLabel(Label newLabel){
+    private void addFrequencyLabel(Label newLabel) {
 
         if (frequency.containsKey(newLabel)) {
             int currentFrequncy = frequency.get(newLabel);
@@ -52,37 +52,65 @@ public abstract class User {
     public ArrayList<AssignedInstance> getUniqueInstances() {
         int counter = 0;
         ArrayList<AssignedInstance> uniqueRequests = new ArrayList<>();
-        for (AssignedInstance i: labellingRequests){
-            if (!uniqueRequests.contains(i)){
+        for (AssignedInstance i : labellingRequests) {
+            if (!uniqueRequests.contains(i)) {
                 uniqueRequests.add(i);
             }
         }
         return uniqueRequests;
     }
 
-    public ArrayList<Instance> NEWgetUniqueInstances(){
+    public ArrayList<Instance> NEWgetUniqueInstances() {
         ArrayList<Instance> uniqueInstances = new ArrayList<>();
-        for (AssignedInstance assignedInstance: labellingRequests){
-            if(!uniqueInstances.contains(assignedInstance.getInstance())){
+        for (AssignedInstance assignedInstance : labellingRequests) {
+            if (!uniqueInstances.contains(assignedInstance.getInstance())) {
                 uniqueInstances.add(assignedInstance.getInstance());
             }
         }
         return uniqueInstances;
     }
 
-    public int consistency(){
+    public double getConsistencyPercentage() {
         //TODO
-        return 0;
+
+        Map<Label, Integer> labelCount = new HashMap<>();
+
+        for (AssignedInstance assignedInstance : labellingRequests) {
+            List<Label> labels = assignedInstance.getLabels();
+
+            for (Label label : labels) {
+                if (!labelCount.containsKey(label)) {
+                    labelCount.put(label, 1);
+                } else {
+                    labelCount.put(label, labelCount.get(label) + 1);
+                }
+            }
+        }
+
+        Map.Entry<Label, Integer> maxEntry = null;
+
+        double sum = 0;
+        for (Map.Entry<Label, Integer> entry : labelCount.entrySet()) {
+            sum += entry.getValue();
+            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
+                maxEntry = entry;
+            }
+        }
+
+        if (maxEntry == null)
+            return 0;
+
+        return (maxEntry.getValue() / sum) * 100;
     }
 
 
-    public void addFrequencyLabelList(List<Label> labels){
-        for(Label label: labels){
+    public void addFrequencyLabelList(List<Label> labels) {
+        for (Label label : labels) {
             addFrequencyLabel(label);
         }
     }
 
-    public double getAverageTimeSpending(){
+    public double getAverageTimeSpending() {
         double sumAllValues = 0;
         for (Double timeSpending : timeSpendings) {
             sumAllValues += timeSpending;
@@ -90,16 +118,17 @@ public abstract class User {
         return sumAllValues / timeSpendings.size();
     }
 
-    public double getStandardDeviation(){
+    public double getStandardDeviation() {
         double var = 0;
         double averageTime = getAverageTimeSpending();
         for (Double timeSpending : timeSpendings) {
             var += Math.pow((timeSpending - averageTime), 2);
         }
-        return Math.sqrt((1.0/timeSpendings.size()) * var);
+        return Math.sqrt((1.0 / timeSpendings.size()) * var);
     }
 
-    public void addTimeSpending(double timeSpending){
+
+    public void addTimeSpending(double timeSpending) {
         this.timeSpendings.add(timeSpending);
     }
 
@@ -119,26 +148,26 @@ public abstract class User {
         return labellingRequests;
     }
 
-    protected void tryLabellingAgainWithRandom(){
+    protected void tryLabellingAgainWithRandom() {
         double randomNumber = Math.random();
-        if(randomNumber > this.consistencyCheckProbability){
+        if (randomNumber > this.consistencyCheckProbability) {
             //TODO Assign again
             tryLabellingAgainWithRandom();
         }
     }
 
-    public AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance){
+    public AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance) {
 
 
         long timerStart = currentTimeMillis();
 
-        if(hasInstance(instance)){
-            if(shouldReLabelAlreadyLabelledInstance()){
+        if (hasInstance(instance)) {
+            if (shouldReLabelAlreadyLabelledInstance()) {
                 return null;
             }
         }
 
-        List<Label> subset = pickLabel(labels,maxNumberOfLabelsPerInstance);
+        List<Label> subset = pickLabel(labels, maxNumberOfLabelsPerInstance);
 
         AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
 
@@ -154,21 +183,19 @@ public abstract class User {
         this.addTimeSpending(timeSpending);
 
 
-
-
         return assignedInstance;
     }
 
     public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance);
 
-    boolean hasInstance(Instance i){
+    boolean hasInstance(Instance i) {
         //this.getLabellingRequests().contains(i)
         return true;
     }
 
-    boolean shouldReLabelAlreadyLabelledInstance(){
-        int rand = (int)(Math.random() * (100) + 1);
-        if(rand < 10){
+    boolean shouldReLabelAlreadyLabelledInstance() {
+        int rand = (int) (Math.random() * (100) + 1);
+        if (rand < 10) {
             return true;
         }
         return false;

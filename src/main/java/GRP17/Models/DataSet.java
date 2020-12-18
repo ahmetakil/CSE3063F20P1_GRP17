@@ -74,7 +74,7 @@ public class DataSet {
 
 
     public Map<Label, Integer> getUniqueInstancesForLabels() {
-        // C-3
+        // TODO [C-3]
         Map<Label, Integer> unique = new HashMap<Label, Integer>();
 
         for (Label label : labels) {
@@ -104,6 +104,16 @@ public class DataSet {
         return unique;
     }
 
+    public Map<User, Double> getListOfUsersWithConsistencyPercentage(){
+        //TODO [C-6]
+        Map<User, Double> consistencyPercentage = new HashMap<>();
+
+        for(User user: users){
+            consistencyPercentage.put(user, user.getConsistencyPercentage());
+        }
+
+        return consistencyPercentage;
+    }
 
     public int getId() {
         return id;
