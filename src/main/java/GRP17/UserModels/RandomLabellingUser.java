@@ -14,54 +14,11 @@ public class RandomLabellingUser extends User {
     public RandomLabellingUser(int id, String name, String type) {
         super(id, name, type);
     }
-
     @Override
-    public AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance) {
-
-
-        long timerStart = currentTimeMillis();
-
-        if(hasInstance(instance)){
-            if(shouldReLabelAlreadyLabelledInstance()){
-                return null;
-            }
-        }
-
-        // Algorithm to a subset of a given List
+    public List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance){
         Collections.shuffle(labels);
         Random random = new Random();
         int randomNumber = random.nextInt(maxNumberOfLabelsPerInstance) + 1;
-        List<Label> subset = labels.subList(0, randomNumber);
-
-        AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
-
-        instance.updateFrequencyLabelList(labels);
-        instance.addUser(this);
-        this.addFrequencyLabelList(subset);
-
-        this.getLabellingRequests().add(assignedInstance);
-
-        long timerEnd = currentTimeMillis();
-
-        double timeSpending = (timerEnd - timerStart) / 1000.0;
-        this.addTimeSpending(timeSpending);
-
-
-
-
-        return assignedInstance;
-    }
-
-    boolean hasInstance(Instance i){
-        //this.getLabellingRequests().contains(i)
-        return true;
-    }
-
-    boolean shouldReLabelAlreadyLabelledInstance(){
-        int rand = (int)(Math.random() * (100) + 1);
-        if(rand < 10){
-            return true;
-        }
-        return false;
+        return labels.subList(0, randomNumber);
     }
 }

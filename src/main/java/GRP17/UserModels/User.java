@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.*;
 
+import static java.lang.System.currentTimeMillis;
+
 
 public abstract class User {
 
@@ -45,6 +47,7 @@ public abstract class User {
         }
         frequency.put(newLabel, 1);
     }
+
 
     public ArrayList<AssignedInstance> getUniqueInstances() {
         int counter = 0;
@@ -117,13 +120,57 @@ public abstract class User {
     }
 
     protected void tryLabellingAgainWithRandom(){
-        Random random = new Random();
-        double randomNumber = random.nextDouble();
+        double randomNumber = Math.random();
         if(randomNumber > this.consistencyCheckProbability){
             //TODO Assign again
             tryLabellingAgainWithRandom();
         }
     }
 
-    public abstract AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance);
+    public AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance){
+
+
+        long timerStart = currentTimeMillis();
+
+        if(hasInstance(instance)){
+            if(shouldReLabelAlreadyLabelledInstance()){
+                return null;
+            }
+        }
+
+        List<Label> subset = pickLabel(labels,maxNumberOfLabelsPerInstance);
+
+        AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
+
+        instance.updateFrequencyLabelList(labels);
+        instance.addUser(this);
+        this.addFrequencyLabelList(subset);
+
+        this.getLabellingRequests().add(assignedInstance);
+
+        long timerEnd = currentTimeMillis();
+
+        double timeSpending = (timerEnd - timerStart) / 1000.0;
+        this.addTimeSpending(timeSpending);
+
+
+
+
+        return assignedInstance;
+    }
+
+    public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance);
+
+    boolean hasInstance(Instance i){
+        //this.getLabellingRequests().contains(i)
+        return true;
+    }
+
+    boolean shouldReLabelAlreadyLabelledInstance(){
+        int rand = (int)(Math.random() * (100) + 1);
+        if(rand < 10){
+            return true;
+        }
+        return false;
+    }
 }
