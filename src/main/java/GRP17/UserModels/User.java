@@ -57,6 +57,16 @@ public abstract class User {
         return uniqueRequests;
     }
 
+    public ArrayList<Instance> NEWgetUniqueInstances(){
+        ArrayList<Instance> uniqueInstances = new ArrayList<>();
+        for (AssignedInstance assignedInstance: labellingRequests){
+            if(!uniqueInstances.contains(assignedInstance.getInstance())){
+                uniqueInstances.add(assignedInstance.getInstance());
+            }
+        }
+        return uniqueInstances;
+    }
+
     public int consistency(){
         //TODO
         return 0;

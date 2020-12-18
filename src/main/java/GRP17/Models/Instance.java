@@ -18,6 +18,8 @@ public class Instance {
 
     private Label finalLabel;
 
+
+
     public Instance(int id, String content) {
         this.id = id;
         this.instance = content;
@@ -25,6 +27,9 @@ public class Instance {
         this.labelledUsers = new ArrayList<User>();
     }
 
+    public Map<Label, Integer> getFrequency() {
+        return frequency;
+    }
 
     private void updateFrequency(Label newLabel) {
         if (frequency.containsKey(newLabel)) {
