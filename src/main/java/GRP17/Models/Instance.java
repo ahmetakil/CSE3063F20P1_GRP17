@@ -28,9 +28,9 @@ public class Instance {
 
     private void updateFrequency(Label newLabel) {
         if (frequency.containsKey(newLabel)) {
-            int currentFrequncy = frequency.get(newLabel);
-            currentFrequncy++;
-            frequency.put(newLabel, currentFrequncy);
+            int currentFrequency = frequency.get(newLabel);
+            currentFrequency++;
+            frequency.put(newLabel, currentFrequency);
             return;
         }
         frequency.put(newLabel, 1);
@@ -167,4 +167,7 @@ public class Instance {
         return null;
     }
 
+    public Label getFinalLabel(){
+        return this.finalLabel;
+    }
 }
