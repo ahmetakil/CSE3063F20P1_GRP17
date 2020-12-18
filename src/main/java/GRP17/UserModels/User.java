@@ -50,6 +50,27 @@ public abstract class User {
         frequency.put(newLabel, 1);
     }
 
+    public int noOfInstance() {
+        return labellingRequests.size();
+
+    }
+
+    public int noOfUniqueInstance() {
+        int counter = 0;
+        ArrayList<AssignedInstance> uniqueRequests = new ArrayList<>();
+        for (Integer i: labellingRequests){
+            if (!uniqueRequests.contains(labellingRequests.get(i))){
+                uniqueRequests.add(labellingRequests.get(i));
+            }
+        }
+        return uniqueRequests.size();
+    }
+
+    public int consistency(){
+        //TODO
+    }
+
+
     public void addFrequencyLabelList(List<Label> labels){
 
         for(Label label: labels){
