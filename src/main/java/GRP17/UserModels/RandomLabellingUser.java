@@ -22,8 +22,7 @@ public class RandomLabellingUser extends User {
         long timerStart = currentTimeMillis();
 
         if(hasInstance(instance)){
-            if(!shouldReLabelAlreadyLabelledInstance()){
-
+            if(shouldReLabelAlreadyLabelledInstance()){
                 return null;
             }
         }
@@ -59,6 +58,10 @@ public class RandomLabellingUser extends User {
     }
 
     boolean shouldReLabelAlreadyLabelledInstance(){
-        return true;
+        int rand = (int)(Math.random() * (100) + 1);
+        if(rand < 10){
+            return true;
+        }
+        return false;
     }
 }

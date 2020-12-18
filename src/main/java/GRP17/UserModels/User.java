@@ -19,16 +19,20 @@ public abstract class User {
     private String name;
     @SerializedName("user type")
     private String type;
+    @SerializedName("consistency check probability")
+    private double consistencyCheckProbability;
 
     private List<AssignedInstance> labellingRequests;
     private Map<Label,Integer> frequency;
 
     private List<Double> timeSpendings;
 
+
     public User(int id, String name, String type) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.consistencyCheckProbability = 0.1;
         labellingRequests = new ArrayList<AssignedInstance>();
         frequency = new HashMap<Label,Integer>();
         timeSpendings = new ArrayList<Double>();
@@ -54,13 +58,23 @@ public abstract class User {
     }
 
     public double getAverageTimeSpending(){
-        //TODO
-        return 0;
+        double sumAllValues = 0;
+        for(int i = 0 ; i < timeSpendings.size() ; i++){
+            sumAllValues += timeSpendings.get(i);
+        }
+        double averageTime = sumAllValues / timeSpendings.size();
+        return averageTime;
     }
 
-    public double getStandartDeviation(){
-        //TODO
-        return 0;
+    public double getStandardDeviation(){
+        double var = 0;
+        double averageTime = getAverageTimeSpending();
+        for(int i = 0 ; i < timeSpendings.size() ; i++){
+            var += Math.pow((timeSpendings.get(i) - averageTime),2);
+        }
+        double sd = (1/timeSpendings.size()) * var;
+        sd = Math.sqrt(sd);
+        return sd;
     }
 
     public void addTimeSpending(double timeSpending){
