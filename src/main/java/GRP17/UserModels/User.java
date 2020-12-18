@@ -107,8 +107,7 @@ public abstract class User {
     }
 
     protected void tryLabellingAgainWithRandom(){
-        Random random = new Random();
-        double randomNumber = random.nextDouble();
+        double randomNumber = Math.random();
         if(randomNumber > this.consistencyCheckProbability){
             //TODO Assign again
             tryLabellingAgainWithRandom();
