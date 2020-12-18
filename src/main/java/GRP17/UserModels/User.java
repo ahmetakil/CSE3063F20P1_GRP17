@@ -5,10 +5,7 @@ import GRP17.Models.Instance;
 import GRP17.Models.Label;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public abstract class User {
@@ -46,16 +43,10 @@ public abstract class User {
             frequency.put(newLabel, currentFrequncy);
             return;
         }
-
         frequency.put(newLabel, 1);
     }
 
-    public int noOfInstance() {
-        return labellingRequests.size();
-
-    }
-
-    public int noOfUniqueInstance() {
+    public ArrayList<AssignedInstance> getUniqueInstances() {
         int counter = 0;
         ArrayList<AssignedInstance> uniqueRequests = new ArrayList<>();
         for (AssignedInstance i: labellingRequests){
@@ -63,7 +54,7 @@ public abstract class User {
                 uniqueRequests.add(i);
             }
         }
-        return uniqueRequests.size();
+        return uniqueRequests;
     }
 
     public int consistency(){
@@ -73,7 +64,6 @@ public abstract class User {
 
 
     public void addFrequencyLabelList(List<Label> labels){
-
         for(Label label: labels){
             addFrequencyLabel(label);
         }
@@ -81,22 +71,19 @@ public abstract class User {
 
     public double getAverageTimeSpending(){
         double sumAllValues = 0;
-        for(int i = 0 ; i < timeSpendings.size() ; i++){
-            sumAllValues += timeSpendings.get(i);
+        for (Double timeSpending : timeSpendings) {
+            sumAllValues += timeSpending;
         }
-        double averageTime = sumAllValues / timeSpendings.size();
-        return averageTime;
+        return sumAllValues / timeSpendings.size();
     }
 
     public double getStandardDeviation(){
         double var = 0;
         double averageTime = getAverageTimeSpending();
-        for(int i = 0 ; i < timeSpendings.size() ; i++){
-            var += Math.pow((timeSpendings.get(i) - averageTime),2);
+        for (Double timeSpending : timeSpendings) {
+            var += Math.pow((timeSpending - averageTime), 2);
         }
-        double sd = (1/timeSpendings.size()) * var;
-        sd = Math.sqrt(sd);
-        return sd;
+        return Math.sqrt((1.0/timeSpendings.size()) * var);
     }
 
     public void addTimeSpending(double timeSpending){
@@ -120,8 +107,12 @@ public abstract class User {
     }
 
     protected void tryLabellingAgainWithRandom(){
-
-
+        Random random = new Random();
+        double randomNumber = random.nextDouble();
+        if(randomNumber > this.consistencyCheckProbability){
+            //TODO Assign again
+            tryLabellingAgainWithRandom();
+        }
     }
 
     public abstract AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance);
