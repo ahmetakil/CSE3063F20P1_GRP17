@@ -90,6 +90,7 @@ public class Instance {
     //B-3
     //This method returns size of the list of the user that labelled this particular instance
     public int noOfUniqueUsers(){
+         Set<User> labelledUsers = new HashSet<User>(getLabelledUsers());
         return labelledUsers.size();
     }
     //B-4
@@ -169,5 +170,9 @@ public class Instance {
 
     public Label getFinalLabel(){
         return this.finalLabel;
+    }
+
+    public List<User> getLabelledUsers(){
+        return this.labelledUsers;
     }
 }
