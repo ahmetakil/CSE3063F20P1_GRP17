@@ -15,6 +15,7 @@ public class RandomLabellingUser extends User {
         super(id, name, type);
     }
 
+    /*
     @Override
     public AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance) {
 
@@ -51,17 +52,12 @@ public class RandomLabellingUser extends User {
 
         return assignedInstance;
     }
-
-    boolean hasInstance(Instance i){
-        //this.getLabellingRequests().contains(i)
-        return true;
-    }
-
-    boolean shouldReLabelAlreadyLabelledInstance(){
-        int rand = (int)(Math.random() * (100) + 1);
-        if(rand < 10){
-            return true;
-        }
-        return false;
+    */
+    @Override
+    public List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance){
+        Collections.shuffle(labels);
+        Random random = new Random();
+        int randomNumber = random.nextInt(maxNumberOfLabelsPerInstance) + 1;
+        return labels.subList(0, randomNumber);
     }
 }
