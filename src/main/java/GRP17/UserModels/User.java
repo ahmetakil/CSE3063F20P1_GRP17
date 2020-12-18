@@ -58,9 +58,9 @@ public abstract class User {
     public int noOfUniqueInstance() {
         int counter = 0;
         ArrayList<AssignedInstance> uniqueRequests = new ArrayList<>();
-        for (Integer i: labellingRequests){
-            if (!uniqueRequests.contains(labellingRequests.get(i))){
-                uniqueRequests.add(labellingRequests.get(i));
+        for (AssignedInstance i: labellingRequests){
+            if (!uniqueRequests.contains(i)){
+                uniqueRequests.add(i);
             }
         }
         return uniqueRequests.size();
@@ -68,6 +68,7 @@ public abstract class User {
 
     public int consistency(){
         //TODO
+        return 0;
     }
 
 

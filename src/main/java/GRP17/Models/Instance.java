@@ -13,7 +13,7 @@ public class Instance {
     @Expose
     @SerializedName("instance")
     private String instance;
-    private Map<Label, Integer> frequency; // This name is not convinient. Change later.
+    private Map<Label, Integer> frequency; // This name is not convenient. Change later.
     private List<User> labelledUsers;
 
     private Label finalLabel;
@@ -53,7 +53,7 @@ public class Instance {
                 max = entry.getValue();
             }
         }
-        // Another loop for put the labels that have value of max frequnecy to array list
+        // Another loop for put the labels that have value of max frequency to array list
         ArrayList<Label> maxlabels = new ArrayList<>();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             //System.out.println(entry.getKey() + ":" + entry.getValue());
@@ -128,7 +128,6 @@ public class Instance {
             entropy += proportion*Math.log(proportion)/Math.log(2);
         }
         return entropy;
-
     }
 
 
