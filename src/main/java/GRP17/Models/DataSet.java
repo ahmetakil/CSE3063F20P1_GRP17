@@ -24,10 +24,15 @@ public class DataSet {
     private List<User> users; //TODO
 
     public double getCompleteness(){
-    //TODO [C-1] Loop the instances use isEmpty calculate percantage.
-        return 0;
+        //TODO [C-1] Loop the instances use isEmpty calculate percantage.
+        double completeness = 0;
+        for(Instance instance: instances){
+            if(instance.isLabelled()){
+                completeness += 1;
+            }
+        }
+        return (completeness/instances.size())*100;
     }
-
 
     private void updateDistributionLabelList(Map<Label, Integer> distribution){
         //TODO [C-2]
@@ -40,6 +45,7 @@ public class DataSet {
             }
         }
     }
+
     private Map<Label, Integer> mapFinalLabels(){
         //TODO [C-2]
         Map<Label, Integer> distributions = new HashMap<Label, Integer>();
