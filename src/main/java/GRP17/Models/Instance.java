@@ -5,10 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Instance {
     @SerializedName("id")
@@ -65,19 +62,37 @@ public class Instance {
             }
         }
         //Select random from Array List
-        finallabel = maxlabels.get( random.nextInt(maxlabels.size()));
+        Random random = new Random();
+        finalLabel = maxlabels.get(random.nextInt(maxlabels.size()));
     }
-
-    //This method returns recurring percentages of assigned labels to a instance as in hashmap format.
-    public HashMap<Label,Double> labelPercentage(){
-        double totalSize = frequency.size();
-        HashMap<Label,Double> percentage = new HashMap<Label,Double> ();
-        for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
-            percentage.put(entry.getKey(), (entry.getValue()/totalSize)*100);
+    //B-1
+    //This method assist from label hashmap and makes a summation of values corresponds to each label.
+    public int noOfLabelAssignments(){
+        int noOfLabelAssignments = 0;
+        for(HashMap.Entry<Label, Integer> entry : frequency.entrySet()){
+            noOfLabelAssignments += entry.getValue();
         }
-        return percentage;
+        return noOfLabelAssignments;
     }
 
+    //B-2
+    //This method counts labels only if they have value of 1 in hashmap for differing unique labels.
+    public int noOfUniqueLabelAssignments(){
+        int noOfUniqueLabelAssignments = 0;
+        for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
+            if(entry.getValue() == 1){
+                noOfUniqueLabelAssignments++;
+            }
+        }
+        return noOfUniqueLabelAssignments;
+    }
+
+    //B-3
+    //This method returns size of the list of the user that labelled this particular instance
+    public int noOfUniqueUsers(){
+        return labelledUsers.size();
+    }
+    //B-4
     //This method returns most recurring label(s)? with using labelpercentage method.
     public HashMap<Label,Double> mostFrequentLabel(){
         double max = 0;
@@ -91,13 +106,23 @@ public class Instance {
         }
         return mostFrequent;
     }
-
+    //B-5
+    //This method returns recurring percentages of assigned labels to a instance as in hashmap format.
+    public HashMap<Label,Double> labelPercentage(){
+        double totalSize = frequency.size();
+        HashMap<Label,Double> percentage = new HashMap<Label,Double> ();
+        for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
+            percentage.put(entry.getKey(), (entry.getValue()/totalSize)*100);
+        }
+        return percentage;
+    }
+    //B-6
     //This method calculates entropy and returns it.
     public Double entropy(){
-        Double entropy = 0;
+        double entropy = 0;
         HashMap<Label,Double> percentage = labelPercentage();
         int size = frequency.size();
-        for (HashMap.Entry<Label, Double> entry : frequency.entrySet()) {
+        for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             double propotion = entry.getValue()/size;
             entropy += propotion*Math.log(propotion)/Math.log(2);
         }
