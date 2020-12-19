@@ -32,6 +32,23 @@ public class DataSet {
     }
 
 
+
+    private Map<Label, Integer> getClassDistributionsBasedOnFinalInstanceLabels() {
+        //TODO [C-2] NEW
+        Map<Label, Integer> distributions = new HashMap<Label, Integer>();
+
+        for (Instance instance : instances) {
+            Label finalLabel = instance.getFinalLabel();
+            if (!distributions.containsKey(finalLabel)) {
+                distributions.put(finalLabel, 1);
+            } else {
+                distributions.put(finalLabel, distributions.get(finalLabel) + 1);
+            }
+
+        }
+        return distributions;
+    }
+
     private void updateDistributionLabelList(Map<Label, Integer> distribution) {
         //TODO [C-2]
         for (Label label : labels) {
@@ -95,20 +112,20 @@ public class DataSet {
         return users.size();
     }
 
-    public Map<User, Integer> getUniqueInstancesForEachUser(){
+    public Map<User, Integer> getUniqueInstancesForEachUser() {
         //TODO [C-5]
         Map<User, Integer> unique = new HashMap<User, Integer>();
-        for(User user: users){
+        for (User user : users) {
             unique.put(user, user.NEWgetUniqueInstances().size());
         }
         return unique;
     }
 
-    public Map<User, Double> getListOfUsersWithConsistencyPercentage(){
+    public Map<User, Double> getListOfUsersWithConsistencyPercentage() {
         //TODO [C-6]
         Map<User, Double> consistencyPercentage = new HashMap<>();
 
-        for(User user: users){
+        for (User user : users) {
             consistencyPercentage.put(user, user.getConsistencyPercentage());
         }
 

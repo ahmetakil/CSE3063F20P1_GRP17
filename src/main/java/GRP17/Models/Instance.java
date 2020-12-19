@@ -27,6 +27,7 @@ public class Instance {
         this.labelledUsers = new ArrayList<User>();
     }
 
+
     public Map<Label, Integer> getFrequency() {
         return frequency;
     }
