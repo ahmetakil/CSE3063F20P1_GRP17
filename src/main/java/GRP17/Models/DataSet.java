@@ -49,43 +49,20 @@ public class DataSet {
         return distributions;
     }
 
-    private void updateDistributionLabelList(Map<Label, Integer> distribution) {
-        //TODO [C-2]
-        for (Label label : labels) {
-            if (distribution.containsKey(label)) {
-                int currentDistributionValue = distribution.get(label);
-                distribution.put(label, ++currentDistributionValue);
-            } else {
-                distribution.put(label, 1);
-            }
-        }
-    }
-
-    private Map<Label, Integer> mapFinalLabels() {
-        //TODO [C-2]
-        Map<Label, Integer> distributions = new HashMap<Label, Integer>();
-        updateDistributionLabelList(distributions);
-        for (HashMap.Entry<Label, Integer> entry : distributions.entrySet()) {
-            for (Instance instance : instances) {
-                if (entry.getKey().equals(instance.getFinalLabel())) {
-                    int currentEntryValue = entry.getValue();
-                    entry.setValue(++currentEntryValue);
-                }
-            }
-        }
-        return distributions;
-    }
-
     public void getClassDistributionWithRespectToFinalLabels() {
         //TODO [C-2] Loop through the instances use final labels.
         //noOfFinalLabels
         int noOFFinalLabels = instances.size();
-        Map<Label, Integer> finalLabelMap = mapFinalLabels();
+        Map<Label, Integer> finalLabelMap = getClassDistributionsBasedOnFinalInstanceLabels();
         System.out.println();
+        int index=0;
         for (HashMap.Entry<Label, Integer> entry : finalLabelMap.entrySet()) {
-            if (entry.getValue() > 0) {
+            if(finalLabelMap.entrySet().size() - 1 == index){
+                System.out.print("%" + ((entry.getValue() / noOFFinalLabels) * 100) + " " + entry.getKey().getName());
+            }else{
                 System.out.print("%" + ((entry.getValue() / noOFFinalLabels) * 100) + " " + entry.getKey().getName() + ", ");
             }
+                index++;
         }
     }
 
