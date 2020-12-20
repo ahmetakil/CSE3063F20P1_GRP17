@@ -18,11 +18,7 @@ public class Instance {
 
     private Label finalLabel;
 
-
-
-    public Instance(int id, String content) {
-        this.id = id;
-        this.instance = content;
+    public Instance(){
         this.frequency = new HashMap<Label, Integer>();
         this.labelledUsers = new ArrayList<User>();
     }
@@ -170,6 +166,7 @@ public class Instance {
 
 
     public JsonObject getMetrics(){
+        //TODO Implement getMetrics
         return null;
     }
 

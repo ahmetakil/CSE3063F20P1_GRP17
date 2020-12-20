@@ -3,7 +3,6 @@ package GRP17.Models;
 import GRP17.UserModels.User;
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class DataSet {
@@ -18,7 +17,16 @@ public class DataSet {
     private List<Label> labels;
 
     private List<Instance> instances; // Since the json key name is also the same we can skip the annotation
-    private List<User> users; //TODO
+    private List<User> users;
+
+    public DataSet(){
+        this.users = new ArrayList<>();
+    }
+
+
+    public void addUsers(List<User> users){
+        this.users.addAll(users);
+    }
 
     public double getCompleteness() {
         //TODO [C-1] Loop the instances use isEmpty calculate percantage.
