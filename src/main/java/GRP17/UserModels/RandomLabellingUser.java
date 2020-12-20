@@ -11,8 +11,8 @@ import static java.lang.System.*;
 
 public class RandomLabellingUser extends User {
 
-    public RandomLabellingUser(int id, String name, String type) {
-        super(id, name, type);
+    public RandomLabellingUser(int id, String name, String type, double consistencyCheckProbability) {
+        super(id, name, type, consistencyCheckProbability);
     }
     @Override
     public List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance){

@@ -57,10 +57,12 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                 String name = userObject.get("userName").getAsString();
                 String type = userObject.get("type").getAsString();
 
+                double consistencyCheckProbability = userObject.get("consistencyCheckProbability").getAsDouble();
+
                 User user;
                 switch (type) {
                     case "RandomBot":
-                        user = new RandomLabellingUser(id, name, type);
+                        user = new RandomLabellingUser(id, name, type, consistencyCheckProbability);
                         break;
                     case "MachineLearningBot":
                         user = null;
@@ -79,7 +81,7 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             return users;
 
         } catch (Exception e) {
-            System.out.println("Soemething went wrong in config file please check your users");
+            System.out.println("Something went wrong in config file please check your users");
             System.exit(0);
             return null;
         }
@@ -131,7 +133,7 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             return userIds;
 
         } catch (Exception e) {
-            System.out.println("Soemething went wrong in config file please check your user ids");
+            System.out.println("Something went wrong in config file please check your user ids");
             System.exit(0);
             return null;
         }

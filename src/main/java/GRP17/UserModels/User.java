@@ -27,11 +27,11 @@ public abstract class User {
     private List<Double> timeSpendings;
 
 
-    public User(int id, String name, String type) {
+    public User(int id, String name, String type, double consistencyCheckProbability) {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.consistencyCheckProbability = 0.1; //TODO READ THIS FROM CONFIG.
+        this.consistencyCheckProbability = consistencyCheckProbability;
         labellingRequests = new ArrayList<AssignedInstance>();
         frequency = new HashMap<Label, Integer>();
         timeSpendings = new ArrayList<Double>();

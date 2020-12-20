@@ -3,12 +3,14 @@
     {
       "userId": 0,
       "userName": "ABC",
-      "type": "RandomBot"
+      "type": "RandomBot",
+      "consistencyCheckProbability" : 0.1
     },
     {
       "userId": 1,
       "userName": "ABC1",
-      "type": "RandomBot"
+      "type": "RandomBot",
+      "consistencyCheckProbability" : 0.1
     }
   ],
   "datasets": [
