@@ -10,5 +10,25 @@
       "userName": "ABC1",
       "type": "RandomBot"
     }
-  ]
+  ],
+  "datasets": [
+    {
+      "datasetId": 1,
+      "datasetName": "Dataset 1",
+      "path": "input.json",
+      "users": [
+        0,
+        1
+      ]
+    },
+    {
+      "datasetId": 2,
+      "datasetName": "Dataset 2",
+      "path": "input2.json",
+      "users": [
+        0
+      ]
+    }
+  ],
+  "currentDatasetId": 1
 }
