@@ -47,17 +47,20 @@ public abstract class User {
         }
         frequency.put(newLabel, 1);
     }
+    //A-3
+    public int getInstances(){
+        return labellingRequests.size();
+    }
 
-
-    public ArrayList<AssignedInstance> getUniqueInstances() {
-        int counter = 0;
+    //A-4
+    public int getUniqueInstances() {
         ArrayList<AssignedInstance> uniqueRequests = new ArrayList<>();
         for (AssignedInstance i : labellingRequests) {
             if (!uniqueRequests.contains(i)) {
                 uniqueRequests.add(i);
             }
         }
-        return uniqueRequests;
+        return uniqueRequests.size();
     }
 
     public ArrayList<Instance> NEWgetUniqueInstances() {
@@ -70,9 +73,9 @@ public abstract class User {
         return uniqueInstances;
     }
 
+    //A-5
     public double getConsistencyPercentage() {
         //TODO
-
         Map<Label, Integer> labelCount = new HashMap<>();
 
         for (AssignedInstance assignedInstance : labellingRequests) {
@@ -109,7 +112,7 @@ public abstract class User {
             addFrequencyLabel(label);
         }
     }
-
+    //A-6
     public double getAverageTimeSpending() {
         double sumAllValues = 0;
         for (Double timeSpending : timeSpendings) {
@@ -117,7 +120,7 @@ public abstract class User {
         }
         return sumAllValues / timeSpendings.size();
     }
-
+    //A-7
     public double getStandardDeviation() {
         double var = 0;
         double averageTime = getAverageTimeSpending();

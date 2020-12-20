@@ -18,6 +18,7 @@ public class Main {
 
         OutputWriter outputWriter = new OutputWriter("assets/output.json");
 
+
         ConfigSet configSet = ((ConfigParser) configParser).parse();
         DataSet dataSet = configSet.getCurrentDataset();
 
@@ -34,6 +35,9 @@ public class Main {
         for (Instance instance : getInstancesToBeLabelled) {
 
             for (User user : allUsers) {
+                String reportName = "assets/report- .json";
+                int reportNameCounter = 1;
+                reportName.replace(' ', (char)(reportNameCounter + '0'));
 
                 AssignedInstance assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
 
@@ -48,10 +52,10 @@ public class Main {
 
 
                 //updateMetrics();
+
                 //writeToReportFile();
 
-
-
+                reportNameCounter++;
             }
 
         }
