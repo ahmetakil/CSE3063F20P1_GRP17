@@ -17,8 +17,9 @@ public class InputParser extends Parser {
     public DataSet parse() {
 
         Gson gson = new Gson();
+        String fullPath = "assets/"+fileName;
 
-        try (Reader reader = new FileReader(fileName)) {
+        try (Reader reader = new FileReader(fullPath)) {
 
             DataSet dataset = gson.fromJson(reader, DataSet.class);
             return dataset;

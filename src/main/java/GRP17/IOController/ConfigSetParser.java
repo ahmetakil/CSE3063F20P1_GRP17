@@ -2,9 +2,11 @@ package GRP17.IOController;
 
 import GRP17.Logger;
 import GRP17.Models.ConfigSet;
+import GRP17.Models.DataSet;
 import GRP17.UserModels.RandomLabellingUser;
 import GRP17.UserModels.User;
 import com.google.gson.*;
+import com.google.gson.internal.LazilyParsedNumber;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -13,15 +15,39 @@ import java.util.List;
 
 public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
 
+    private List<User> users; // Storing users as an attribute because multiple functions will access it.
+
     @Override
     public ConfigSet deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) {
 
         try {
             JsonObject jsonObject = json.getAsJsonObject();
-            JsonArray jsonArray = jsonObject.getAsJsonArray("users");
-            List<User> users = new ArrayList<User>();
+            JsonArray usersJsonArray = jsonObject.getAsJsonArray("users");
+            JsonArray datasetsJsonArray = jsonObject.getAsJsonArray("datasets");
 
-            Iterator userIterator = jsonArray.iterator();
+            Integer currentDatasetId = jsonObject.get("currentDatasetId").getAsInt();
+
+            this.users = parseUsers(usersJsonArray);
+            List<DataSet> datasets = parseDatasets(datasetsJsonArray);
+
+
+            return new ConfigSet(users,datasets,currentDatasetId);
+
+
+        } catch (Exception e) {
+
+            System.out.println("ConfigSetParser.deserialize: "+ e);
+            //System.out.println("Something went wrong with CustomUserParser. Please check config.json");
+            return null;
+        }
+
+    }
+
+    private List<User> parseUsers(JsonArray userJsonArray) {
+
+        try {
+            List<User> users = new ArrayList<User>();
+            Iterator userIterator = userJsonArray.iterator();
 
             while (userIterator.hasNext()) {
 
@@ -44,21 +70,96 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                         break;
 
                 }
-                if (user == null){
+                if (user == null) {
                     continue;
                 }
                 users.add(user);
                 Logger.getInstance().logUserCreation(user);
             }
-            return new ConfigSet(users);
-
+            return users;
 
         } catch (Exception e) {
+            System.out.println("Soemething went wrong in config file please check your users");
+            System.exit(0);
+            return null;
+        }
+    }
 
-            System.out.println("Something went wrong with CustomUserParser. Please check config.json");
+    private List<DataSet> parseDatasets(JsonArray datasetJsonArray) {
+
+        List<DataSet> datasets = new ArrayList<DataSet>();
+        Iterator datasetIterator = datasetJsonArray.iterator();
+
+        while (datasetIterator.hasNext()) {
+
+            JsonObject datasetObject = (JsonObject) datasetIterator.next();
+
+            String path = datasetObject.get("path").getAsString();
+            List<Integer> userIds = getUserIds(datasetObject.get("users").getAsJsonArray());
+
+            InputParser inputParser = new InputParser(path);
+
+            List<User> datasetUsers = getUsersFromIds(userIds);
+
+
+            DataSet dataSet = inputParser.parse();
+            dataSet.addUsers(datasetUsers);
+
+            datasets.add(dataSet);
+
+
+        }
+        return datasets;
+
+    }
+
+
+    private List<Integer> getUserIds(JsonArray userIdsJsonArray) {
+
+        try {
+            List<Integer> userIds = new ArrayList<>();
+
+            Iterator userIdsIterator = userIdsJsonArray.iterator();
+
+            while (userIdsIterator.hasNext()) {
+
+                JsonPrimitive value = (JsonPrimitive) userIdsIterator.next();
+                userIds.add(value.getAsInt());
+
+
+            }
+            return userIds;
+
+        } catch (Exception e) {
+            System.out.println("Soemething went wrong in config file please check your user ids");
+            System.exit(0);
             return null;
         }
 
     }
+
+    private List<User> getUsersFromIds(List<Integer> userIds) {
+
+        List<User> selectedUsers = new ArrayList<>();
+
+        for (Integer userId : userIds) {
+
+            selectedUsers.add(getUserFromId(userId));
+
+        }
+        return selectedUsers;
+
+    }
+
+    private User getUserFromId(Integer userId) {
+
+        for (User user : this.users) {
+            if (user.getId() == userId) {
+                return user;
+            }
+        }
+        return null;
+    }
+
 
 }

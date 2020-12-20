@@ -31,7 +31,7 @@ public abstract class User {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.consistencyCheckProbability = 0.1;
+        this.consistencyCheckProbability = 0.1; //TODO READ THIS FROM CONFIG.
         labellingRequests = new ArrayList<AssignedInstance>();
         frequency = new HashMap<Label, Integer>();
         timeSpendings = new ArrayList<Double>();
@@ -171,8 +171,10 @@ public abstract class User {
 
         AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
 
-        instance.updateFrequencyLabelList(labels);
+        instance.updateFrequencyLabelList(subset);
         instance.addUser(this);
+
+
         this.addFrequencyLabelList(subset);
 
         this.getLabellingRequests().add(assignedInstance);
