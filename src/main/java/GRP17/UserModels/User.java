@@ -100,21 +100,12 @@ public abstract class User {
     }
 
     //A-4
-    public int getUniqueInstances() {
-        ArrayList<AssignedInstance> uniqueRequests = new ArrayList<>();
-        for (AssignedInstance i : labellingRequests) {
-            if (!uniqueRequests.contains(i)) {
-                uniqueRequests.add(i);
-            }
-        }
-        return uniqueRequests.size();
-    }
 
     public Instance getRandomLabelledInstance(int i){
         return labellingRequests.get(i).getInstance();
     }
 
-    public ArrayList<Instance> NEWgetUniqueInstances() {
+    public ArrayList<Instance> getUniqueInstances() {
         ArrayList<Instance> uniqueInstances = new ArrayList<>();
         for (AssignedInstance assignedInstance : labellingRequests) {
             if (!uniqueInstances.contains(assignedInstance.getInstance())) {
