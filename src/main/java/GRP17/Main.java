@@ -1,9 +1,6 @@
 package GRP17;
 
-import GRP17.IOController.ConfigParser;
-import GRP17.IOController.InputParser;
-import GRP17.IOController.OutputWriter;
-import GRP17.IOController.Parser;
+import GRP17.IOController.*;
 import GRP17.Models.*;
 import GRP17.UserModels.User;
 
@@ -54,7 +51,8 @@ public class Main {
                 //updateMetrics();
 
                 //writeToReportFile();
-
+                ReportWriter reportWriter = new ReportWriter(reportName);
+                reportWriter.Write(dataSet,user);
                 reportNameCounter++;
             }
 

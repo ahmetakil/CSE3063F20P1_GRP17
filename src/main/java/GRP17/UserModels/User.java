@@ -1,6 +1,7 @@
 package GRP17.UserModels;
 
 import GRP17.Models.AssignedInstance;
+import GRP17.Models.DataSet;
 import GRP17.Models.Instance;
 import GRP17.Models.Label;
 import com.google.gson.annotations.SerializedName;
@@ -46,6 +47,27 @@ public abstract class User {
             return;
         }
         frequency.put(newLabel, 1);
+    }
+    //I am not sure a-1 and a-2 please check if they are correct.
+    //A-1
+    public int getNumOfDatasets(){
+        ArrayList<DataSet> numOfDataset = new ArrayList<>();
+        for (DataSet i : numOfDataset) {
+            if (!numOfDataset.contains(i)) {
+                numOfDataset.add(i);
+            }
+        }
+        return numOfDataset.size();
+    }
+    //A-2
+    public ArrayList<DataSet> listAllDatasets(){
+        ArrayList<DataSet> dataset = new ArrayList<>();
+        for (DataSet i : dataset) {
+            if (!dataset.contains(i)) {
+                dataset.add(i);
+            }
+        }
+        return dataset;
     }
     //A-3
     public int getInstances(){

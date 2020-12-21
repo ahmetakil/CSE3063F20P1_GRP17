@@ -21,7 +21,7 @@ public class ReportWriter {
         this.fileName = fileName;
     }
 
-    public void Write(DataSet dataSet, User user, AssignedInstance assignedInstances) {
+    public void Write(DataSet dataSet, User user) {
 
         try (Writer writer = new FileWriter(fileName)) {
 
@@ -36,17 +36,23 @@ public class ReportWriter {
             jsonObject.addProperty(" User ID : ", user.getId());
             System.out.println("User name: "+user.getName() + " User ID: "+ user.getId());
             //1
+            jsonObject.addProperty("\nNumber of datasets assigned: ", user.getNumOfDatasets());
+            System.out.println(" Number of datasets assigned: "+ user.getNumOfDatasets());
             //2
-            jsonObject.addProperty("  Total number of instances labeled :", user.getInstances()); //3
-            System.out.print("  Total number of instances labeled :"+ user.getInstances());
-            jsonObject.addProperty("  Total number of unique instances labeled :", user.getUniqueInstances()); //4
-            System.out.print("  Total number of unique instances labeled :"+ user.getUniqueInstances());
-            jsonObject.addProperty("  Consistency percentage :", user.getConsistencyPercentage());//5
-            System.out.print("  Consistency percentage :"+user.getConsistencyPercentage());
-            jsonObject.addProperty("  Average time spent in labeling an instance :", user.getAverageTimeSpending()); //6
-            System.out.print("  Average time spent in labeling an instance :"+ user.getAverageTimeSpending());
-            jsonObject.addProperty(" Std. dev. of  time spent in labeling an instance : ", user.getStandardDeviation()); //7
-            System.out.print(" Std. dev. of  time spent in labeling an instance : "+ user.getStandardDeviation());
+            for(int i=0 ;  i < user.listAllDatasets().size() ; i++){
+                jsonObject.addProperty("\n" + user.listAllDatasets().get(i) + " completeness percentage: ", user.listAllDatasets().get(i).getCompleteness() );
+                System.out.println(user.listAllDatasets().get(i) + " completeness percentage: "+ user.listAllDatasets().get(i).getCompleteness());
+            }
+            jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances()); //3
+            System.out.println("\nTotal number of instances labeled :"+ user.getInstances());
+            jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances()); //4
+            System.out.println("\nTotal number of unique instances labeled :"+ user.getUniqueInstances());
+            jsonObject.addProperty("\nConsistency percentage :", user.getConsistencyPercentage());//5
+            System.out.println("\nConsistency percentage :"+user.getConsistencyPercentage());
+            jsonObject.addProperty("\nAverage time spent in labeling an instance :", user.getAverageTimeSpending()); //6
+            System.out.println("\nAverage time spent in labeling an instance :"+ user.getAverageTimeSpending());
+            jsonObject.addProperty("\nStd. dev. of  time spent in labeling an instance : ", user.getStandardDeviation()); //7
+            System.out.println("\nStd. dev. of  time spent in labeling an instance : "+ user.getStandardDeviation());
 
 
 
