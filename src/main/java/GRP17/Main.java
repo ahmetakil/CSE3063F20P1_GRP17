@@ -6,8 +6,17 @@ import GRP17.UserModels.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
+
+
+    public static int createRandomForConsistencyCheckProb() {
+        Random r = new Random();
+        int low = 0;
+        int high = 100;
+        return r.nextInt(high - low) + low;
+    }
 
     public static void main(String[] args) {
 
@@ -25,41 +34,67 @@ public class Main {
         List<Label> allLabels = dataSet.getLabels();
 
 
-        List<AssignedInstance> allAssignedInstance = new ArrayList<AssignedInstance>();
+        List<AssignedInstance> allAssignedInstance = new ArrayList<>();
 
-        List<Instance> getInstancesToBeLabelled = allInstances;
-
-        for (Instance instance : getInstancesToBeLabelled) {
+        for (Instance instance : allInstances) {
 
             for (User user : allUsers) {
-                String reportName = "assets/report- .json";
-                int reportNameCounter = 1;
-                reportName.replace(' ', (char)(reportNameCounter + '0'));
 
-                AssignedInstance assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
+                boolean consistency = (createRandomForConsistencyCheckProb() < user.getConsistencyCheckProbability() * 100);
 
-                if(assignedInstance == null){
-                    // The labelling mechanism decided not to label
-                    continue;
+                AssignedInstance assignedInstance;
+                if (consistency) {
+                    Random r = new Random();
+                    int i = r.nextInt(user.getUniqueInstances());
+                    Instance instanceI = user.getRandomLabelledInstance(i);
+                    assignedInstance = user.assignLabel(instanceI, allLabels, dataSet.getMaxNumberLabels());
+                    allAssignedInstance.add(assignedInstance);
+                } else {
+
+                    assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
+                    if (assignedInstance == null) {
+                        // The labelling mechanism decided not to label
+                        continue;
+                    }
+
                 }
 
                 allAssignedInstance.add(assignedInstance);
-                assignedInstance.getInstance().determineFinalLabel();
 
+                // TODO UPDATE INSTANCE PARAMETERS:
+                assignedInstance.getInstance().determineFinalLabel();
+                assignedInstance.getInstance().addUser(user);
+                assignedInstance.getInstance().updateFrequencyLabelList(assignedInstance.getLabels());
+
+                // TODO UPDATE USER PARAMETERS: ALREADY UPDATED AFTER CALLING assignlabel()
+
+
+
+
+                String reportName = "assets/report.json";
+                int reportNameCounter = 1;
+                reportName.replace(' ', (char) (reportNameCounter + '0'));
 
 
                 //updateMetrics();
 
+
+
+                user.getNumOfDatasets();
+
+
+
                 //writeToReportFile();
                 ReportWriter reportWriter = new ReportWriter(reportName);
-                reportWriter.Write(dataSet,user);
+                reportWriter.Write(dataSet, user);
                 reportNameCounter++;
             }
 
         }
 
 
-        outputWriter.write(allAssignedInstance,dataSet,allUsers);
+        outputWriter.write(allAssignedInstance, dataSet, allUsers);
+
 
     }
 }

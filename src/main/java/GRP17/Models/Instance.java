@@ -18,7 +18,7 @@ public class Instance {
 
     private Label finalLabel;
 
-    public Instance(){
+    public Instance() {
         this.frequency = new HashMap<Label, Integer>();
         this.labelledUsers = new ArrayList<User>();
     }
@@ -38,20 +38,20 @@ public class Instance {
         frequency.put(newLabel, 1);
     }
 
-    public void updateFrequencyLabelList(List<Label> labels){
-        for(Label label: labels){
+    public void updateFrequencyLabelList(List<Label> labels) {
+        for (Label label : labels) {
             updateFrequency(label);
         }
     }
 
 
     //This method takes all labels in the instance at the map and changes the value of finalLabel to most recurring label. (If equal selects randomly).
-    public void determineFinalLabel(){
+    public void determineFinalLabel() {
         int max = 0;
         //For find max value we loop once.
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             //System.out.println(entry.getKey() + ":" + entry.getValue());
-            if (entry.getValue() > max){
+            if (entry.getValue() > max) {
                 max = entry.getValue();
             }
         }
@@ -59,7 +59,7 @@ public class Instance {
         ArrayList<Label> maxlabels = new ArrayList<>();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             //System.out.println(entry.getKey() + ":" + entry.getValue());
-            if (entry.getValue() == max){
+            if (entry.getValue() == max) {
                 maxlabels.add(entry.getKey());
             }
         }
@@ -67,11 +67,12 @@ public class Instance {
         Random random = new Random();
         finalLabel = maxlabels.get(random.nextInt(maxlabels.size()));
     }
+
     //B-1
     //This method assist from label hashmap and makes a summation of values corresponds to each label.
-    public int noOfLabelAssignments(){
+    public int noOfLabelAssignments() {
         int noOfLabelAssignments = 0;
-        for(HashMap.Entry<Label, Integer> entry : frequency.entrySet()){
+        for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             noOfLabelAssignments += entry.getValue();
         }
         return noOfLabelAssignments;
@@ -79,10 +80,10 @@ public class Instance {
 
     //B-2
     //This method counts labels only if they have value of 1 in hashmap for differing unique labels.
-    public int noOfUniqueLabelAssignments(){
+    public int noOfUniqueLabelAssignments() {
         int noOfUniqueLabelAssignments = 0;
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
-            if(entry.getValue() == 1){
+            if (entry.getValue() == 1) {
                 noOfUniqueLabelAssignments++;
             }
         }
@@ -91,57 +92,67 @@ public class Instance {
 
     //B-3
     //This method returns size of the list of the user that labelled this particular instance
-    public int noOfUniqueUsers(){
-         Set<User> labelledUsers = new HashSet<User>(getLabelledUsers());
+    public int noOfUniqueUsers() {
+        Set<User> labelledUsers = new HashSet<User>(getLabelledUsers());
         return labelledUsers.size();
     }
+
     //B-4
     //This method returns most recurring label(s)? with using labelpercentage method.
-    public HashMap<Label,Double> mostFrequentLabel(){
+    public Map.Entry<Label, Double> mostFrequentLabel() {
         double max = 0;
-        HashMap<Label,Double> percentage = labelPercentage();
-        HashMap<Label,Double> mostFrequent = new HashMap<Label,Double> ();
+        HashMap<Label, Double> percentage = labelPercentage();
+        HashMap<Label, Double> mostFrequent = new HashMap<Label, Double>();
         for (HashMap.Entry<Label, Double> entry : percentage.entrySet()) {
-            if(entry.getValue() > max){
+            if (entry.getValue() > max) {
+                max = entry.getValue();
                 mostFrequent.clear();
                 mostFrequent.put(entry.getKey(), entry.getValue());
-            }   
+            }
         }
-        return mostFrequent;
+
+
+        for (HashMap.Entry<Label, Double> entry : mostFrequent.entrySet()) {
+            return entry;
+        }
+        return null;
+
     }
+
     //B-5
     //This method returns recurring percentages of assigned labels to a instance as in hashmap format.
-    public HashMap<Label,Double> labelPercentage(){
+    public HashMap<Label, Double> labelPercentage() {
         double totalSize = frequency.size();
-        HashMap<Label,Double> percentage = new HashMap<Label,Double> ();
+        HashMap<Label, Double> percentage = new HashMap<Label, Double>();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
-            percentage.put(entry.getKey(), (entry.getValue()/totalSize)*100);
+            percentage.put(entry.getKey(), (entry.getValue() / totalSize) * 100);
         }
         return percentage;
     }
+
     //B-6
     //This method calculates entropy and returns it.
-    public Double entropy(){
+    public Double entropy() {
         Double entropy = 0.0;
-        HashMap<Label,Double> percentage = labelPercentage();
+        HashMap<Label, Double> percentage = labelPercentage();
         int size = frequency.size();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
-            double proportion = (double)entry.getValue()/(double)size;
-            entropy += proportion*Math.log(proportion)/Math.log(2);
+            double proportion = (double) entry.getValue() / (double) size;
+            entropy += proportion * Math.log(proportion) / Math.log(2);
         }
         return entropy;
     }
 
 
-
-    public boolean isLabelled(){
+    public boolean isLabelled() {
         return !frequency.isEmpty();
     }
 
-    public void addUser(User newUser){
+    public void addUser(User newUser) {
+        if (labelledUsers.contains(newUser))
+            return;
         this.labelledUsers.add(newUser);
     }
-
 
 
     public int getId() {
@@ -165,16 +176,16 @@ public class Instance {
     }
 
 
-    public JsonObject getMetrics(){
+    public JsonObject getMetrics() {
         //TODO Implement getMetrics
         return null;
     }
 
-    public Label getFinalLabel(){
+    public Label getFinalLabel() {
         return this.finalLabel;
     }
 
-    public List<User> getLabelledUsers(){
+    public List<User> getLabelledUsers() {
         return this.labelledUsers;
     }
 }

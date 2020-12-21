@@ -3,6 +3,7 @@ package GRP17.Models;
 import GRP17.UserModels.User;
 import com.google.gson.annotations.SerializedName;
 
+import java.security.Key;
 import java.util.*;
 
 public class DataSet {
@@ -19,12 +20,12 @@ public class DataSet {
     private List<Instance> instances; // Since the json key name is also the same we can skip the annotation
     private List<User> users;
 
-    public DataSet(){
+    public DataSet() {
         this.users = new ArrayList<>();
     }
 
 
-    public void addUsers(List<User> users){
+    public void addUsers(List<User> users) {
         this.users.addAll(users);
     }
 
@@ -40,8 +41,7 @@ public class DataSet {
     }
 
 
-
-    private Map<Label, Integer> getClassDistributionsBasedOnFinalInstanceLabels() {
+    public Map<Label, Integer> getClassDistributionsBasedOnFinalInstanceLabels() {
         //TODO [C-2] NEW
         Map<Label, Integer> distributions = new HashMap<Label, Integer>();
 
@@ -57,21 +57,41 @@ public class DataSet {
         return distributions;
     }
 
-    public void getClassDistributionWithRespectToFinalLabels() {
+    public String printLabelToReport(Map<Label, Integer> map) {
         //TODO [C-2] Loop through the instances use final labels.
         //noOfFinalLabels
-        int noOFFinalLabels = instances.size();
-        Map<Label, Integer> finalLabelMap = getClassDistributionsBasedOnFinalInstanceLabels();
+        int size = instances.size();
         System.out.println();
-        int index=0;
-        for (HashMap.Entry<Label, Integer> entry : finalLabelMap.entrySet()) {
-            if(finalLabelMap.entrySet().size() - 1 == index){
-                System.out.print("%" + ((entry.getValue() / noOFFinalLabels) * 100) + " " + entry.getKey().getName());
-            }else{
-                System.out.print("%" + ((entry.getValue() / noOFFinalLabels) * 100) + " " + entry.getKey().getName() + ", ");
-            }
-                index++;
+        int index = 0;
+        StringBuilder returnStr = new StringBuilder();
+        for (Map.Entry<Label, Integer> entry : map.entrySet()) {
+            index = getIndex(size, index, returnStr, map.entrySet().size(), entry.getValue(), ( entry.getKey()).getName());
         }
+        return returnStr.toString();
+    }
+    public String printUserToReport(Map<User, Integer> map) {
+        //TODO [C-2] Loop through the instances use final labels.
+        //noOfFinalLabels
+        int size = instances.size();
+        System.out.println();
+        int index = 0;
+        StringBuilder returnStr = new StringBuilder();
+        for (HashMap.Entry<User, Integer> entry : map.entrySet()) {
+            index = getIndex(size, index, returnStr, map.entrySet().size(), entry.getValue(), (entry.getKey()).getName());
+        }
+        return returnStr.toString();
+    }
+
+    private int getIndex(int size, int index, StringBuilder returnStr, int size2, Integer value, String name) {
+        if (size2 - 1 == index) {
+
+            returnStr.append("%").append((value / size) * 100).append(" ").append(name);
+
+        } else {
+            returnStr.append("%").append((value / size) * 100).append(" ").append(name).append(", ");
+        }
+        index++;
+        return index;
     }
 
 

@@ -22,11 +22,12 @@ public abstract class User {
     @SerializedName("consistency check probability")
     private double consistencyCheckProbability;
 
+
     private List<AssignedInstance> labellingRequests;
     private Map<Label, Integer> frequency;
-
     private List<Double> timeSpendings;
 
+    private List<Integer> datasetIDS;
 
     public User(int id, String name, String type, double consistencyCheckProbability) {
         this.id = id;
@@ -37,6 +38,30 @@ public abstract class User {
         frequency = new HashMap<Label, Integer>();
         timeSpendings = new ArrayList<Double>();
     }
+
+
+    // TODO A1 NEW
+    public int getDatasetIDS() {
+        return datasetIDS.size();
+    }
+
+    public void setDatasetIDS(int id) {
+       datasetIDS.add(id);
+    }
+
+    // TODO A2 NEW
+    public void listUsersDatasetWithCompletenessPercentage(){
+        Map<DataSet, Double> consistencies = new HashMap<>();
+        for(int id: datasetIDS){
+            //DataSet dataSet = getWithID();
+           // consistencies.put(dataSet,dataSet.getCompleteness());
+        }
+    }
+
+    public double getConsistencyCheckProbability() {
+        return consistencyCheckProbability;
+    }
+
 
     private void addFrequencyLabel(Label newLabel) {
 
@@ -83,6 +108,10 @@ public abstract class User {
             }
         }
         return uniqueRequests.size();
+    }
+
+    public Instance getRandomLabelledInstance(int i){
+        return labellingRequests.get(i).getInstance();
     }
 
     public ArrayList<Instance> NEWgetUniqueInstances() {
