@@ -32,7 +32,7 @@ public class Main {
         List<Instance> allInstances = dataSet.getInstances();
         List<Label> allLabels = dataSet.getLabels();
 
-
+        //TODO need to fill with parsing output.json
         List<AssignedInstance> allAssignedInstance = new ArrayList<>();
 
         for (Instance instance : allInstances) {

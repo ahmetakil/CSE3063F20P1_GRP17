@@ -157,5 +157,6 @@ public class DataSet {
         return instances;
     }
 
+    public List<User> getUsers() {return users;}
 
 }

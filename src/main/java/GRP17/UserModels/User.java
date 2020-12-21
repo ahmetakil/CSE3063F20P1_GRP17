@@ -42,7 +42,7 @@ public abstract class User {
 
     // TODO A1 NEW
     public int getDatasetIDS() {
-        return datasetIDS.size();
+        return datasetIDS.size(); //TODO can be work easily with little trick at ConfigSetParser
     }
 
     public void setDatasetIDS(int id) {
@@ -75,15 +75,18 @@ public abstract class User {
     }
     //I am not sure a-1 and a-2 please check if they are correct.
     //A-1
+
     public int getNumOfDatasets(){
-        ArrayList<DataSet> numOfDataset = new ArrayList<>();
-        for (DataSet i : numOfDataset) {
-            if (!numOfDataset.contains(i)) {
-                numOfDataset.add(i);
+        int count = 0;
+        ArrayList<DataSet> datasets = new ArrayList<>(); //TODO Always empty we need to put what we read from config
+        for (DataSet dataSet: datasets){                 //Backup for new method temporarily
+            if(dataSet.getUsers().contains(this)){
+                count++;
             }
         }
-        return numOfDataset.size();
+        return count;
     }
+
     //A-2
     public ArrayList<DataSet> listAllDatasets(){
         ArrayList<DataSet> dataset = new ArrayList<>();
