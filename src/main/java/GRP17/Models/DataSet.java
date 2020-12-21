@@ -121,7 +121,7 @@ public class DataSet {
         //TODO [C-5]
         Map<User, Integer> unique = new HashMap<User, Integer>();
         for (User user : users) {
-            unique.put(user, user.NEWgetUniqueInstances().size());
+            unique.put(user, user.getUniqueInstances().size());
         }
         return unique;
     }

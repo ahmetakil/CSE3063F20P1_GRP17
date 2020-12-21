@@ -29,7 +29,6 @@ public class Main {
         DataSet dataSet = configSet.getCurrentDataset();
 
         List<User> allUsers = configSet.getUsers();
-
         List<Instance> allInstances = dataSet.getInstances();
         List<Label> allLabels = dataSet.getLabels();
 
@@ -45,7 +44,7 @@ public class Main {
                 AssignedInstance assignedInstance;
                 if (consistency) {
                     Random r = new Random();
-                    int i = r.nextInt(user.getUniqueInstances());
+                    int i = r.nextInt(user.getUniqueInstances().size());
                     Instance instanceI = user.getRandomLabelledInstance(i);
                     assignedInstance = user.assignLabel(instanceI, allLabels, dataSet.getMaxNumberLabels());
                     allAssignedInstance.add(assignedInstance);

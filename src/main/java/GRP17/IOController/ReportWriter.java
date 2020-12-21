@@ -34,7 +34,7 @@ public class ReportWriter {
 
             // TODO 2
             jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances()); //3
-            jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances()); //4
+            jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances().size()); //4
             jsonObject.addProperty("\nConsistency percentage :", user.getConsistencyPercentage());//5
             jsonObject.addProperty("\nAverage time spent in labeling an instance :", user.getAverageTimeSpending()); //6
             jsonObject.addProperty("\nStd. dev. of  time spent in labeling an instance : ", user.getStandardDeviation()); //7
@@ -135,7 +135,7 @@ public class ReportWriter {
             }
             jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances()); //3
             System.out.println("\nTotal number of instances labeled :" + user.getInstances());
-            jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances()); //4
+            jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances().size()); //4
             System.out.println("\nTotal number of unique instances labeled :" + user.getUniqueInstances());
             jsonObject.addProperty("\nConsistency percentage :", user.getConsistencyPercentage());//5
             System.out.println("\nConsistency percentage :" + user.getConsistencyPercentage());
