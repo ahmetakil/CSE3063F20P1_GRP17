@@ -22,11 +22,9 @@ public abstract class User {
     @SerializedName("consistency check probability")
     private double consistencyCheckProbability;
 
-
     private List<AssignedInstance> labellingRequests;
     private Map<Label, Integer> frequency;
     private List<Double> timeSpendings;
-
     private List<DataSet> datasets;
 
     public User(int id, String name, String type, double consistencyCheckProbability) {
@@ -39,13 +37,9 @@ public abstract class User {
         timeSpendings = new ArrayList<Double>();
     }
 
-
+    //A-1
     public Integer getNumberOfDatasets() {
         return datasets.size();
-    }
-
-    public void setDatasets(List<DataSet> datasetIds) {
-       this.datasets = datasetIds;
     }
 
     //A-2
@@ -57,38 +51,11 @@ public abstract class User {
         return consistencies;
     }
 
-    public double getConsistencyCheckProbability() {
-        return consistencyCheckProbability;
-    }
-
-
-    private void addFrequencyLabel(Label newLabel) {
-
-        if (frequency.containsKey(newLabel)) {
-            int currentFrequncy = frequency.get(newLabel);
-            currentFrequncy++;
-            frequency.put(newLabel, currentFrequncy);
-            return;
-        }
-        frequency.put(newLabel, 1);
-    }
-
-    //A-2
-    public ArrayList<DataSet> listAllDatasets(){
-        ArrayList<DataSet> dataset = new ArrayList<>();
-        for (DataSet i : dataset) {
-            if (!dataset.contains(i)) {
-                dataset.add(i);
-            }
-        }
-        return dataset;
-    }
     //A-3
     public List<AssignedInstance> getInstances(){
         return labellingRequests;
     }
 
-    //A-4
 
     public Instance getRandomLabelledInstance(){
 
@@ -101,6 +68,7 @@ public abstract class User {
         return uniqueInstances.get(randomlySelectedIndex);
     }
 
+    //A-4
     public ArrayList<Instance> getUniqueInstances() {
 
         ArrayList<Instance> uniqueInstances = new ArrayList<>();
@@ -145,12 +113,12 @@ public abstract class User {
         return (maxEntry.getValue() / sum) * 100;
     }
 
-
     public void addFrequencyLabelList(List<Label> labels) {
         for (Label label : labels) {
             addFrequencyLabel(label);
         }
     }
+
     //A-6
     public double getAverageTimeSpending() {
         double sumAllValues = 0;
@@ -159,6 +127,7 @@ public abstract class User {
         }
         return sumAllValues / timeSpendings.size();
     }
+
     //A-7
     public double getStandardDeviation() {
         double var = 0;
@@ -169,6 +138,20 @@ public abstract class User {
         return Math.sqrt((1.0 / timeSpendings.size()) * var);
     }
 
+    public double getConsistencyCheckProbability() {
+        return consistencyCheckProbability;
+    }
+
+    private void addFrequencyLabel(Label newLabel) {
+
+        if (frequency.containsKey(newLabel)) {
+            int currentFrequncy = frequency.get(newLabel);
+            currentFrequncy++;
+            frequency.put(newLabel, currentFrequncy);
+            return;
+        }
+        frequency.put(newLabel, 1);
+    }
 
     public void addTimeSpending(double timeSpending) {
         this.timeSpendings.add(timeSpending);
@@ -190,6 +173,9 @@ public abstract class User {
         return labellingRequests;
     }
 
+    public void setDatasets(List<DataSet> datasets) {
+        this.datasets = datasets;
+    }
 
     public AssignedInstance relabelAlreadyLabelledInstance(List<Label> allLabels,int maxNumberOfLabelsPerInstance){
 
