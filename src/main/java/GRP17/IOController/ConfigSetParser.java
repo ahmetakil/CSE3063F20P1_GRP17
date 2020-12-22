@@ -16,6 +16,7 @@ import java.util.List;
 public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
 
     private List<User> users; // Storing users as an attribute because multiple functions will access it.
+    private List<DataSet> datasets;
 
     @Override
     public ConfigSet deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) {
@@ -27,8 +28,8 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
 
             Integer currentDatasetId = jsonObject.get("currentDatasetId").getAsInt();
 
+            this.datasets = parseDatasets(datasetsJsonArray);
             this.users = parseUsers(usersJsonArray);
-            List<DataSet> datasets = parseDatasets(datasetsJsonArray);
 
 
             return new ConfigSet(users,datasets,currentDatasetId);
@@ -40,6 +41,23 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             //System.out.println("Something went wrong with CustomUserParser. Please check config.json");
             return null;
         }
+
+    }
+
+    private List<Integer> getDatasetIdsForUser(User user){
+
+        List<Integer> datasetIds = new ArrayList<>();
+
+        for(DataSet dataSet: this.datasets){
+
+
+            if(dataSet.getUsers().contains(user)){
+                datasetIds.add(dataSet.getId());
+            }
+
+        }
+        return datasetIds;
+
 
     }
 
@@ -59,6 +77,8 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
 
                 double consistencyCheckProbability = userObject.get("consistencyCheckProbability").getAsDouble();
 
+
+
                 User user;
                 switch (type) {
                     case "RandomBot":
@@ -72,9 +92,14 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                         break;
 
                 }
+
                 if (user == null) {
                     continue;
                 }
+
+                List<Integer> datasetIdsForUser = getDatasetIdsForUser(user);
+
+                user.setDatasetIDs(datasetIdsForUser);
                 users.add(user);
                 Logger.getInstance().logUserCreation(user);
             }

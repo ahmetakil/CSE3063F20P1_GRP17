@@ -27,7 +27,7 @@ public abstract class User {
     private Map<Label, Integer> frequency;
     private List<Double> timeSpendings;
 
-    private List<Integer> datasetIDS;
+    private List<Integer> datasetIDs;
 
     public User(int id, String name, String type, double consistencyCheckProbability) {
         this.id = id;
@@ -41,18 +41,18 @@ public abstract class User {
 
 
     // TODO A1 NEW
-    public int getDatasetIDS() {
-        return datasetIDS.size(); //TODO can be work easily with little trick at ConfigSetParser
+    public Integer getNumberOfDatasets() {
+        return datasetIDs.size(); //TODO can be work easily with little trick at ConfigSetParser
     }
 
-    public void setDatasetIDS(int id) {
-       datasetIDS.add(id);
+    public void setDatasetIDs(List<Integer> datasetIds) {
+       this.datasetIDs = datasetIds;
     }
 
     // TODO A2 NEW
     public void listUsersDatasetWithCompletenessPercentage(){
         Map<DataSet, Double> consistencies = new HashMap<>();
-        for(int id: datasetIDS){
+        for(int id: datasetIDs){
             //DataSet dataSet = getWithID();
            // consistencies.put(dataSet,dataSet.getCompleteness());
         }

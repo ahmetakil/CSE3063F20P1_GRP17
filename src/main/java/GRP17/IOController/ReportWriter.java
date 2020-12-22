@@ -1,13 +1,11 @@
 package GRP17.IOController;
 
-import GRP17.Models.AssignedInstance;
 import GRP17.Models.DataSet;
 import GRP17.Models.Instance;
 import GRP17.Models.Label;
 import GRP17.UserModels.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.FileWriter;
@@ -30,7 +28,7 @@ public class ReportWriter {
 
             jsonObject.addProperty("user id: ", user.getId());
             jsonObject.addProperty("user name: ", user.getName());
-            jsonObject.addProperty("Number of datasets: ", user.getDatasetIDS()); //1
+            jsonObject.addProperty("Number of datasets: ", user.getNumberOfDatasets()); //1
 
             // TODO 2
             jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances()); //3
