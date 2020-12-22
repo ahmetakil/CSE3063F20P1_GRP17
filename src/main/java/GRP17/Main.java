@@ -57,6 +57,14 @@ public class Main {
                 assignedInstance.getInstance().addUser(user);
                 assignedInstance.getInstance().updateFrequencyLabelList(assignedInstance.getLabels());
 
+                for (Instance datasetInstance : dataSet.getInstances()){
+                    if(datasetInstance.getId() == assignedInstance.getInstance().getId()){
+                        datasetInstance.determineFinalLabel();
+                        datasetInstance.addUser(user);
+                        datasetInstance.updateFrequencyLabelList(assignedInstance.getLabels());
+                        break;
+                    }
+                }
                 // TODO UPDATE USER PARAMETERS: ALREADY UPDATED AFTER CALLING assignlabel()
 
 

@@ -47,12 +47,13 @@ public class DataSet {
 
         for (Instance instance : instances) {
             Label finalLabel = instance.getFinalLabel();
-            if (!distributions.containsKey(finalLabel)) {
-                distributions.put(finalLabel, 1);
-            } else {
-                distributions.put(finalLabel, distributions.get(finalLabel) + 1);
+                if(finalLabel != null){
+                if (!distributions.containsKey(finalLabel)) {
+                    distributions.put(finalLabel, 1);
+                } else {
+                    distributions.put(finalLabel, distributions.get(finalLabel) + 1);
+                }
             }
-
         }
         return distributions;
     }
