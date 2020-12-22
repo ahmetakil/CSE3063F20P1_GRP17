@@ -28,8 +28,10 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
 
             Integer currentDatasetId = jsonObject.get("currentDatasetId").getAsInt();
 
-            this.datasets = parseDatasets(datasetsJsonArray);
             this.users = parseUsers(usersJsonArray);
+            this.datasets = parseDatasets(datasetsJsonArray);
+
+            addDatasetIdsToUsers();
 
 
             return new ConfigSet(users,datasets,currentDatasetId);
@@ -40,6 +42,15 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             System.out.println("ConfigSetParser.deserialize: "+ e);
             //System.out.println("Something went wrong with CustomUserParser. Please check config.json");
             return null;
+        }
+
+    }
+
+    private void addDatasetIdsToUsers(){
+        for(User user: this.users){
+
+            List<Integer> datasetIdsForUser = getDatasetIdsForUser(user);
+            user.setDatasetIDs(datasetIdsForUser);
         }
 
     }
@@ -97,9 +108,7 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                     continue;
                 }
 
-                List<Integer> datasetIdsForUser = getDatasetIdsForUser(user);
 
-                user.setDatasetIDs(datasetIdsForUser);
                 users.add(user);
                 Logger.getInstance().logUserCreation(user);
             }
