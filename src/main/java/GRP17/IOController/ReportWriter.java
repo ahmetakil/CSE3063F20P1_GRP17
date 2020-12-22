@@ -117,28 +117,35 @@ public class ReportWriter {
     public void Write(DataSet dataSet, List<User> users, List<Instance> instances) {
 
 
-        JsonArray userArr = new JsonArray();
-        JsonArray instanceArr = new JsonArray();
+       try{
+           JsonArray userArr = new JsonArray();
+           JsonArray instanceArr = new JsonArray();
 
 
-        for (User user : users) {
-            userArr.add(UserMetrics(user));
-        }
+           for (User user : users) {
+               userArr.add(UserMetrics(user));
+           }
 
-        for (Instance instance : instances) {
-            if (instance.mostFrequentLabel() == null) {
-                continue;
-            }
-            instanceArr.add(InstanceMetrics(instance));
-        }
+           for (Instance instance : instances) {
+               if (instance.mostFrequentLabel() == null) {
+                   continue;
+               }
+               instanceArr.add(InstanceMetrics(instance));
+           }
 
 
-        JsonObject datasetObj = DatasetMetrics(dataSet);
-        JsonArray allMetrics = new JsonArray();
+           JsonObject datasetObj = DatasetMetrics(dataSet);
+           JsonArray allMetrics = new JsonArray();
 
-        allMetrics.add(userArr);
-        allMetrics.add(instanceArr);
-        allMetrics.add(datasetObj);
-        gson.toJson(allMetrics, writer);
+           allMetrics.add(userArr);
+           allMetrics.add(instanceArr);
+           allMetrics.add(datasetObj);
+
+           gson.toJson(allMetrics, writer);
+           writer.close();
+
+       }catch(Exception e){
+           System.out.println("ReportWriter.Write e: "+ e);
+       }
     }
 }
