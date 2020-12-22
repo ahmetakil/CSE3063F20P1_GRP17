@@ -39,7 +39,7 @@ public abstract class User {
         timeSpendings = new ArrayList<Double>();
     }
 
-
+    //A-1
     public Integer getNumberOfDatasets() {
         return datasetIDs.size();
     }
@@ -84,8 +84,8 @@ public abstract class User {
         return dataset;
     }
     //A-3
-    public int getInstances(){
-        return labellingRequests.size();
+    public List<AssignedInstance> getInstances(){
+        return labellingRequests;
     }
 
     //A-4
@@ -182,13 +182,6 @@ public abstract class User {
         return labellingRequests;
     }
 
-    protected void tryLabellingAgainWithRandom() {
-        double randomNumber = Math.random();
-        if (randomNumber > this.consistencyCheckProbability) {
-            //TODO Assign again
-            tryLabellingAgainWithRandom();
-        }
-    }
 
     public AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance) {
 
