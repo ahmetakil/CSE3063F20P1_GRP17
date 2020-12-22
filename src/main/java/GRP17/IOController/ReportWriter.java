@@ -129,10 +129,11 @@ public class ReportWriter {
             jsonObject.addProperty("\nNumber of datasets assigned: ", user.getNumberOfDatasets());
             System.out.println(" Number of datasets assigned: " + user.getNumberOfDatasets());
             //2
-            for (int i = 0; i < user.listAllDatasets().size(); i++) {
-                jsonObject.addProperty("\n" + user.listAllDatasets().get(i) + " completeness percentage: ", user.listAllDatasets().get(i).getCompleteness());
-                System.out.println(user.listAllDatasets().get(i) + " completeness percentage: " + user.listAllDatasets().get(i).getCompleteness());
+            for (DataSet dataSet1: user.listAllDatasets()){
+                jsonObject.addProperty("\n" + dataSet1.getName() + " completeness percentage: ",dataSet1.getCompleteness());
+                System.out.println(dataSet1.getName() + ": " + dataSet1.getCompleteness());
             }
+
             jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances().size()); //3
             System.out.println("\nTotal number of instances labeled :" + user.getInstances().size());
             jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances().size()); //4
