@@ -79,7 +79,7 @@ public class Main {
 
 
 
-                user.getNumOfDatasets();
+                user.getNumberOfDatasets();
 
 
 

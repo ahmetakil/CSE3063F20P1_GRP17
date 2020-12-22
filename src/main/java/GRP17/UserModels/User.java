@@ -40,9 +40,8 @@ public abstract class User {
     }
 
 
-    // TODO A1 NEW
     public Integer getNumberOfDatasets() {
-        return datasetIDs.size(); //TODO can be work easily with little trick at ConfigSetParser
+        return datasetIDs.size();
     }
 
     public void setDatasetIDs(List<Integer> datasetIds) {
@@ -72,19 +71,6 @@ public abstract class User {
             return;
         }
         frequency.put(newLabel, 1);
-    }
-    //I am not sure a-1 and a-2 please check if they are correct.
-    //A-1
-
-    public int getNumOfDatasets(){
-        int count = 0;
-        ArrayList<DataSet> datasets = new ArrayList<>(); //TODO Always empty we need to put what we read from config
-        for (DataSet dataSet: datasets){                 //Backup for new method temporarily
-            if(dataSet.getUsers().contains(this)){
-                count++;
-            }
-        }
-        return count;
     }
 
     //A-2

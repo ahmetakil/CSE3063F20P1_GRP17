@@ -124,8 +124,8 @@ public class ReportWriter {
             jsonObject.addProperty(" User ID : ", user.getId());
             System.out.println("User name: " + user.getName() + " User ID: " + user.getId());
             //1
-            jsonObject.addProperty("\nNumber of datasets assigned: ", user.getNumOfDatasets());
-            System.out.println(" Number of datasets assigned: " + user.getNumOfDatasets());
+            jsonObject.addProperty("\nNumber of datasets assigned: ", user.getNumberOfDatasets());
+            System.out.println(" Number of datasets assigned: " + user.getNumberOfDatasets());
             //2
             for (int i = 0; i < user.listAllDatasets().size(); i++) {
                 jsonObject.addProperty("\n" + user.listAllDatasets().get(i) + " completeness percentage: ", user.listAllDatasets().get(i).getCompleteness());
