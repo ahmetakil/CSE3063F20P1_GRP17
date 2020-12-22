@@ -10,6 +10,14 @@ import java.util.*;
 
 public class ControllerDomain {
 
+    //B-3
+    //This method returns size of the list of the user that labelled this particular instance
+    public int noOfUniqueUsers() {
+        //TODO ZEYNEP
+        Set<User> labelledUsers = new HashSet<User>(getLabelledUsers());
+        return labelledUsers.size();
+    }
+
     //A-5
     public double getConsistencyPercentage(List<AssignedInstance> assignedInstances, User user) {
         Map<Label, Integer> labelCount = new HashMap<>();
