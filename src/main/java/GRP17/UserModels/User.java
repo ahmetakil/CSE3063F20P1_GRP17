@@ -90,11 +90,19 @@ public abstract class User {
 
     //A-4
 
-    public Instance getRandomLabelledInstance(int i){
-        return labellingRequests.get(i).getInstance();
+    public Instance getRandomLabelledInstance(){
+
+        Random random = new Random();
+        List<Instance> uniqueInstances = getUniqueInstances();
+
+        int length = uniqueInstances.size();
+        int randomlySelectedIndex = random.nextInt(length);
+
+        return uniqueInstances.get(randomlySelectedIndex);
     }
 
     public ArrayList<Instance> getUniqueInstances() {
+
         ArrayList<Instance> uniqueInstances = new ArrayList<>();
         for (AssignedInstance assignedInstance : labellingRequests) {
             if (!uniqueInstances.contains(assignedInstance.getInstance())) {
@@ -182,26 +190,20 @@ public abstract class User {
         return labellingRequests;
     }
 
-    protected void tryLabellingAgainWithRandom() {
-        double randomNumber = Math.random();
-        if (randomNumber > this.consistencyCheckProbability) {
-            //TODO Assign again
-            tryLabellingAgainWithRandom();
-        }
+
+    public AssignedInstance relabelAlreadyLabelledInstance(List<Label> allLabels,int maxNumberOfLabelsPerInstance){
+
+        Instance previouslyLabelledInstance = getRandomLabelledInstance();
+        return assignLabel(previouslyLabelledInstance,allLabels ,maxNumberOfLabelsPerInstance);
+
     }
 
-    public AssignedInstance assignLabel(Instance instance, List<Label> labels, int maxNumberOfLabelsPerInstance) {
+    public AssignedInstance assignLabel(Instance instance, List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
 
 
         long timerStart = currentTimeMillis();
 
-        if (hasInstance(instance)) {
-            if (shouldReLabelAlreadyLabelledInstance()) {
-                return null;
-            }
-        }
-
-        List<Label> subset = pickLabel(labels, maxNumberOfLabelsPerInstance);
+        List<Label> subset = pickLabel(allLabels, maxNumberOfLabelsPerInstance);
 
         AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
 
@@ -224,16 +226,5 @@ public abstract class User {
 
     public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance);
 
-    boolean hasInstance(Instance i) {
-        //this.getLabellingRequests().contains(i)
-        return true;
-    }
 
-    boolean shouldReLabelAlreadyLabelledInstance() {
-        int rand = (int) (Math.random() * (100) + 1);
-        if (rand < 10) {
-            return true;
-        }
-        return false;
-    }
 }

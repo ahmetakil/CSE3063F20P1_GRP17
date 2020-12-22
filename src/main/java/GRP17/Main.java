@@ -29,6 +29,7 @@ public class Main {
         DataSet dataSet = configSet.getCurrentDataset();
 
         List<User> allUsers = configSet.getUsers();
+
         List<Instance> allInstances = dataSet.getInstances();
         List<Label> allLabels = dataSet.getLabels();
 
@@ -41,21 +42,12 @@ public class Main {
 
                 boolean consistency = (createRandomForConsistencyCheckProb() < user.getConsistencyCheckProbability() * 100);
 
-                AssignedInstance assignedInstance;
+                AssignedInstance  assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
+
                 if (consistency) {
-                    Random r = new Random();
-                    int i = r.nextInt(user.getUniqueInstances().size());
-                    Instance instanceI = user.getRandomLabelledInstance(i);
-                    assignedInstance = user.assignLabel(instanceI, allLabels, dataSet.getMaxNumberLabels());
-                    allAssignedInstance.add(assignedInstance);
-                } else {
 
-                    assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
-                    if (assignedInstance == null) {
-                        // The labelling mechanism decided not to label
-                        continue;
-                    }
-
+                    AssignedInstance consistencyLabelledInstance = user.relabelAlreadyLabelledInstance(allLabels,dataSet.getMaxNumberLabels());
+                    allAssignedInstance.add(consistencyLabelledInstance);
                 }
 
                 allAssignedInstance.add(assignedInstance);
@@ -69,10 +61,8 @@ public class Main {
 
 
 
-
-                String reportName = "assets/report.json";
-                int reportNameCounter = 1;
-                reportName.replace(' ', (char) (reportNameCounter + '0'));
+                int reportId = configSet.getCurrentDataset().getId();
+                String reportName = "assets/report"+reportId+".json";
 
 
                 //updateMetrics();
@@ -86,7 +76,6 @@ public class Main {
                 //writeToReportFile();
                 ReportWriter reportWriter = new ReportWriter(reportName);
                 reportWriter.Write(dataSet, user);
-                reportNameCounter++;
             }
 
         }
