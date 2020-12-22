@@ -71,16 +71,6 @@ public abstract class User {
         frequency.put(newLabel, 1);
     }
 
-    //A-2
-    public List<DataSet> listAllDatasets(){
-        List<DataSet> dataset = datasets;
-        for (DataSet i : dataset) {
-            if (!dataset.contains(i)) {
-                dataset.add(i);
-            }
-        }
-        return dataset;
-    }
     //A-3
     public List<AssignedInstance> getInstances(){
         return labellingRequests;

@@ -75,7 +75,7 @@ public class Main {
 
                 //writeToReportFile();
                 ReportWriter reportWriter = new ReportWriter(reportName);
-                reportWriter.Write(dataSet, user);
+                reportWriter.Write(dataSet, allUsers, instance);
             }
 
         }

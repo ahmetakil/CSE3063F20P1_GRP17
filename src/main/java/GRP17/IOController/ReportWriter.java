@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 import java.util.Map;
 
 public class ReportWriter {
@@ -28,17 +29,31 @@ public class ReportWriter {
 
             jsonObject.addProperty("user id: ", user.getId());
             jsonObject.addProperty("user name: ", user.getName());
-            jsonObject.addProperty("Number of datasets: ", user.getNumberOfDatasets()); //1
-
+            System.out.println("USER METRICS");
+            System.out.println("user id : " + user.getId()  + " user name: " + user.getName());
+            //1
+            jsonObject.addProperty("Number of datasets: ", user.getNumberOfDatasets());
+            System.out.println("Number of datasets: " + user.getNumberOfDatasets());
             //TODO A-2 is now in experimental use need to check
-            jsonObject.addProperty("List of datasets and their completeness percentage: ", user.listUsersDatasetWithCompletenessPercentage().toString()); //2
-
-            jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances().size()); //3
-            jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances().size()); //4
-            jsonObject.addProperty("\nConsistency percentage :", user.getConsistencyPercentage());//5
-            jsonObject.addProperty("\nAverage time spent in labeling an instance :", user.getAverageTimeSpending()); //6
-            jsonObject.addProperty("\nStd. dev. of  time spent in labeling an instance : ", user.getStandardDeviation()); //7
-
+            //2
+            jsonObject.addProperty("List of datasets and their completeness percentage: ", user.listUsersDatasetWithCompletenessPercentage().toString());
+            System.out.println("List of datasets and their completeness percentage: " + user.listUsersDatasetWithCompletenessPercentage().toString());
+            //3
+            jsonObject.addProperty("Total number of instances labeled :", user.getInstances().size());
+            System.out.println("Total number of instances labeled :"+ user.getInstances().size());
+            //4
+            jsonObject.addProperty("Total number of unique instances labeled :", user.getUniqueInstances().size());
+            System.out.println("Total number of unique instances labeled :"+ user.getUniqueInstances().size());
+            //5
+            jsonObject.addProperty("Consistency percentage :", user.getConsistencyPercentage());
+            System.out.println("Consistency percentage :"+ user.getConsistencyPercentage());
+            //6
+            jsonObject.addProperty("Average time spent in labeling an instance :", user.getAverageTimeSpending());
+            System.out.println("Average time spent in labeling an instance :"+ user.getAverageTimeSpending());
+            //7
+            jsonObject.addProperty("Std. dev. of  time spent in labeling an instance : ", user.getStandardDeviation());
+            System.out.println("Std. dev. of  time spent in labeling an instance : "+ user.getStandardDeviation());
+            gson.toJson(jsonObject, writer);
         } catch (IOException e) {
             System.out.println("Something went wrong with OutputWriter, Please check your input files. ");
             return;
@@ -65,7 +80,7 @@ public class ReportWriter {
 
             jsonObject.addProperty("Entropy: ", instance.entropy()); //6
 
-
+            gson.toJson(jsonObject, writer);
         } catch (IOException e) {
             System.out.println("Something went wrong with OutputWriter, Please check your input files. ");
             return;
@@ -81,6 +96,8 @@ public class ReportWriter {
             jsonObject.addProperty("Completeness percentage: ", dataSet.getCompleteness()); //1
             //2
             jsonObject.addProperty("Class distribution based on final instance labels: ",
+                    dataSet.printLabelToReport(dataSet.getClassDistributionsBasedOnFinalInstanceLabels()));
+            System.out.println("Class distribution based on final instance labels: "+
                     dataSet.printLabelToReport(dataSet.getClassDistributionsBasedOnFinalInstanceLabels()));
 
             //3
@@ -105,52 +122,19 @@ public class ReportWriter {
 
 
 
+            gson.toJson(jsonObject, writer);
         } catch (IOException e) {
             System.out.println("Something went wrong with OutputWriter, Please check your input files. ");
             return;
         }
+
     }
 
-    public void Write(DataSet dataSet, User user) {
-
-        try (Writer writer = new FileWriter(fileName)) {
-
-            Gson gson = new GsonBuilder().create();
-
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("dataset id ", dataSet.getId());
-            jsonObject.addProperty("dataset name", dataSet.getName());
-            System.out.println("dataset id " + dataSet.getId() + " dataset name" + dataSet.getName());
-
-            jsonObject.addProperty("\nUser name : ", user.getName());
-            jsonObject.addProperty(" User ID : ", user.getId());
-            System.out.println("User name: " + user.getName() + " User ID: " + user.getId());
-            //1
-            jsonObject.addProperty("\nNumber of datasets assigned: ", user.getNumberOfDatasets());
-            System.out.println(" Number of datasets assigned: " + user.getNumberOfDatasets());
-            //2
-            for (DataSet dataSet1: user.listAllDatasets()){
-                jsonObject.addProperty("\n" + dataSet1.getName() + " completeness percentage: ",dataSet1.getCompleteness());
-                System.out.println(dataSet1.getName() + ": " + dataSet1.getCompleteness());
-            }
-
-            jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances().size()); //3
-            System.out.println("\nTotal number of instances labeled :" + user.getInstances().size());
-            jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances().size()); //4
-            System.out.println("\nTotal number of unique instances labeled :" + user.getUniqueInstances().size());
-            jsonObject.addProperty("\nConsistency percentage :", user.getConsistencyPercentage());//5
-            System.out.println("\nConsistency percentage :" + user.getConsistencyPercentage());
-            jsonObject.addProperty("\nAverage time spent in labeling an instance :", user.getAverageTimeSpending()); //6
-            System.out.println("\nAverage time spent in labeling an instance :" + user.getAverageTimeSpending());
-            jsonObject.addProperty("\nStd. dev. of  time spent in labeling an instance : ", user.getStandardDeviation()); //7
-            System.out.println("\nStd. dev. of  time spent in labeling an instance : " + user.getStandardDeviation());
-
-
-            gson.toJson(jsonObject, writer);
-
-        } catch (IOException e) {
-            System.out.println("Something went wrong with OutputWriter, Please check your input files. ");
-            return;
+    public void Write(DataSet dataSet, List<User> users, Instance instance) {
+        for(User user : users){
+            UserMetrics(user,fileName);
         }
+        DatasetMetrics(dataSet,fileName);
+        InstanceMetrics(instance,fileName);
     }
 }
