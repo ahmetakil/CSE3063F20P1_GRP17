@@ -14,13 +14,10 @@ public class Instance {
     @SerializedName("instance")
     private String instance;
     private Map<Label, Integer> frequency; // This name is not convenient. Change later.
-    //private List<User> labelledUsers;
-
     private Label finalLabel;
 
     public Instance() {
         this.frequency = new HashMap<Label, Integer>();
-        this.labelledUsers = new ArrayList<User>();
     }
 
 
@@ -92,11 +89,7 @@ public class Instance {
 
     //B-3
     //This method returns size of the list of the user that labelled this particular instance
-    public int noOfUniqueUsers() {
-        //TODO ZEYNEP
-        Set<User> labelledUsers = new HashSet<User>(getLabelledUsers());
-        return labelledUsers.size();
-    }
+
 
     //B-4
     //This method returns most recurring label(s)? with using labelpercentage method.
@@ -149,11 +142,6 @@ public class Instance {
         return !frequency.isEmpty();
     }
 
-    public void addUser(User newUser) {
-        if (labelledUsers.contains(newUser))
-            return;
-        this.labelledUsers.add(newUser);
-    }
 
 
     public int getId() {
@@ -184,9 +172,5 @@ public class Instance {
 
     public Label getFinalLabel() {
         return this.finalLabel;
-    }
-
-    public List<User> getLabelledUsers() {
-        return this.labelledUsers;
     }
 }
