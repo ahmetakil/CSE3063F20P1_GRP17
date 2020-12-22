@@ -29,8 +29,9 @@ public class DataSet {
         this.users.addAll(users);
     }
 
+
+    //C-1
     public double getCompleteness() {
-        //TODO [C-1] Loop the instances use isEmpty calculate percantage.
         double completeness = 0;
         for (Instance instance : instances) {
             if (instance.isLabelled()) {
@@ -39,7 +40,6 @@ public class DataSet {
         }
         return (completeness / instances.size()) * 100;
     }
-
 
     public Map<Label, Integer> getClassDistributionsBasedOnFinalInstanceLabels() {
         //TODO [C-2] NEW
@@ -112,8 +112,8 @@ public class DataSet {
         return unique;
     }
 
+    //C-4
     public int noOfUsersAssignedToThisDataset() {
-        //TODO [C-4]
         return users.size();
     }
 

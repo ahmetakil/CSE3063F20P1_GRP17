@@ -31,7 +31,7 @@ public class ReportWriter {
             jsonObject.addProperty("Number of datasets: ", user.getNumberOfDatasets()); //1
 
             // TODO 2
-            jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances()); //3
+            jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances().size()); //3
             jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances().size()); //4
             jsonObject.addProperty("\nConsistency percentage :", user.getConsistencyPercentage());//5
             jsonObject.addProperty("\nAverage time spent in labeling an instance :", user.getAverageTimeSpending()); //6
@@ -131,10 +131,10 @@ public class ReportWriter {
                 jsonObject.addProperty("\n" + user.listAllDatasets().get(i) + " completeness percentage: ", user.listAllDatasets().get(i).getCompleteness());
                 System.out.println(user.listAllDatasets().get(i) + " completeness percentage: " + user.listAllDatasets().get(i).getCompleteness());
             }
-            jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances()); //3
-            System.out.println("\nTotal number of instances labeled :" + user.getInstances());
+            jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances().size()); //3
+            System.out.println("\nTotal number of instances labeled :" + user.getInstances().size());
             jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances().size()); //4
-            System.out.println("\nTotal number of unique instances labeled :" + user.getUniqueInstances());
+            System.out.println("\nTotal number of unique instances labeled :" + user.getUniqueInstances().size());
             jsonObject.addProperty("\nConsistency percentage :", user.getConsistencyPercentage());//5
             System.out.println("\nConsistency percentage :" + user.getConsistencyPercentage());
             jsonObject.addProperty("\nAverage time spent in labeling an instance :", user.getAverageTimeSpending()); //6
