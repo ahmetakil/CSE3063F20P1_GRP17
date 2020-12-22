@@ -30,7 +30,9 @@ public class ReportWriter {
             jsonObject.addProperty("user name: ", user.getName());
             jsonObject.addProperty("Number of datasets: ", user.getNumberOfDatasets()); //1
 
-            // TODO 2
+            //TODO A-2 is now in experimental use need to check
+            jsonObject.addProperty("List of datasets and their completeness percentage: ", user.listUsersDatasetWithCompletenessPercentage().toString()); //2
+
             jsonObject.addProperty("\nTotal number of instances labeled :", user.getInstances().size()); //3
             jsonObject.addProperty("\nTotal number of unique instances labeled :", user.getUniqueInstances().size()); //4
             jsonObject.addProperty("\nConsistency percentage :", user.getConsistencyPercentage());//5
