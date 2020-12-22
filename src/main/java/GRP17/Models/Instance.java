@@ -14,7 +14,7 @@ public class Instance {
     @SerializedName("instance")
     private String instance;
     private Map<Label, Integer> frequency; // This name is not convenient. Change later.
-    private List<User> labelledUsers;
+    //private List<User> labelledUsers;
 
     private Label finalLabel;
 
@@ -93,6 +93,7 @@ public class Instance {
     //B-3
     //This method returns size of the list of the user that labelled this particular instance
     public int noOfUniqueUsers() {
+        //TODO ZEYNEP
         Set<User> labelledUsers = new HashSet<User>(getLabelledUsers());
         return labelledUsers.size();
     }

@@ -22,10 +22,10 @@ public abstract class User {
     @SerializedName("consistency check probability")
     private double consistencyCheckProbability;
 
-    private List<AssignedInstance> labellingRequests;
+    private List<Instance> labellingRequests;
     private Map<Label, Integer> frequency;
     private List<Double> timeSpendings;
-    private List<DataSet> datasets;
+    private List<Integer> datasetIds;
 
     public User(int id, String name, String type, double consistencyCheckProbability) {
         this.id = id;
