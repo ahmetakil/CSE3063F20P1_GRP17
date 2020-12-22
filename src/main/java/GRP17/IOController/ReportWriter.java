@@ -6,6 +6,7 @@ import GRP17.Models.Label;
 import GRP17.UserModels.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.FileWriter;
@@ -18,16 +19,15 @@ public class ReportWriter {
     String reportName;
     Writer writer;
     Gson gson;
-    JsonObject jsonObject;
 
     public ReportWriter(String fileName) throws IOException {
-        writer = new FileWriter(fileName);
+        writer = new FileWriter(fileName,false);
         gson = new GsonBuilder().create();
-        jsonObject = new JsonObject();
     }
 
 
-    public void UserMetrics(User user) {
+    public JsonObject UserMetrics(User user) {
+        JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("user id: ", user.getId());
         jsonObject.addProperty("user name: ", user.getName());
@@ -55,10 +55,11 @@ public class ReportWriter {
         //7
         jsonObject.addProperty("Std. dev. of  time spent in labeling an instance : ", user.getStandardDeviation());
         System.out.println("Std. dev. of  time spent in labeling an instance : " + user.getStandardDeviation());
-        gson.toJson(jsonObject, writer);
+        return jsonObject;
     }
 
-    public void InstanceMetrics(Instance instance) {
+    public JsonObject InstanceMetrics(Instance instance) {
+        JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("instance id: ", instance.getId());
         jsonObject.addProperty("instance: ", instance.getInstance());
@@ -75,10 +76,11 @@ public class ReportWriter {
 
         jsonObject.addProperty("Entropy: ", instance.entropy()); //6
 
-        gson.toJson(jsonObject, writer);
+        return jsonObject;
     }
 
-    public void DatasetMetrics(DataSet dataSet) {
+    public JsonObject DatasetMetrics(DataSet dataSet) {
+        JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("dataset id: ", dataSet.getId());
         jsonObject.addProperty("Completeness percentage: ", dataSet.getCompleteness()); //1
@@ -109,23 +111,34 @@ public class ReportWriter {
         }
 
 
-        gson.toJson(jsonObject, writer);
-
+        return jsonObject;
     }
 
     public void Write(DataSet dataSet, List<User> users, List<Instance> instances) {
+
+
+        JsonArray userArr = new JsonArray();
+        JsonArray instanceArr = new JsonArray();
+
+
         for (User user : users) {
-            UserMetrics(user);
+            userArr.add(UserMetrics(user));
         }
 
         for (Instance instance : instances) {
             if (instance.mostFrequentLabel() == null) {
                 continue;
             }
-            InstanceMetrics(instance);
+            instanceArr.add(InstanceMetrics(instance));
         }
 
-        DatasetMetrics(dataSet);
-        gson.toJson(jsonObject, writer);
+
+        JsonObject datasetObj = DatasetMetrics(dataSet);
+        JsonArray allMetrics = new JsonArray();
+
+        allMetrics.add(userArr);
+        allMetrics.add(instanceArr);
+        allMetrics.add(datasetObj);
+        gson.toJson(allMetrics, writer);
     }
 }
