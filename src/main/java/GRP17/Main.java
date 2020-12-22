@@ -4,6 +4,9 @@ import GRP17.IOController.*;
 import GRP17.Models.*;
 import GRP17.UserModels.User;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,7 +21,7 @@ public class Main {
         return r.nextInt(high - low) + low;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Parser configParser = new ConfigParser("assets/config.json");
 
@@ -26,6 +29,11 @@ public class Main {
 
 
         ConfigSet configSet = ((ConfigParser) configParser).parse();
+
+        int reportId = configSet.getCurrentDataset().getId();
+        String reportName = "assets/report" + reportId + ".json";
+        ReportWriter reportWriter = new ReportWriter(reportName);
+
         DataSet dataSet = configSet.getCurrentDataset();
 
         List<User> allUsers = configSet.getUsers();
@@ -42,11 +50,11 @@ public class Main {
 
                 boolean consistency = (createRandomForConsistencyCheckProb() < user.getConsistencyCheckProbability() * 100);
 
-                AssignedInstance  assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
+                AssignedInstance assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
 
                 if (consistency) {
 
-                    AssignedInstance consistencyLabelledInstance = user.relabelAlreadyLabelledInstance(allLabels,dataSet.getMaxNumberLabels());
+                    AssignedInstance consistencyLabelledInstance = user.relabelAlreadyLabelledInstance(allLabels, dataSet.getMaxNumberLabels());
                     allAssignedInstance.add(consistencyLabelledInstance);
                 }
 
@@ -56,8 +64,9 @@ public class Main {
                 assignedInstance.getInstance().determineFinalLabel();
                 assignedInstance.getInstance().addUser(user);
                 assignedInstance.getInstance().updateFrequencyLabelList(assignedInstance.getLabels());
-                for (Instance datasetInstance : dataSet.getInstances()){
-                    if(datasetInstance.getId() == assignedInstance.getInstance().getId()){
+                user.getLabellingRequests().add(assignedInstance);
+                for (Instance datasetInstance : dataSet.getInstances()) {
+                    if (datasetInstance.getId() == assignedInstance.getInstance().getId()) {
                         datasetInstance.determineFinalLabel();
                         datasetInstance.addUser(user);
                         datasetInstance.updateFrequencyLabelList(assignedInstance.getLabels());
@@ -67,22 +76,15 @@ public class Main {
                 // TODO UPDATE USER PARAMETERS: ALREADY UPDATED AFTER CALLING assignlabel()
 
 
-
-                int reportId = configSet.getCurrentDataset().getId();
-                String reportName = "assets/report"+reportId+".json";
-
-
                 //updateMetrics();
-
 
 
                 user.getNumberOfDatasets();
 
 
-
                 //writeToReportFile();
-                ReportWriter reportWriter = new ReportWriter(reportName);
-                reportWriter.Write(dataSet, allUsers, instance);
+
+                reportWriter.Write(dataSet, allUsers, allInstances);
             }
 
         }

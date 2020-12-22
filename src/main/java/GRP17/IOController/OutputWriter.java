@@ -53,7 +53,7 @@ public class OutputWriter {
             JsonArray usersJson = gson.toJsonTree(users).getAsJsonArray();
             jsonObject.add("users", usersJson);
 
-            gson.toJson(jsonObject, writer);
+
 
         } catch (IOException e) {
             System.out.println("Something went wrong with OutputWriter, Please check your input files. ");
