@@ -118,25 +118,7 @@ public class DataSet {
         return users.size();
     }
 
-    public Map<User, Integer> getUniqueInstancesForEachUser() {
-        //TODO [C-5]
-        Map<User, Integer> unique = new HashMap<User, Integer>();
-        for (User user : users) {
-            unique.put(user, user.getUniqueInstances().size());
-        }
-        return unique;
-    }
 
-    public Map<User, Double> getListOfUsersWithConsistencyPercentage() {
-        //TODO [C-6]
-        Map<User, Double> consistencyPercentage = new HashMap<>();
-
-        for (User user : users) {
-            consistencyPercentage.put(user, user.getConsistencyPercentage());
-        }
-
-        return consistencyPercentage;
-    }
 
     public int getId() {
         return id;

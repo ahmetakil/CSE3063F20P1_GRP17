@@ -64,7 +64,7 @@ public class Main {
                 assignedInstance.getInstance().determineFinalLabel();
                 assignedInstance.getInstance().addUser(user);
                 assignedInstance.getInstance().updateFrequencyLabelList(assignedInstance.getLabels());
-                user.getLabellingRequests().add(assignedInstance);
+                user.addInstance(instance);
                 for (Instance datasetInstance : dataSet.getInstances()) {
                     if (datasetInstance.getId() == assignedInstance.getInstance().getId()) {
                         datasetInstance.determineFinalLabel();

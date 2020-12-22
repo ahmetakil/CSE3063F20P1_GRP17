@@ -32,35 +32,20 @@ public abstract class User {
         this.name = name;
         this.type = type;
         this.consistencyCheckProbability = consistencyCheckProbability;
-        labellingRequests = new ArrayList<AssignedInstance>();
-        frequency = new HashMap<Label, Integer>();
-        timeSpendings = new ArrayList<Double>();
+        labellingRequests = new ArrayList<>();
+        frequency = new HashMap<>();
+        timeSpendings = new ArrayList<>();
     }
 
 
     public Integer getNumberOfDatasets() {
-        return datasets.size();
+        return datasetIds.size();
     }
 
-    public void setDatasets(List<DataSet> datasets) {
-       this.datasets = datasets;
+    public void setDatasets(List<Integer> datasets) {
+       this.datasetIds = datasets;
     }
 
-    //A-2
-    public Map<DataSet, Double> listUsersDatasetWithCompletenessPercentage(){
-        Map<DataSet, Double> consistencies = new HashMap<>();
-
-        for (DataSet dataSet: datasets){
-            int counter = 0;
-            for(Instance instance: dataSet.getInstances()){
-                if (instance.getLabelledUsers().contains(this)){
-                    counter++;
-                }
-            }
-            consistencies.put(dataSet ,(double) counter / (double)(dataSet.getInstances().size()) );
-        }
-        return consistencies;
-    }
 
     public double getConsistencyCheckProbability() {
         return consistencyCheckProbability;
@@ -79,66 +64,10 @@ public abstract class User {
     }
 
     //A-3
-    public List<AssignedInstance> getInstances(){
+    public List<Instance> getInstances(){
         return labellingRequests;
     }
 
-    //A-4
-
-    public Instance getRandomLabelledInstance(){
-
-        Random random = new Random();
-        List<Instance> uniqueInstances = getUniqueInstances();
-
-        int length = uniqueInstances.size();
-        int randomlySelectedIndex = random.nextInt(length);
-
-        return uniqueInstances.get(randomlySelectedIndex);
-    }
-
-    public ArrayList<Instance> getUniqueInstances() {
-
-        ArrayList<Instance> uniqueInstances = new ArrayList<>();
-        for (AssignedInstance assignedInstance : labellingRequests) {
-            if (!uniqueInstances.contains(assignedInstance.getInstance())) {
-                uniqueInstances.add(assignedInstance.getInstance());
-            }
-        }
-        return uniqueInstances;
-    }
-
-    //A-5
-    public double getConsistencyPercentage() {
-        //TODO
-        Map<Label, Integer> labelCount = new HashMap<>();
-
-        for (AssignedInstance assignedInstance : labellingRequests) {
-            List<Label> labels = assignedInstance.getLabels();
-
-            for (Label label : labels) {
-                if (!labelCount.containsKey(label)) {
-                    labelCount.put(label, 1);
-                } else {
-                    labelCount.put(label, labelCount.get(label) + 1);
-                }
-            }
-        }
-
-        Map.Entry<Label, Integer> maxEntry = null;
-
-        double sum = 0;
-        for (Map.Entry<Label, Integer> entry : labelCount.entrySet()) {
-            sum += entry.getValue();
-            if (maxEntry == null || entry.getValue().compareTo(maxEntry.getValue()) > 0) {
-                maxEntry = entry;
-            }
-        }
-
-        if (maxEntry == null)
-            return 0;
-
-        return (maxEntry.getValue() / sum) * 100;
-    }
 
 
     public void addFrequencyLabelList(List<Label> labels) {
@@ -181,8 +110,20 @@ public abstract class User {
         return name;
     }
 
-    public List<AssignedInstance> getLabellingRequests() {
+    public List<Instance> getLabellingRequests() {
         return labellingRequests;
+    }
+
+    //A-4
+
+    public Instance getRandomLabelledInstance() {
+        Random random = new Random();
+        List<Instance> uniqueInstances = getUniqueInstances();
+
+        int length = uniqueInstances.size();
+        int randomlySelectedIndex = random.nextInt(length);
+
+        return uniqueInstances.get(randomlySelectedIndex);
     }
 
 
@@ -208,9 +149,11 @@ public abstract class User {
 
         this.addFrequencyLabelList(subset);
 
-        this.getLabellingRequests().add(assignedInstance);
 
+        addInstance(instance);
         long timerEnd = currentTimeMillis();
+
+
 
         double timeSpending = (timerEnd - timerStart) / 1000.0;
         this.addTimeSpending(timeSpending);
@@ -219,6 +162,19 @@ public abstract class User {
         return assignedInstance;
     }
 
+    public void addInstance(Instance instance){
+        labellingRequests.add(instance);
+    }
+
+    private List<Instance> getUniqueInstances(){
+        List<Instance> uniqueInstances = new ArrayList<>();
+        for(Instance instance: labellingRequests){
+            if (!uniqueInstances.contains(instance)){
+                uniqueInstances.add(instance);
+            }
+        }
+        return uniqueInstances;
+    }
     public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance);
 
 
