@@ -6,7 +6,6 @@ import GRP17.Models.DataSet;
 import GRP17.UserModels.RandomLabellingUser;
 import GRP17.UserModels.User;
 import com.google.gson.*;
-import com.google.gson.internal.LazilyParsedNumber;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -49,25 +48,25 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
     private void addDatasetIdsToUsers(){
         for(User user: this.users){
 
-            List<Integer> datasetIdsForUser = getDatasetIdsForUser(user);
-            user.setDatasetIDs(datasetIdsForUser);
+            List<DataSet> datasetsForUser = getDatasetIdsForUser(user);
+            user.setDatasets(datasetsForUser);
         }
 
     }
 
-    private List<Integer> getDatasetIdsForUser(User user){
+    private List<DataSet> getDatasetIdsForUser(User user){
 
-        List<Integer> datasetIds = new ArrayList<>();
+        List<DataSet> datasets = new ArrayList<>();
 
         for(DataSet dataSet: this.datasets){
 
 
             if(dataSet.getUsers().contains(user)){
-                datasetIds.add(dataSet.getId());
+                datasets.add(dataSet);
             }
 
         }
-        return datasetIds;
+        return datasets;
 
 
     }

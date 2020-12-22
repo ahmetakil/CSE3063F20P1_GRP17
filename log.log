@@ -1,19 +1,2 @@
-22/12/2020, 01:56:06 [ConfigSetParser] created user with id: 0, name: ABC as RandomBot
-22/12/2020, 01:56:06 [ConfigSetParser] created user with id: 1, name: ABC1 as RandomBot
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 2 with class label: [Negative, Positive, Notr] instance: "yöneticisi bizzat ilgilenerek gerekli özverili örneği göstererek güzel teşekkürler"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 2 with class label: [Positive, Notr, Negative] instance: "yöneticisi bizzat ilgilenerek gerekli özverili örneği göstererek güzel teşekkürler"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 3 with class label: [Positive] instance: "mesela kamerası aldık yoktu"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 4 with class label: [Notr, Negative, Positive] instance: "siteniz çalışmıyor kaç gündür"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 4 with class label: [Positive, Notr, Negative] instance: "siteniz çalışmıyor kaç gündür"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 2 with class label: [Negative] instance: "yöneticisi bizzat ilgilenerek gerekli özverili örneği göstererek güzel teşekkürler"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 5 with class label: [Notr, Positive, Negative] instance: "şimdilik memnun kaldım umarım kararım değişmez"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 6 with class label: [Negative, Notr] instance: "durduğu yerde sessiz moduna geçmesi başta fazla giden bataryasının ayda kapasitesinin ciddi anlamda düşmesi dışında fiyatı düşünüldüğünde iyi"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 6 with class label: [Positive] instance: "durduğu yerde sessiz moduna geçmesi başta fazla giden bataryasının ayda kapasitesinin ciddi anlamda düşmesi dışında fiyatı düşünüldüğünde iyi"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 2 with class label: [Notr, Negative] instance: "yöneticisi bizzat ilgilenerek gerekli özverili örneği göstererek güzel teşekkürler"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 7 with class label: [Notr, Positive] instance: "filmin büyük artısı uzun zamandır görmediğimiz oyunculuğunu döktürmesini sağlamasıydı"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 8 with class label: [Positive, Negative] instance: "şarjı hemen bitiriyor"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 8 with class label: [Positive, Negative, Notr] instance: "şarjı hemen bitiriyor"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 2 with class label: [Negative, Positive, Notr] instance: "yöneticisi bizzat ilgilenerek gerekli özverili örneği göstererek güzel teşekkürler"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 9 with class label: [Positive] instance: "in yeni kampanyasi cok basarili"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 10 with class label: [Positive, Negative, Notr] instance: "kullanışlı fiyata alınabilecek güzel düsünmeden alabilirsiniz"
-22/12/2020, 01:56:06 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 10 with class label: [Negative] instance: "kullanışlı fiyata alınabilecek güzel düsünmeden alabilirsiniz"
+22/12/2020, 02:19:43 [ConfigSetParser] created user with id: 0, name: ABC as RandomBot
+22/12/2020, 02:19:43 [ConfigSetParser] created user with id: 1, name: ABC1 as RandomBot

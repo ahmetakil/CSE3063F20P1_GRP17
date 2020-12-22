@@ -27,7 +27,7 @@ public abstract class User {
     private Map<Label, Integer> frequency;
     private List<Double> timeSpendings;
 
-    private List<Integer> datasetIDs;
+    private List<DataSet> datasets;
 
     public User(int id, String name, String type, double consistencyCheckProbability) {
         this.id = id;
@@ -41,20 +41,20 @@ public abstract class User {
 
 
     public Integer getNumberOfDatasets() {
-        return datasetIDs.size();
+        return datasets.size();
     }
 
-    public void setDatasetIDs(List<Integer> datasetIds) {
-       this.datasetIDs = datasetIds;
+    public void setDatasets(List<DataSet> datasetIds) {
+       this.datasets = datasetIds;
     }
 
-    // TODO A2 NEW
-    public void listUsersDatasetWithCompletenessPercentage(){
+    //A-2
+    public Map<DataSet, Double> listUsersDatasetWithCompletenessPercentage(){
         Map<DataSet, Double> consistencies = new HashMap<>();
-        for(int id: datasetIDs){
-            //DataSet dataSet = getWithID();
-           // consistencies.put(dataSet,dataSet.getCompleteness());
+        for(DataSet dataSet: datasets){
+            consistencies.put(dataSet,dataSet.getCompleteness());
         }
+        return consistencies;
     }
 
     public double getConsistencyCheckProbability() {
