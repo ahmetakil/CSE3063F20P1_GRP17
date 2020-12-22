@@ -49,8 +49,15 @@ public abstract class User {
     //A-2
     public Map<DataSet, Double> listUsersDatasetWithCompletenessPercentage(){
         Map<DataSet, Double> consistencies = new HashMap<>();
+
         for (DataSet dataSet: datasets){
-            consistencies.put(dataSet ,(double)labellingRequests.size() / (double)(dataSet.getInstances().size()) );
+            int counter = 0;
+            for(Instance instance: dataSet.getInstances()){
+                if (instance.getLabelledUsers().contains(this)){
+                    counter++;
+                }
+            }
+            consistencies.put(dataSet ,(double) counter / (double)(dataSet.getInstances().size()) );
         }
         return consistencies;
     }
