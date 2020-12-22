@@ -84,8 +84,8 @@ public abstract class User {
         return dataset;
     }
     //A-3
-    public int getInstances(){
-        return labellingRequests.size();
+    public List<AssignedInstance> getInstances(){
+        return labellingRequests;
     }
 
     //A-4
