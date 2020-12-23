@@ -1,5 +1,7 @@
 package GRP17.IOController;
 
+import GRP17.ControllerDomain;
+import GRP17.Models.AssignedInstance;
 import GRP17.Models.DataSet;
 import GRP17.Models.Instance;
 import GRP17.Models.Label;
@@ -16,17 +18,19 @@ import java.util.List;
 import java.util.Map;
 
 public class ReportWriter {
+    ControllerDomain controllerDomain;
     String reportName;
     Writer writer;
     Gson gson;
 
     public ReportWriter(String fileName) throws IOException {
+        controllerDomain = new ControllerDomain();
         writer = new FileWriter(fileName,false);
         gson = new GsonBuilder().create();
     }
 
 
-    public JsonObject UserMetrics(User user) {
+    public JsonObject UserMetrics(User user, List<DataSet> allDatasets, List<AssignedInstance> allAssignedInstances) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("user id: ", user.getId());
@@ -38,17 +42,17 @@ public class ReportWriter {
         System.out.println("Number of datasets: " + user.getNumberOfDatasets());
         //TODO A-2 is now in experimental use need to check
         //2
-        jsonObject.addProperty("List of datasets and their completeness percentage: ", user.listUsersDatasetWithCompletenessPercentage().toString());
-        System.out.println("List of datasets and their completeness percentage: " + user.listUsersDatasetWithCompletenessPercentage().toString());
+        jsonObject.addProperty("List of datasets and their completeness percentage: ", controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).toString());
+        System.out.println("List of datasets and their completeness percentage: " + controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).toString());
         //3
         jsonObject.addProperty("Total number of instances labeled :", user.getInstances().size());
         System.out.println("Total number of instances labeled :" + user.getInstances().size());
         //4
-        jsonObject.addProperty("Total number of unique instances labeled :", user.getUniqueInstances().size());
-        System.out.println("Total number of unique instances labeled :" + user.getUniqueInstances().size());
+        jsonObject.addProperty("Total number of unique instances labeled :", controllerDomain.getUniqueInstances(user,allAssignedInstances).size());
+        System.out.println("Total number of unique instances labeled :" +  controllerDomain.getUniqueInstances(user,allAssignedInstances).size());
         //5
-        jsonObject.addProperty("Consistency percentage :", user.getConsistencyPercentage());
-        System.out.println("Consistency percentage :" + user.getConsistencyPercentage());
+        jsonObject.addProperty("Consistency percentage :", controllerDomain.getConsistencyPercentage(allAssignedInstances,user));
+        System.out.println("Consistency percentage :" +  controllerDomain.getConsistencyPercentage(allAssignedInstances,user));
         //6
         jsonObject.addProperty("Average time spent in labeling an instance :", user.getAverageTimeSpending());
         System.out.println("Average time spent in labeling an instance :" + user.getAverageTimeSpending());
@@ -58,14 +62,14 @@ public class ReportWriter {
         return jsonObject;
     }
 
-    public JsonObject InstanceMetrics(Instance instance) {
+    public JsonObject InstanceMetrics(Instance instance,List<AssignedInstance> allAssignedInstances) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("instance id: ", instance.getId());
         jsonObject.addProperty("instance: ", instance.getInstance());
         jsonObject.addProperty("Total number of label assignments: ", instance.noOfLabelAssignments()); //1
         jsonObject.addProperty("Number of unique label assignments: ", instance.noOfUniqueLabelAssignments());//2
-        jsonObject.addProperty("Number of unique users: ", instance.noOfUniqueUsers()); //3
+        jsonObject.addProperty("Number of unique users: ", controllerDomain.noOfUniqueUsersForInstance(allAssignedInstances,instance)); //3
 
         jsonObject.addProperty("Most frequent class label and percentage: ",
                 instance.mostFrequentLabel().getKey().getName() + ", " + instance.mostFrequentLabel().getValue() + "%");
