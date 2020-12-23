@@ -14,7 +14,6 @@ import java.util.Random;
 public class Main {
 
 
-
     public static void main(String[] args) throws IOException {
 
         Parser configParser = new ConfigParser("assets/config.json");
@@ -29,12 +28,10 @@ public class Main {
         ReportWriter reportWriter = new ReportWriter(reportName);
 
 
-        List<DataSet> currentDataSets = new ArrayList<>();
-        List<AssignedInstance> currentAssignedInstances = new ArrayList<>();
-
-        List<User> currentUsers = new ArrayList<>();
-
-        List<Instance> currentInstances = new ArrayList<>();
+        List<DataSet> simulationDataSets = new ArrayList<>();
+        List<AssignedInstance> simulationAssignedInstances = new ArrayList<>();
+        List<User> simulationUsers = new ArrayList<>();
+        List<Instance> simulationInstances = new ArrayList<>();
 
         // TODO: ÖNCEKİ SİMULASYONUN OUTPUTUNU OKU. CURRENTLARA ATTRIBUTELARIYLA BİRLİKTE EKLE.
 
@@ -52,8 +49,8 @@ public class Main {
         dataSet.setLabels(allLabelsOfCurrentDataset);
 
 
-        if (!currentDataSets.contains(dataSet)){
-            currentDataSets.add(dataSet);
+        if (!simulationDataSets.contains(dataSet)) {
+            simulationDataSets.add(dataSet);
         }
 
 
@@ -72,13 +69,13 @@ public class Main {
                 }
 
 
-                currentAssignedInstances.add(assignedInstance);
+                simulationAssignedInstances.add(assignedInstance);
 
-                if (!currentUsers.contains(user))
-                    currentUsers.add(user);
+                if (!simulationUsers.contains(user))
+                    simulationUsers.add(user);
 
-                if (!currentInstances.contains(instance)) {
-                    currentInstances.add(instance);
+                if (!simulationInstances.contains(instance)) {
+                    simulationInstances.add(instance);
                 }
 
 
@@ -87,7 +84,7 @@ public class Main {
                 // TODO: CURRENTLARI OUTPUTA ATTRUBUTELARIYLA BIRLIKTE YAZDIR.
 
 
-                reportWriter.Write(currentDataSets, currentUsers, currentInstances, currentAssignedInstances);
+                reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
 
 
             }
@@ -95,7 +92,7 @@ public class Main {
         }
 
 
-        outputWriter.write(currentAssignedInstances, dataSet, allUsersAssignedToCurrent);
+        outputWriter.write(simulationAssignedInstances, dataSet, allUsersAssignedToCurrent);
 
 
     }
