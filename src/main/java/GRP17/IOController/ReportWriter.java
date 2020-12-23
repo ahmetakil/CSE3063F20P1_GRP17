@@ -75,7 +75,6 @@ public class ReportWriter {
         jsonObject.addProperty("Total number of label assignments: ", instance.noOfLabelAssignments()); //1
         jsonObject.addProperty("Number of unique label assignments: ", instance.noOfUniqueLabelAssignments());//2
         jsonObject.addProperty("Number of unique users: ", controllerDomain.noOfUniqueUsersForInstance(allAssignedInstances, instance)); //3
-
         if (instance.mostFrequentLabel() == null) {
             jsonObject.addProperty("Number of labels", 0);
         } else {
@@ -116,7 +115,7 @@ public class ReportWriter {
         for (Map.Entry<Label, Integer> entry : uniqueInstancesForLabels.entrySet()) {
             jsonArray.add(entry.getKey().getName() + ": " + entry.getValue());
         }
-        jsonObject.add("Number of unique instances for each class label: ",jsonArray);
+        jsonObject.add("Number of unique instances for each class label: ", jsonArray);
 
         //4
         jsonObject.addProperty("Number of users assigned to this dataset: ", dataSet.noOfUsersAssignedToThisDataset());
