@@ -148,6 +148,7 @@ public abstract class User {
         List<Label> subset = pickLabel(allLabels, maxNumberOfLabelsPerInstance);
         AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
         instance.updateFrequencyLabelList(subset);
+        instance.determineFinalLabel();
         this.addFrequencyLabelList(subset);
         addInstance(instance);
 

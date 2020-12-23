@@ -20,13 +20,12 @@ import java.util.Map;
 public class ReportWriter {
     ControllerDomain controllerDomain;
     String reportName;
-    Writer writer;
     Gson gson;
 
     public ReportWriter(String fileName) throws IOException {
         controllerDomain = new ControllerDomain();
-        writer = new FileWriter(fileName,false);
         gson = new GsonBuilder().create();
+        this.reportName = fileName;
     }
 
 
@@ -89,10 +88,12 @@ public class ReportWriter {
         jsonObject.addProperty("dataset id: ", dataSet.getId());
         jsonObject.addProperty("Completeness percentage: ", dataSet.getCompleteness()); //1
         //2
-        jsonObject.addProperty("Class distribution based on final instance labels: ",
-                dataSet.printLabelToReport(dataSet.getClassDistributionsBasedOnFinalInstanceLabels()));
-        System.out.println("Class distribution based on final instance labels: " +
-                dataSet.printLabelToReport(dataSet.getClassDistributionsBasedOnFinalInstanceLabels()));
+
+        Map<Label, Double> classDistributionsBasedFinalLabels = dataSet.getClassDistributionsBasedOnFinalInstanceLabels();
+        for (Map.Entry<Label, Double> entry : classDistributionsBasedFinalLabels.entrySet()) {
+            jsonObject.addProperty("Label name and percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
+        }
+
 
         //3
         Map<Label, Integer> uniqueInstancesForLabels = dataSet.getUniqueInstancesForLabels();
@@ -104,8 +105,13 @@ public class ReportWriter {
         jsonObject.addProperty("Number of users assigned to this dataset: ", dataSet.noOfUsersAssignedToThisDataset());
 
         //5
-        jsonObject.addProperty("List of users assigned and their completeness percentage: ",
-                dataSet.printUserToReport(controllerDomain.getUniqueInstancesForEachUser(dataSet,allAssignedInstances)));
+
+        Map<User, Double> usersWithCompletenessPercentage =controllerDomain.getUsersWithCompletenessPercentageForDataset(dataSet,allAssignedInstances);
+
+        for (Map.Entry<User, Double> entry :usersWithCompletenessPercentage.entrySet()) {
+            jsonObject.addProperty("List of users assigned and their completeness percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
+        }
+
 
         //6
         //TODO: CHANGE DOUBLE VALUES WITH PERCENTAGE
@@ -121,7 +127,7 @@ public class ReportWriter {
     public void Write(DataSet currentDataSet, List<User> users, List<Instance> instances, List<DataSet> allDatasets, List<AssignedInstance> allAssignedInstances) {
 
 
-       try{
+       try(Writer writer = new FileWriter(reportName)){
            JsonArray userArr = new JsonArray();
            JsonArray instanceArr = new JsonArray();
 
@@ -131,11 +137,11 @@ public class ReportWriter {
            }
 
            for (Instance instance : instances) {
-               if (instance.mostFrequentLabel() == null) {
-                   continue;
-               }
+
                instanceArr.add(InstanceMetrics(instance,allAssignedInstances));
-           }
+               }
+
+
 
 
            JsonObject datasetObj = DatasetMetrics(currentDataSet,allAssignedInstances);
@@ -146,7 +152,6 @@ public class ReportWriter {
            allMetrics.add(datasetObj);
 
            gson.toJson(allMetrics, writer);
-           writer.close();
 
        }catch(Exception e){
            System.out.println("ReportWriter.Write e: "+ e);

@@ -36,64 +36,68 @@ public class Main {
         ReportWriter reportWriter = new ReportWriter(reportName);
 
 
-        List<DataSet> allDatasets = new ArrayList<>(); // TODO
-        DataSet dataSet = configSet.getCurrentDataset();
-        allDatasets.add(dataSet); //TODO
+        List<DataSet> currentDataSets = new ArrayList<>();
+        List<AssignedInstance> currentAssignedInstances = new ArrayList<>();
+        List<User> currentUsers = new ArrayList<>();
+        List<Instance> currentInstances = new ArrayList<>();
 
-        List<User> allUsers = configSet.getUsers();
-        List<Instance> allInstances = dataSet.getInstances();
-        List<Label> allLabels = dataSet.getLabels();
+        DataSet dataSet = configSet.getCurrentDataset();
+        dataSet.setId(configSet.getCurrentDatasetId());
+
+        List<User> allUsersOfCurrentDataset = configSet.getUsers();
+        List<Instance> allInstancesOfCurrentDataset = dataSet.getInstances();
+        List<Label> allLabelsOfCurrentDataset = dataSet.getLabels();
+
+        dataSet.setInstances(allInstancesOfCurrentDataset);
+        dataSet.setUsers(allUsersOfCurrentDataset);
+        dataSet.setLabels(allLabelsOfCurrentDataset);
+
+        if (!currentDataSets.contains(dataSet))
+            currentDataSets.add(dataSet);
 
         //TODO need to fill with parsing output.json
-        List<AssignedInstance> allAssignedInstance = new ArrayList<>();
 
-        for (Instance instance : allInstances) {
+        for (Instance instance : allInstancesOfCurrentDataset) {
 
-            for (User user : allUsers) {
+            for (User user : allUsersOfCurrentDataset) {
 
                 boolean consistency = (createRandomForConsistencyCheckProb() < user.getConsistencyCheckProbability() * 100);
 
-                AssignedInstance assignedInstance = user.assignLabel(instance, allLabels, dataSet.getMaxNumberLabels());
+                AssignedInstance assignedInstance = user.assignLabel(instance, allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
+
+                if (!currentUsers.contains(user))
+                    currentUsers.add(user);
+
+
+                if (!currentInstances.contains(instance)) {
+                    currentInstances.add(instance);
+                }
 
                 if (consistency) {
 
-                    AssignedInstance consistencyLabelledInstance = user.relabelAlreadyLabelledInstance(allLabels, dataSet.getMaxNumberLabels());
-                    allAssignedInstance.add(consistencyLabelledInstance);
+                    AssignedInstance consistencyLabelledInstance = user.relabelAlreadyLabelledInstance(allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
+                    currentAssignedInstances.add(consistencyLabelledInstance);
                 }
 
-                allAssignedInstance.add(assignedInstance);
+                currentAssignedInstances.add(assignedInstance);
+
+                // TODO UPDATE USER PARAMETERS: ALREADY UPDATED AFTER CALLING assignlabel()
                 user.addDatasetID(dataSet.getId());
 
-                // TODO UPDATE INSTANCE PARAMETERS:
-                assignedInstance.getInstance().determineFinalLabel();
-                //assignedInstance.getInstance().addUser(user); instance a artık user eklemiyoruz.
-                assignedInstance.getInstance().updateFrequencyLabelList(assignedInstance.getLabels());
-                for (Instance datasetInstance : dataSet.getInstances()) {
-                    if (datasetInstance.getId() == assignedInstance.getInstance().getId()) {
-                        datasetInstance.determineFinalLabel();
-                        // datasetInstance.addUser(user); instance a artık user eklemiyoruz.
-                        datasetInstance.updateFrequencyLabelList(assignedInstance.getLabels());
-                        break;
-                    }
-                }
-                // TODO UPDATE USER PARAMETERS: ALREADY UPDATED AFTER CALLING assignlabel()
+
+                // TODO UPDATE INSTANCE PARAMETERS:  ALREADY UPDATED AFTER CALLING assignlabel()
 
 
-                //updateMetrics();
 
-
-                user.getNumberOfDatasets();
-
-
-                //writeToReportFile();
-
-                reportWriter.Write(dataSet, allUsers, allInstances, allDatasets, allAssignedInstance);
+                // TODO WRITE METRICS TO REPORT:
+                reportWriter.Write(dataSet, currentUsers, currentInstances, currentDataSets, currentAssignedInstances);
             }
 
         }
 
 
-        outputWriter.write(allAssignedInstance, dataSet, allUsers);
+
+        outputWriter.write(currentAssignedInstances, dataSet, allUsersOfCurrentDataset);
 
 
     }

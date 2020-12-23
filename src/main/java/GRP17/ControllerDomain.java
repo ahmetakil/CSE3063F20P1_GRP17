@@ -75,6 +75,20 @@ public class ControllerDomain {
         return consistencies;
 }
 
+//
+    public Double getCompletenessPercentage(DataSet dataSet, User user, List<AssignedInstance> allAssignedInstances){
+        List<Instance> datasetInstances = dataSet.getInstances();
+        List<AssignedInstance>  userAssignInstances =getAssignInstancesForUser(user,allAssignedInstances);
+
+        double count = 0;
+        for (AssignedInstance assignedInstance: userAssignInstances){
+            if (datasetInstances.contains(assignedInstance.getInstance())){
+                count+=1;
+            }
+        }
+
+        return (count/datasetInstances.size())*100;
+    }
 
     // RETURN DATASETS FROM DATASET_ID LIST
 
@@ -109,7 +123,7 @@ public class ControllerDomain {
         List<AssignedInstance> assignedInstances = new ArrayList<>();
         for (AssignedInstance assignedInstance : allAssignedInstances) {
             if (assignedInstance.getUser().getId() == user.getId()) {
-                allAssignedInstances.add(assignedInstance);
+                assignedInstances.add(assignedInstance);
             }
         }
 
@@ -124,6 +138,16 @@ public class ControllerDomain {
             unique.put(user, getUniqueInstances(user, allAssignedInstance).size());
         }
         return unique;
+    }
+
+    //TODO [C-5]
+    public Map<User, Double> getUsersWithCompletenessPercentageForDataset(DataSet dataSet, List<AssignedInstance> allAssignedInstances){
+        //BU datasetteki yüzde kaç instance ı labellamış??
+        Map<User,Double> completenessPercentages = new HashMap<>();
+        for (User user: dataSet.getUsers()){
+            completenessPercentages.put(user,getCompletenessPercentage(dataSet,user,allAssignedInstances));
+        }
+        return completenessPercentages;
     }
 
     public Map<User, Double> getListOfUsersWithConsistencyPercentage(List<AssignedInstance> allAssignedInstances, DataSet dataSet) {

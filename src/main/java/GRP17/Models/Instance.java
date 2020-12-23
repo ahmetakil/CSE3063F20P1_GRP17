@@ -14,8 +14,6 @@ public class Instance {
     @SerializedName("instance")
     private String instance;
     private Map<Label, Integer> frequency; // This name is not convenient. Change later.
-    //private List<User> labelledUsers;
-
     private Label finalLabel;
 
     public Instance() {
@@ -96,7 +94,7 @@ public class Instance {
     public Map.Entry<Label, Double> mostFrequentLabel() {
         double max = 0;
         HashMap<Label, Double> percentage = labelPercentage();
-        HashMap<Label, Double> mostFrequent = new HashMap<Label, Double>();
+        HashMap<Label, Double> mostFrequent = new HashMap<>();
         for (HashMap.Entry<Label, Double> entry : percentage.entrySet()) {
             if (entry.getValue() > max) {
                 max = entry.getValue();
@@ -117,7 +115,7 @@ public class Instance {
     //This method returns recurring percentages of assigned labels to a instance as in hashmap format.
     public HashMap<Label, Double> labelPercentage() {
         double totalSize = frequency.size();
-        HashMap<Label, Double> percentage = new HashMap<Label, Double>();
+        HashMap<Label, Double> percentage = new HashMap<>();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             percentage.put(entry.getKey(), (entry.getValue() / totalSize) * 100);
         }
@@ -127,7 +125,7 @@ public class Instance {
     //B-6
     //This method calculates entropy and returns it.
     public Double entropy() {
-        Double entropy = 0.0;
+        double entropy = 0.0;
         HashMap<Label, Double> percentage = labelPercentage();
         int size = frequency.size();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {

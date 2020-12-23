@@ -22,8 +22,32 @@ public class DataSet {
 
     public DataSet() {
         this.users = new ArrayList<>();
+        this.instances = new ArrayList<>();
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMAX_NUMBER_OF_LABELS_PER_INSTANCE(int MAX_NUMBER_OF_LABELS_PER_INSTANCE) {
+        this.MAX_NUMBER_OF_LABELS_PER_INSTANCE = MAX_NUMBER_OF_LABELS_PER_INSTANCE;
+    }
+
+    public void setLabels(List<Label> labels) {
+        this.labels = labels;
+    }
+
+    public void setInstances(List<Instance> instances) {
+        this.instances = instances;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
 
     public void addUsers(List<User> users) {
         this.users.addAll(users);
@@ -41,19 +65,29 @@ public class DataSet {
         return (completeness / instances.size()) * 100;
     }
 
-    public Map<Label, Integer> getClassDistributionsBasedOnFinalInstanceLabels() {
+    public Map<Label, Double> getClassDistributionsBasedOnFinalInstanceLabels() {
         //TODO [C-2] NEW
-        Map<Label, Integer> distributions = new HashMap<Label, Integer>();
+        Map<Label, Double> numOfLabels = new HashMap<>();
+        Map<Label, Double> distributions = new HashMap<>();
+
+        double total=0;
 
         for (Instance instance : instances) {
             Label finalLabel = instance.getFinalLabel();
             if (finalLabel != null) {
-                if (!distributions.containsKey(finalLabel)) {
-                    distributions.put(finalLabel, 1);
+                if (!numOfLabels.containsKey(finalLabel)) {
+                    numOfLabels.put(finalLabel, 1.0);
                 } else {
-                    distributions.put(finalLabel, distributions.get(finalLabel) + 1);
+                    numOfLabels.put(finalLabel, numOfLabels.get(finalLabel) + 1);
                 }
+                total+=1;
             }
+        }
+
+
+        for(Map.Entry label: numOfLabels.entrySet()){
+            Double dist = ((Double) label.getValue()/total)*100.0;
+            distributions.put((Label) label.getKey(),dist);
         }
         return distributions;
     }
@@ -100,7 +134,6 @@ public class DataSet {
     public Map<Label, Integer> getUniqueInstancesForLabels() {
         // TODO [C-3]
         Map<Label, Integer> unique = new HashMap<>();
-
         for (Instance instance : instances) {
             Map<Label, Integer> frequency = instance.getFrequency();
             Set<Label> labels = frequency.keySet();
@@ -109,7 +142,6 @@ public class DataSet {
                     unique.put(label, frequency.get(label) + 1);
                 else
                     unique.put(label, 1);
-
             }
         }
         return unique;

@@ -21,6 +21,10 @@ public class ConfigSet {
         return users;
     }
 
+    public Integer getCurrentDatasetId() {
+        return currentDatasetId;
+    }
+
     public DataSet getCurrentDataset(){
 
         for(DataSet dataSet : datasets){
