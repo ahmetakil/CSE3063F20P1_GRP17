@@ -78,11 +78,11 @@ public class ControllerDomain {
 //
     public Double getCompletenessPercentage(DataSet dataSet, User user, List<AssignedInstance> allAssignedInstances){
         List<Instance> datasetInstances = dataSet.getInstances();
-        List<AssignedInstance>  userAssignInstances =getAssignInstancesForUser(user,allAssignedInstances);
+        List<Instance>  userInstances =getUniqueInstancesForUser(user,allAssignedInstances);
 
         double count = 0;
-        for (AssignedInstance assignedInstance: userAssignInstances){
-            if (datasetInstances.contains(assignedInstance.getInstance())){
+        for (Instance instance: userInstances){
+            if (datasetInstances.contains(instance)){
                 count+=1;
             }
         }
@@ -130,14 +130,16 @@ public class ControllerDomain {
         return assignedInstances;
     }
 
-    public Map<User, Integer> getUniqueInstancesForEachUser(DataSet dataSet, List<AssignedInstance> allAssignedInstance) {
-        //TODO [C-5]
-        List<User> users = dataSet.getUsers();
-        Map<User, Integer> unique = new HashMap<User, Integer>();
-        for (User user : users) {
-            unique.put(user, getUniqueInstances(user, allAssignedInstance).size());
+    public List<Instance> getUniqueInstancesForUser(User user, List<AssignedInstance> allAssignedInstances) {
+        ArrayList<Instance> Instances = new ArrayList<>();
+        for (AssignedInstance assignedInstance : allAssignedInstances) {
+            if (assignedInstance.getUser().getId() == user.getId()) {
+                if (!Instances.contains(assignedInstance.getInstance())){
+                    Instances.add(assignedInstance.getInstance());
+                }
+            }
         }
-        return unique;
+        return Instances;
     }
 
     //TODO [C-5]
