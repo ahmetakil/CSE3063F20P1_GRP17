@@ -113,7 +113,7 @@ public class ControllerDomain {
             }
         }
 
-        return allAssignedInstances;
+        return assignedInstances;
     }
 
     public Map<User, Integer> getUniqueInstancesForEachUser(DataSet dataSet, List<AssignedInstance> allAssignedInstance) {
