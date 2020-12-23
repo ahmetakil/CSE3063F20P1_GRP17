@@ -14,12 +14,6 @@ import java.util.Random;
 public class Main {
 
 
-    public static int createRandomForConsistencyCheckProb() {
-        Random r = new Random();
-        int low = 0;
-        int high = 100;
-        return r.nextInt(high - low) + low;
-    }
 
     public static void main(String[] args) throws IOException {
 
@@ -61,7 +55,7 @@ public class Main {
         for (Instance instance : allInstancesOfCurrentDataset) {
             for (User user : allUsersOfCurrentDataset) {
 
-                boolean consistency = (createRandomForConsistencyCheckProb() < user.getConsistencyCheckProbability() * 100);
+                boolean consistency = (Math.random() < user.getConsistencyCheckProbability());
 
                 AssignedInstance assignedInstance;
 
