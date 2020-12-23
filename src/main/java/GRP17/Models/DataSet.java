@@ -47,7 +47,7 @@ public class DataSet {
 
         for (Instance instance : instances) {
             Label finalLabel = instance.getFinalLabel();
-                if(finalLabel != null){
+            if (finalLabel != null) {
                 if (!distributions.containsKey(finalLabel)) {
                     distributions.put(finalLabel, 1);
                 } else {
@@ -66,10 +66,11 @@ public class DataSet {
         int index = 0;
         StringBuilder returnStr = new StringBuilder();
         for (Map.Entry<Label, Integer> entry : map.entrySet()) {
-            index = getIndex(size, index, returnStr, map.entrySet().size(), entry.getValue(), ( entry.getKey()).getName());
+            index = getIndex(size, index, returnStr, map.entrySet().size(), entry.getValue(), (entry.getKey()).getName());
         }
         return returnStr.toString();
     }
+
     public String printUserToReport(Map<User, Integer> map) {
         //TODO [C-2] Loop through the instances use final labels.
         //noOfFinalLabels
@@ -98,16 +99,17 @@ public class DataSet {
 
     public Map<Label, Integer> getUniqueInstancesForLabels() {
         // TODO [C-3]
-        Map<Label, Integer> unique = new HashMap<Label, Integer>();
+        Map<Label, Integer> unique = new HashMap<>();
 
-        for (Label label : labels) {
-            unique.put(label, 0);
-        }
         for (Instance instance : instances) {
             Map<Label, Integer> frequency = instance.getFrequency();
             Set<Label> labels = frequency.keySet();
             for (Label label : labels) {
-                unique.put(label, frequency.get(label) + 1);
+                if (unique.containsKey(label))
+                    unique.put(label, frequency.get(label) + 1);
+                else
+                    unique.put(label, 1);
+
             }
         }
         return unique;
@@ -117,7 +119,6 @@ public class DataSet {
     public int noOfUsersAssignedToThisDataset() {
         return users.size();
     }
-
 
 
     public int getId() {
@@ -140,6 +141,8 @@ public class DataSet {
         return instances;
     }
 
-    public List<User> getUsers() {return users;}
+    public List<User> getUsers() {
+        return users;
+    }
 
 }
