@@ -37,6 +37,9 @@ public abstract class User {
         timeSpendings = new ArrayList<>();
     }
 
+    public List<Integer> getDatasetIds() {
+        return datasetIds;
+    }
 
     public Integer getNumberOfDatasets() {
         return datasetIds.size();
