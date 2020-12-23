@@ -41,8 +41,14 @@ public class ReportWriter {
         System.out.println("Number of datasets: " + user.getNumberOfDatasets());
         //TODO A-2 is now in experimental use need to check
         //2
-        jsonObject.addProperty("List of datasets and their completeness percentage: ", controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).toString());
-        System.out.println("List of datasets and their completeness percentage: " + controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).toString());
+
+        JsonArray jsonArray = new JsonArray();
+        for(Map.Entry<DataSet,Double> dataSetMap:  controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).entrySet()){
+            jsonArray.add(dataSetMap.getKey() + " : " + dataSetMap.getValue());
+        }
+        jsonObject.add("List of datasets and their completeness percentage: ",jsonArray);
+        //jsonObject.addProperty("List of datasets and their completeness percentage: ", controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).toString());
+        System.out.println("List of datasets and their completeness percentage: " + jsonObject.get("List of datasets and their completeness percentage: ").toString());
         //3
         jsonObject.addProperty("Total number of instances labeled :", user.getInstances().size());
         System.out.println("Total number of instances labeled :" + user.getInstances().size());
