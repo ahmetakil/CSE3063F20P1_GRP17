@@ -12,10 +12,20 @@ public class ControllerDomain {
 
     //B-3
     //This method returns size of the list of the user that labelled this particular instance
-    public int noOfUniqueUsers() {
+    public int noOfUniqueUsersForInstance(List<AssignedInstance> allAssignedInstances, Instance instance) {
         //TODO ZEYNEP
-        Set<User> labelledUsers = new HashSet<User>(getLabelledUsers());
-        return labelledUsers.size();
+        List<User> users = new ArrayList<>();
+        for (AssignedInstance assignedInstance : allAssignedInstances) {
+
+            if (assignedInstance.getInstance().getId() == instance.getId()) {
+                User user = assignedInstance.getUser();
+                if (!users.contains(user)) {
+                    users.add(user);
+                }
+            }
+        }
+        return users.size();
+
     }
 
     //A-5
