@@ -46,7 +46,7 @@ public abstract class User {
     }
 
     public void setDatasets(List<Integer> datasets) {
-       this.datasetIds = datasets;
+        this.datasetIds = datasets;
     }
 
 
@@ -67,10 +67,9 @@ public abstract class User {
     }
 
     //A-3
-    public List<Instance> getInstances(){
+    public List<Instance> getInstances() {
         return labellingRequests;
     }
-
 
 
     public void addFrequencyLabelList(List<Label> labels) {
@@ -78,6 +77,7 @@ public abstract class User {
             addFrequencyLabel(label);
         }
     }
+
     //A-6
     public double getAverageTimeSpending() {
         double sumAllValues = 0;
@@ -86,6 +86,7 @@ public abstract class User {
         }
         return sumAllValues / timeSpendings.size();
     }
+
     //A-7
     public double getStandardDeviation() {
         double var = 0;
@@ -130,54 +131,43 @@ public abstract class User {
     }
 
 
-    public AssignedInstance relabelAlreadyLabelledInstance(List<Label> allLabels,int maxNumberOfLabelsPerInstance){
+    public AssignedInstance relabelAlreadyLabelledInstance(List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
 
         Instance previouslyLabelledInstance = getRandomLabelledInstance();
-        return assignLabel(previouslyLabelledInstance,allLabels ,maxNumberOfLabelsPerInstance);
+        return assignLabel(previouslyLabelledInstance, allLabels, maxNumberOfLabelsPerInstance);
 
     }
 
     public AssignedInstance assignLabel(Instance instance, List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
-
-
         long timerStart = currentTimeMillis();
 
         List<Label> subset = pickLabel(allLabels, maxNumberOfLabelsPerInstance);
-
         AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
-
         instance.updateFrequencyLabelList(subset);
-        instance.addUser(this);
-
-
         this.addFrequencyLabelList(subset);
-
-
         addInstance(instance);
+
         long timerEnd = currentTimeMillis();
-
-
-
         double timeSpending = (timerEnd - timerStart) / 1000.0;
         this.addTimeSpending(timeSpending);
-
 
         return assignedInstance;
     }
 
-    public void addInstance(Instance instance){
+    public void addInstance(Instance instance) {
         labellingRequests.add(instance);
     }
 
-    private List<Instance> getUniqueInstances(){
+    private List<Instance> getUniqueInstances() {
         List<Instance> uniqueInstances = new ArrayList<>();
-        for(Instance instance: labellingRequests){
-            if (!uniqueInstances.contains(instance)){
+        for (Instance instance : labellingRequests) {
+            if (!uniqueInstances.contains(instance)) {
                 uniqueInstances.add(instance);
             }
         }
         return uniqueInstances;
     }
+
     public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance);
 
 
