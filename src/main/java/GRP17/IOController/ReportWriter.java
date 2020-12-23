@@ -118,7 +118,7 @@ public class ReportWriter {
         return jsonObject;
     }
 
-    public void Write(DataSet dataSet, List<User> users, List<Instance> instances) {
+    public void Write(DataSet currentDataSet, List<User> users, List<Instance> instances, List<DataSet> allDatasets, List<AssignedInstance> allAssignedInstances) {
 
 
        try{
@@ -127,18 +127,18 @@ public class ReportWriter {
 
 
            for (User user : users) {
-               userArr.add(UserMetrics(user));
+               userArr.add(UserMetrics(user,allDatasets,allAssignedInstances));
            }
 
            for (Instance instance : instances) {
                if (instance.mostFrequentLabel() == null) {
                    continue;
                }
-               instanceArr.add(InstanceMetrics(instance));
+               instanceArr.add(InstanceMetrics(instance,allAssignedInstances));
            }
 
 
-           JsonObject datasetObj = DatasetMetrics(dataSet);
+           JsonObject datasetObj = DatasetMetrics(currentDataSet,allAssignedInstances);
            JsonArray allMetrics = new JsonArray();
 
            allMetrics.add(userArr);
