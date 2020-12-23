@@ -40,6 +40,9 @@ public class Main {
         List<User> currentUsers = new ArrayList<>();
         List<Instance> currentInstances = new ArrayList<>();
 
+        // TODO: ÖNCEKİ SİMULASYONUN OUTPUTUNU OKU. CURRENTLARA ATTRIBUTELARIYLA BİRLİKTE EKLE.
+
+
         DataSet dataSet = configSet.getCurrentDataset();
         dataSet.setId(configSet.getCurrentDatasetId());
 
@@ -51,44 +54,43 @@ public class Main {
         dataSet.setUsers(allUsersOfCurrentDataset);
         dataSet.setLabels(allLabelsOfCurrentDataset);
 
+
         if (!currentDataSets.contains(dataSet))
             currentDataSets.add(dataSet);
 
-        //TODO need to fill with parsing output.json
-
         for (Instance instance : allInstancesOfCurrentDataset) {
-
             for (User user : allUsersOfCurrentDataset) {
 
                 boolean consistency = (createRandomForConsistencyCheckProb() < user.getConsistencyCheckProbability() * 100);
 
-                AssignedInstance assignedInstance = user.assignLabel(instance, allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
+                AssignedInstance assignedInstance;
+
+                if (consistency && user.hasLabelledInstance()) {
+                    assignedInstance = user.relabelAlreadyLabelledInstance(allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
+
+                } else {
+                    assignedInstance = user.assignLabel(instance, allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
+                }
+
+
+                currentAssignedInstances.add(assignedInstance);
 
                 if (!currentUsers.contains(user))
                     currentUsers.add(user);
-
 
                 if (!currentInstances.contains(instance)) {
                     currentInstances.add(instance);
                 }
 
-                if (consistency) {
 
-                    AssignedInstance consistencyLabelledInstance = user.relabelAlreadyLabelledInstance(allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
-                    currentAssignedInstances.add(consistencyLabelledInstance);
-                }
-
-                currentAssignedInstances.add(assignedInstance);
-
-                // TODO UPDATE USER PARAMETERS: ALREADY UPDATED AFTER CALLING assignlabel()
                 user.addDatasetID(dataSet.getId());
 
+                // TODO: CURRENTLARI OUTPUTA ATTRUBUTELARIYLA BIRLIKTE YAZDIR.
 
-                // TODO UPDATE INSTANCE PARAMETERS:  ALREADY UPDATED AFTER CALLING assignlabel()
+
+                reportWriter.Write(currentDataSets, currentUsers, currentInstances, currentAssignedInstances);
 
 
-                // TODO WRITE METRICS TO REPORT:
-                reportWriter.Write(dataSet, currentUsers, currentInstances, currentDataSets, currentAssignedInstances);
             }
 
         }

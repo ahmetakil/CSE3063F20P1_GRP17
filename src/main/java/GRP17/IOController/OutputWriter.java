@@ -16,11 +16,11 @@ public class OutputWriter {
 
     private String fileName;
 
-    public OutputWriter(String fileName){
+    public OutputWriter(String fileName) {
         this.fileName = fileName;
     }
 
-    public void write(List<AssignedInstance> assignedInstances, DataSet dataSet,List<User> users) {
+    public void write(List<AssignedInstance> assignedInstances, DataSet dataSet, List<User> users) {
 
 
         try (Writer writer = new FileWriter(fileName)) {
@@ -35,24 +35,24 @@ public class OutputWriter {
 
             List<Label> labels = dataSet.getLabels();
             JsonArray classLabelsJson = gson.toJsonTree(labels).getAsJsonArray();
-            jsonObject.add("class labels",classLabelsJson );
+            jsonObject.add("class labels", classLabelsJson);
 
 
             List<Instance> instances = dataSet.getInstances();
             JsonArray instancesJson = gson.toJsonTree(instances).getAsJsonArray();
-            jsonObject.add("instances",instancesJson );
+            jsonObject.add("instances", instancesJson);
 
             JsonArray assignedInstancesArray = new JsonArray();
 
-            for(AssignedInstance assignedInstance : assignedInstances){
+            for (AssignedInstance assignedInstance : assignedInstances) {
                 assignedInstancesArray.add(assignedInstance.toJson());
             }
-            jsonObject.add("class label assignments",  assignedInstancesArray);
+            jsonObject.add("class label assignments", assignedInstancesArray);
 
 
             JsonArray usersJson = gson.toJsonTree(users).getAsJsonArray();
             jsonObject.add("users", usersJson);
-
+            gson.toJson(jsonObject, writer);
 
 
         } catch (IOException e) {
