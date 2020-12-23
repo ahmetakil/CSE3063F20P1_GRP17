@@ -41,12 +41,15 @@ public abstract class User {
         return datasetIds;
     }
 
-    public Integer getNumberOfDatasets() {
-        return datasetIds.size();
+    public void addDatasetID(Integer id) {
+        if (!datasetIds.contains(id))
+            datasetIds.add(id);
     }
 
-    public void setDatasets(List<Integer> datasets) {
-        this.datasetIds = datasets;
+    public Integer getNumberOfDatasets() {
+        if (datasetIds == null)
+            return 0;
+        return datasetIds.size();
     }
 
 
