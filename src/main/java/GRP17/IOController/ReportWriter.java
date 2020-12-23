@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -90,12 +91,9 @@ public class ReportWriter {
         //2
 
         Map<Label, Double> classDistributionsBasedFinalLabels = dataSet.getClassDistributionsBasedOnFinalInstanceLabels();
-        JsonArray jsonArray = new JsonArray();
         for (Map.Entry<Label, Double> entry : classDistributionsBasedFinalLabels.entrySet()) {
-            jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
-            //jsonObject.addProperty("Label name and percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
+            jsonObject.addProperty("Label name and percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
-        jsonObject.add("Label distributions: ", jsonArray);
 
 
         //3
@@ -110,21 +108,21 @@ public class ReportWriter {
         //5
 
         Map<User, Double> usersWithCompletenessPercentage =controllerDomain.getUsersWithCompletenessPercentageForDataset(dataSet,allAssignedInstances);
-        jsonArray = new JsonArray();
+
+
+
+
         for (Map.Entry<User, Double> entry :usersWithCompletenessPercentage.entrySet()) {
-            jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
+            jsonObject.addProperty("List of users assigned and their completeness percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
-        jsonObject.add("List of users assigned and their completeness percentage: ",jsonArray);
 
 
         //6
         //TODO: CHANGE DOUBLE VALUES WITH PERCENTAGE
-        jsonArray = new JsonArray();
         Map<User, Double> userConsistencyPercentage = controllerDomain.getListOfUsersWithConsistencyPercentage(allAssignedInstances,dataSet);
         for (Map.Entry<User, Double> entry : userConsistencyPercentage.entrySet()) {
-            jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
+            jsonObject.addProperty("List of users assigned and their consistency percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
-        jsonObject.add(" List of users assigned and their consistency percentage:  ",jsonArray);
 
 
         return jsonObject;

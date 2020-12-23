@@ -23,7 +23,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-
         Parser configParser = new ConfigParser("assets/config.json");
 
         OutputWriter outputWriter = new OutputWriter("assets/output.json");
@@ -88,13 +87,11 @@ public class Main {
                 // TODO UPDATE INSTANCE PARAMETERS:  ALREADY UPDATED AFTER CALLING assignlabel()
 
 
-
                 // TODO WRITE METRICS TO REPORT:
                 reportWriter.Write(dataSet, currentUsers, currentInstances, currentDataSets, currentAssignedInstances);
             }
 
         }
-
 
 
         outputWriter.write(currentAssignedInstances, dataSet, allUsersOfCurrentDataset);
