@@ -35,7 +35,7 @@ public abstract class User {
         labellingRequests = new ArrayList<>();
         frequency = new HashMap<>();
         timeSpendings = new ArrayList<>();
-        datasetIds =new ArrayList<>();
+        datasetIds = new ArrayList<>();
     }
 
     public List<Integer> getDatasetIds() {
@@ -137,6 +137,7 @@ public abstract class User {
 
     public AssignedInstance relabelAlreadyLabelledInstance(List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
 
+
         Instance previouslyLabelledInstance = getRandomLabelledInstance();
         return assignLabel(previouslyLabelledInstance, allLabels, maxNumberOfLabelsPerInstance);
 
@@ -171,6 +172,10 @@ public abstract class User {
             }
         }
         return uniqueInstances;
+    }
+
+    public boolean hasLabelledInstance() {
+        return getUniqueInstances().size() > 0;
     }
 
     public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance);

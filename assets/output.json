@@ -1,0 +1,630 @@
+{
+  "dataset id ": 1,
+  "dataset name": "Sentiment Dataset",
+  "maximum number of labels per instance": 3,
+  "class labels": [
+    {
+      "label id": 1,
+      "label text": "Positive"
+    },
+    {
+      "label id": 3,
+      "label text": "Notr"
+    },
+    {
+      "label id": 2,
+      "label text": "Negative"
+    }
+  ],
+  "instances": [
+    {
+      "id": 1,
+      "instance": "aldım eve gidince kutusundan çıkardım hasarlıydı",
+      "frequency": {
+        "Positive": 1,
+        "Notr": 3,
+        "Negative": 1
+      },
+      "finalLabel": {
+        "label id": 3,
+        "label text": "Notr"
+      }
+    },
+    {
+      "id": 2,
+      "instance": "yöneticisi bizzat ilgilenerek gerekli özverili örneği göstererek güzel teşekkürler",
+      "frequency": {
+        "Positive": 1
+      },
+      "finalLabel": {
+        "label id": 1,
+        "label text": "Positive"
+      }
+    },
+    {
+      "id": 3,
+      "instance": "mesela kamerası aldık yoktu",
+      "frequency": {
+        "Positive": 3,
+        "Notr": 2,
+        "Negative": 2
+      },
+      "finalLabel": {
+        "label id": 1,
+        "label text": "Positive"
+      }
+    },
+    {
+      "id": 4,
+      "instance": "siteniz çalışmıyor kaç gündür",
+      "frequency": {
+        "Positive": 2,
+        "Notr": 2,
+        "Negative": 2
+      },
+      "finalLabel": {
+        "label id": 1,
+        "label text": "Positive"
+      }
+    },
+    {
+      "id": 5,
+      "instance": "şimdilik memnun kaldım umarım kararım değişmez",
+      "frequency": {
+        "Notr": 1
+      },
+      "finalLabel": {
+        "label id": 3,
+        "label text": "Notr"
+      }
+    },
+    {
+      "id": 6,
+      "instance": "durduğu yerde sessiz moduna geçmesi başta fazla giden bataryasının ayda kapasitesinin ciddi anlamda düşmesi dışında fiyatı düşünüldüğünde iyi",
+      "frequency": {
+        "Positive": 1,
+        "Negative": 2
+      },
+      "finalLabel": {
+        "label id": 2,
+        "label text": "Negative"
+      }
+    },
+    {
+      "id": 7,
+      "instance": "filmin büyük artısı uzun zamandır görmediğimiz oyunculuğunu döktürmesini sağlamasıydı",
+      "frequency": {
+        "Positive": 1,
+        "Notr": 1,
+        "Negative": 2
+      },
+      "finalLabel": {
+        "label id": 2,
+        "label text": "Negative"
+      }
+    },
+    {
+      "id": 8,
+      "instance": "şarjı hemen bitiriyor",
+      "frequency": {
+        "Notr": 2,
+        "Negative": 1
+      },
+      "finalLabel": {
+        "label id": 3,
+        "label text": "Notr"
+      }
+    },
+    {
+      "id": 9,
+      "instance": "in yeni kampanyasi cok basarili",
+      "frequency": {
+        "Negative": 1
+      },
+      "finalLabel": {
+        "label id": 2,
+        "label text": "Negative"
+      }
+    },
+    {
+      "id": 10,
+      "instance": "kullanışlı fiyata alınabilecek güzel düsünmeden alabilirsiniz",
+      "frequency": {
+        "Positive": 2,
+        "Notr": 2,
+        "Negative": 2
+      },
+      "finalLabel": {
+        "label id": 3,
+        "label text": "Notr"
+      }
+    }
+  ],
+  "class label assignments": [
+    {
+      "instance id": 1,
+      "class labels id": [
+        1
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 1,
+      "class labels id": [
+        1
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 1,
+      "class labels id": [
+        1,
+        3,
+        2
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 2,
+      "class labels id": [
+        1
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 3,
+      "class labels id": [
+        1,
+        3
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 3,
+      "class labels id": [
+        1,
+        3
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 4,
+      "class labels id": [
+        1
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 4,
+      "class labels id": [
+        1,
+        3
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 3,
+      "class labels id": [
+        1,
+        3,
+        2
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 5,
+      "class labels id": [
+        1
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 6,
+      "class labels id": [
+        1,
+        3
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 6,
+      "class labels id": [
+        1
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 7,
+      "class labels id": [
+        1
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 7,
+      "class labels id": [
+        1,
+        3,
+        2
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 8,
+      "class labels id": [
+        1
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 8,
+      "class labels id": [
+        1,
+        3
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 4,
+      "class labels id": [
+        1,
+        3,
+        2
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 9,
+      "class labels id": [
+        1
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 10,
+      "class labels id": [
+        1,
+        3,
+        2
+      ],
+      "user id": 0,
+      "datetime": "23/12/2020, 11:43:06"
+    },
+    {
+      "instance id": 10,
+      "class labels id": [
+        1,
+        3,
+        2
+      ],
+      "user id": 1,
+      "datetime": "23/12/2020, 11:43:06"
+    }
+  ],
+  "users": [
+    {
+      "user id": 0,
+      "user name": "ABC",
+      "user type": "RandomBot",
+      "consistency check probability": 0.1,
+      "labellingRequests": [
+        {
+          "id": 1,
+          "instance": "aldım eve gidince kutusundan çıkardım hasarlıydı",
+          "frequency": {
+            "Positive": 1,
+            "Notr": 3,
+            "Negative": 1
+          },
+          "finalLabel": {
+            "label id": 3,
+            "label text": "Notr"
+          }
+        },
+        {
+          "id": 1,
+          "instance": "aldım eve gidince kutusundan çıkardım hasarlıydı",
+          "frequency": {
+            "Positive": 1,
+            "Notr": 3,
+            "Negative": 1
+          },
+          "finalLabel": {
+            "label id": 3,
+            "label text": "Notr"
+          }
+        },
+        {
+          "id": 3,
+          "instance": "mesela kamerası aldık yoktu",
+          "frequency": {
+            "Positive": 3,
+            "Notr": 2,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 1,
+            "label text": "Positive"
+          }
+        },
+        {
+          "id": 4,
+          "instance": "siteniz çalışmıyor kaç gündür",
+          "frequency": {
+            "Positive": 2,
+            "Notr": 2,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 1,
+            "label text": "Positive"
+          }
+        },
+        {
+          "id": 3,
+          "instance": "mesela kamerası aldık yoktu",
+          "frequency": {
+            "Positive": 3,
+            "Notr": 2,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 1,
+            "label text": "Positive"
+          }
+        },
+        {
+          "id": 6,
+          "instance": "durduğu yerde sessiz moduna geçmesi başta fazla giden bataryasının ayda kapasitesinin ciddi anlamda düşmesi dışında fiyatı düşünüldüğünde iyi",
+          "frequency": {
+            "Positive": 1,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 2,
+            "label text": "Negative"
+          }
+        },
+        {
+          "id": 7,
+          "instance": "filmin büyük artısı uzun zamandır görmediğimiz oyunculuğunu döktürmesini sağlamasıydı",
+          "frequency": {
+            "Positive": 1,
+            "Notr": 1,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 2,
+            "label text": "Negative"
+          }
+        },
+        {
+          "id": 8,
+          "instance": "şarjı hemen bitiriyor",
+          "frequency": {
+            "Notr": 2,
+            "Negative": 1
+          },
+          "finalLabel": {
+            "label id": 3,
+            "label text": "Notr"
+          }
+        },
+        {
+          "id": 4,
+          "instance": "siteniz çalışmıyor kaç gündür",
+          "frequency": {
+            "Positive": 2,
+            "Notr": 2,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 1,
+            "label text": "Positive"
+          }
+        },
+        {
+          "id": 10,
+          "instance": "kullanışlı fiyata alınabilecek güzel düsünmeden alabilirsiniz",
+          "frequency": {
+            "Positive": 2,
+            "Notr": 2,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 3,
+            "label text": "Notr"
+          }
+        }
+      ],
+      "frequency": {
+        "Positive": 6,
+        "Notr": 8,
+        "Negative": 6
+      },
+      "timeSpendings": [
+        0.012,
+        0.001,
+        0.003,
+        0.001,
+        0.003,
+        0.001,
+        0.002,
+        0.001,
+        0.001,
+        0.001
+      ],
+      "datasetIds": [
+        1
+      ]
+    },
+    {
+      "user id": 1,
+      "user name": "ABC1",
+      "user type": "RandomBot",
+      "consistency check probability": 0.1,
+      "labellingRequests": [
+        {
+          "id": 1,
+          "instance": "aldım eve gidince kutusundan çıkardım hasarlıydı",
+          "frequency": {
+            "Positive": 1,
+            "Notr": 3,
+            "Negative": 1
+          },
+          "finalLabel": {
+            "label id": 3,
+            "label text": "Notr"
+          }
+        },
+        {
+          "id": 2,
+          "instance": "yöneticisi bizzat ilgilenerek gerekli özverili örneği göstererek güzel teşekkürler",
+          "frequency": {
+            "Positive": 1
+          },
+          "finalLabel": {
+            "label id": 1,
+            "label text": "Positive"
+          }
+        },
+        {
+          "id": 3,
+          "instance": "mesela kamerası aldık yoktu",
+          "frequency": {
+            "Positive": 3,
+            "Notr": 2,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 1,
+            "label text": "Positive"
+          }
+        },
+        {
+          "id": 4,
+          "instance": "siteniz çalışmıyor kaç gündür",
+          "frequency": {
+            "Positive": 2,
+            "Notr": 2,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 1,
+            "label text": "Positive"
+          }
+        },
+        {
+          "id": 5,
+          "instance": "şimdilik memnun kaldım umarım kararım değişmez",
+          "frequency": {
+            "Notr": 1
+          },
+          "finalLabel": {
+            "label id": 3,
+            "label text": "Notr"
+          }
+        },
+        {
+          "id": 6,
+          "instance": "durduğu yerde sessiz moduna geçmesi başta fazla giden bataryasının ayda kapasitesinin ciddi anlamda düşmesi dışında fiyatı düşünüldüğünde iyi",
+          "frequency": {
+            "Positive": 1,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 2,
+            "label text": "Negative"
+          }
+        },
+        {
+          "id": 7,
+          "instance": "filmin büyük artısı uzun zamandır görmediğimiz oyunculuğunu döktürmesini sağlamasıydı",
+          "frequency": {
+            "Positive": 1,
+            "Notr": 1,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 2,
+            "label text": "Negative"
+          }
+        },
+        {
+          "id": 8,
+          "instance": "şarjı hemen bitiriyor",
+          "frequency": {
+            "Notr": 2,
+            "Negative": 1
+          },
+          "finalLabel": {
+            "label id": 3,
+            "label text": "Notr"
+          }
+        },
+        {
+          "id": 9,
+          "instance": "in yeni kampanyasi cok basarili",
+          "frequency": {
+            "Negative": 1
+          },
+          "finalLabel": {
+            "label id": 2,
+            "label text": "Negative"
+          }
+        },
+        {
+          "id": 10,
+          "instance": "kullanışlı fiyata alınabilecek güzel düsünmeden alabilirsiniz",
+          "frequency": {
+            "Positive": 2,
+            "Notr": 2,
+            "Negative": 2
+          },
+          "finalLabel": {
+            "label id": 3,
+            "label text": "Notr"
+          }
+        }
+      ],
+      "frequency": {
+        "Positive": 5,
+        "Notr": 5,
+        "Negative": 7
+      },
+      "timeSpendings": [
+        0.001,
+        0.001,
+        0.002,
+        0.001,
+        0.001,
+        0.002,
+        0.005,
+        0.003,
+        0.001,
+        0.001
+      ],
+      "datasetIds": [
+        1
+      ]
+    }
+  ]
+}
