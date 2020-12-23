@@ -35,7 +35,6 @@ public class Main {
 
         // TODO: ÖNCEKİ SİMULASYONUN OUTPUTUNU OKU. CURRENTLARA ATTRIBUTELARIYLA BİRLİKTE EKLE.
 
-
         DataSet dataSet = configSet.getCurrentDataset();
         dataSet.setId(configSet.getCurrentDatasetId());
 
@@ -48,7 +47,6 @@ public class Main {
         dataSet.setUsers(allUsersAssignedToCurrent);
         dataSet.setLabels(allLabelsOfCurrentDataset);
 
-
         if (!simulationDataSets.contains(dataSet)) {
             simulationDataSets.add(dataSet);
         }
@@ -56,11 +54,8 @@ public class Main {
 
         for (Instance instance : allInstancesOfCurrentDataset) {
             for (User user : allUsersAssignedToCurrent) {
-
                 boolean consistency = (Math.random() < user.getConsistencyCheckProbability());
-
                 AssignedInstance assignedInstance;
-
                 if (consistency && user.hasLabelledInstance()) {
                     assignedInstance = user.relabelAlreadyLabelledInstance(allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
 
@@ -68,9 +63,7 @@ public class Main {
                     assignedInstance = user.assignLabel(instance, allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
                 }
 
-
                 simulationAssignedInstances.add(assignedInstance);
-
                 if (!simulationUsers.contains(user))
                     simulationUsers.add(user);
 
@@ -78,22 +71,15 @@ public class Main {
                     simulationInstances.add(instance);
                 }
 
-
                 user.addDatasetID(dataSet.getId());
-
                 // TODO: CURRENTLARI OUTPUTA ATTRUBUTELARIYLA BIRLIKTE YAZDIR.
-
 
                 reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
 
-
             }
-
         }
 
-
         outputWriter.write(simulationAssignedInstances, dataSet, allUsersAssignedToCurrent);
-
 
     }
 }
