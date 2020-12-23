@@ -31,7 +31,9 @@ public class Main {
 
         List<DataSet> currentDataSets = new ArrayList<>();
         List<AssignedInstance> currentAssignedInstances = new ArrayList<>();
+
         List<User> currentUsers = new ArrayList<>();
+
         List<Instance> currentInstances = new ArrayList<>();
 
         // TODO: ÖNCEKİ SİMULASYONUN OUTPUTUNU OKU. CURRENTLARA ATTRIBUTELARIYLA BİRLİKTE EKLE.
@@ -40,20 +42,23 @@ public class Main {
         DataSet dataSet = configSet.getCurrentDataset();
         dataSet.setId(configSet.getCurrentDatasetId());
 
-        List<User> allUsersOfCurrentDataset = configSet.getUsers();
+        List<User> allUsersAssignedToCurrent = configSet.getUsers();
+
         List<Instance> allInstancesOfCurrentDataset = dataSet.getInstances();
         List<Label> allLabelsOfCurrentDataset = dataSet.getLabels();
 
         dataSet.setInstances(allInstancesOfCurrentDataset);
-        dataSet.setUsers(allUsersOfCurrentDataset);
+        dataSet.setUsers(allUsersAssignedToCurrent);
         dataSet.setLabels(allLabelsOfCurrentDataset);
 
 
-        if (!currentDataSets.contains(dataSet))
+        if (!currentDataSets.contains(dataSet)){
             currentDataSets.add(dataSet);
+        }
+
 
         for (Instance instance : allInstancesOfCurrentDataset) {
-            for (User user : allUsersOfCurrentDataset) {
+            for (User user : allUsersAssignedToCurrent) {
 
                 boolean consistency = (Math.random() < user.getConsistencyCheckProbability());
 
@@ -90,7 +95,7 @@ public class Main {
         }
 
 
-        outputWriter.write(currentAssignedInstances, dataSet, allUsersOfCurrentDataset);
+        outputWriter.write(currentAssignedInstances, dataSet, allUsersAssignedToCurrent);
 
 
     }

@@ -17,9 +17,15 @@ public class ConfigSet {
         this.currentDatasetId = currentDatasetId;
     }
 
+    /*
+    Returns the users that is assigned to the current dataset
+    Not all of the users listed in config file
+     */
     public List<User> getUsers(){
-        return users;
+        DataSet current = getCurrentDataset();
+        return current.getUsers();
     }
+
 
     public Integer getCurrentDatasetId() {
         return currentDatasetId;
