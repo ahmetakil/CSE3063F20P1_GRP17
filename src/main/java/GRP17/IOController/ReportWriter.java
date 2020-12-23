@@ -83,7 +83,7 @@ public class ReportWriter {
         return jsonObject;
     }
 
-    public JsonObject DatasetMetrics(DataSet dataSet) {
+    public JsonObject DatasetMetrics(DataSet dataSet, List<AssignedInstance> allAssignedInstances) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("dataset id: ", dataSet.getId());
@@ -105,11 +105,11 @@ public class ReportWriter {
 
         //5
         jsonObject.addProperty("List of users assigned and their completeness percentage: ",
-                dataSet.printUserToReport(dataSet.getUniqueInstancesForEachUser()));
+                dataSet.printUserToReport(controllerDomain.getUniqueInstancesForEachUser(dataSet,allAssignedInstances)));
 
         //6
         //TODO: CHANGE DOUBLE VALUES WITH PERCENTAGE
-        Map<User, Double> userConsistencyPercentage = dataSet.getListOfUsersWithConsistencyPercentage();
+        Map<User, Double> userConsistencyPercentage = controllerDomain.getListOfUsersWithConsistencyPercentage(allAssignedInstances,dataSet);
         for (Map.Entry<User, Double> entry : userConsistencyPercentage.entrySet()) {
             jsonObject.addProperty("- List of users assigned and their consistency percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
