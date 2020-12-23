@@ -177,4 +177,9 @@ public class DataSet {
         return users;
     }
 
+    @Override
+    public String toString(){
+        return this.getName();
+    }
+
 }
