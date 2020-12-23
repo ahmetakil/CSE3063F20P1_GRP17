@@ -61,22 +61,35 @@ public class ControllerDomain {
 
 
     //A-2
-    public Map<DataSet, Double> listUsersDatasetWithCompletenessPercentage(List<DataSet> datasets, User user) {
+    public Map<DataSet, Double> listUsersDatasetWithCompletenessPercentage(List<DataSet> allDatasets, User user) {
+
+        List<DataSet> userDatasets =  getDatasetsFromIDS(user.getDatasetIds(), allDatasets);
         Map<DataSet, Double> consistencies = new HashMap<>();
 
-        for (DataSet dataSet : datasets) {
-            int counter = 0;
-            for (Instance instance : dataSet.getInstances()) {
-                if (instance.getLabelledUsers().contains(user)) {
-                    counter++;
-                }
-            }
-            consistencies.put(dataSet, (double) counter / (double) (dataSet.getInstances().size()));
-        }
+        for(DataSet dataset: userDatasets){
+            consistencies.put(dataset, dataset.getCompleteness());
+
+    }
 
 
         return consistencies;
+}
+
+
+    // RETURN DATASETS FROM DATASET_ID LIST
+
+    public List<DataSet> getDatasetsFromIDS(List<Integer> datasetIDS, List<DataSet> allDatasets) {
+        List<DataSet> datasets = new ArrayList<>();
+
+        for (DataSet dataSet : allDatasets) {
+            if (datasetIDS.contains(dataSet.getId())) {
+                datasets.add(dataSet);
+            }
+
+        }
+        return datasets;
     }
+
 
     public ArrayList<Instance> getUniqueInstances(User user, List<AssignedInstance> allAssignedInstances) {
         List<AssignedInstance> assignedInstances = getAssignInstancesForUser(user, allAssignedInstances);
