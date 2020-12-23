@@ -11,6 +11,12 @@
       "userName": "ABC1",
       "type": "RandomBot",
       "consistencyCheckProbability" : 0.1
+    },
+    {
+      "userId": 2,
+      "userName": "ABC2",
+      "type": "RandomBot",
+      "consistencyCheckProbability" : 0.1
     }
   ],
   "datasets": [
