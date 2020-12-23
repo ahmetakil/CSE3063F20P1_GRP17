@@ -74,9 +74,11 @@ public class ReportWriter {
         jsonObject.addProperty("Most frequent class label and percentage: ",
                 instance.mostFrequentLabel().getKey().getName() + ", " + instance.mostFrequentLabel().getValue() + "%");
         Map<Label, Double> labelPercentage = instance.labelPercentage(); //5
+        JsonArray jsonArray = new JsonArray();
         for (Map.Entry<Label, Double> entry : labelPercentage.entrySet()) {
-            jsonObject.addProperty("label name and percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
+            jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
+        jsonObject.add("label name and percentage: ",jsonArray);
 
         jsonObject.addProperty("Entropy: ", instance.entropy()); //6
 
