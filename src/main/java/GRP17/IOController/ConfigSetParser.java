@@ -30,7 +30,7 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             this.users = parseUsers(usersJsonArray);
             this.datasets = parseDatasets(datasetsJsonArray);
 
-            addDatasetIdsToUsers();
+
 
 
             return new ConfigSet(users,datasets,currentDatasetId);
@@ -45,14 +45,7 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
 
     }
 
-    private void addDatasetIdsToUsers(){
-        for(User user: this.users){
 
-            List<DataSet> datasetsForUser = getDatasetIdsForUser(user);
-            user.setDatasets(datasetsForUser);
-        }
-
-    }
 
     private List<DataSet> getDatasetIdsForUser(User user){
 

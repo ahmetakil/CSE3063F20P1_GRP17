@@ -35,6 +35,7 @@ public abstract class User {
         labellingRequests = new ArrayList<>();
         frequency = new HashMap<>();
         timeSpendings = new ArrayList<>();
+        datasetIds =new ArrayList<>();
     }
 
     public List<Integer> getDatasetIds() {
@@ -157,11 +158,11 @@ public abstract class User {
         return assignedInstance;
     }
 
-    public void addInstance(Instance instance) {
+    private void addInstance(Instance instance) {
         labellingRequests.add(instance);
     }
 
-    private List<Instance> getUniqueInstances() {
+    public List<Instance> getUniqueInstances() {
         List<Instance> uniqueInstances = new ArrayList<>();
         for (Instance instance : labellingRequests) {
             if (!uniqueInstances.contains(instance)) {

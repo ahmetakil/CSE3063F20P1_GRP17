@@ -48,8 +48,8 @@ public class ReportWriter {
         jsonObject.addProperty("Total number of instances labeled :", user.getInstances().size());
         System.out.println("Total number of instances labeled :" + user.getInstances().size());
         //4
-        jsonObject.addProperty("Total number of unique instances labeled :", controllerDomain.getUniqueInstances(user,allAssignedInstances).size());
-        System.out.println("Total number of unique instances labeled :" +  controllerDomain.getUniqueInstances(user,allAssignedInstances).size());
+        jsonObject.addProperty("Total number of unique instances labeled :", user.getUniqueInstances().size());
+        System.out.println("Total number of unique instances labeled :" +   user.getUniqueInstances().size());
         //5
         jsonObject.addProperty("Consistency percentage :", controllerDomain.getConsistencyPercentage(allAssignedInstances,user));
         System.out.println("Consistency percentage :" +  controllerDomain.getConsistencyPercentage(allAssignedInstances,user));

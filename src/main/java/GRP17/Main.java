@@ -23,6 +23,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+
         Parser configParser = new ConfigParser("assets/config.json");
 
         OutputWriter outputWriter = new OutputWriter("assets/output.json");
@@ -34,10 +35,12 @@ public class Main {
         String reportName = "assets/report" + reportId + ".json";
         ReportWriter reportWriter = new ReportWriter(reportName);
 
+
+        List<DataSet> allDatasets = new ArrayList<>(); // TODO
         DataSet dataSet = configSet.getCurrentDataset();
+        allDatasets.add(dataSet); //TODO
 
         List<User> allUsers = configSet.getUsers();
-
         List<Instance> allInstances = dataSet.getInstances();
         List<Label> allLabels = dataSet.getLabels();
 
@@ -59,16 +62,16 @@ public class Main {
                 }
 
                 allAssignedInstance.add(assignedInstance);
+                user.addDatasetID(dataSet.getId());
 
                 // TODO UPDATE INSTANCE PARAMETERS:
                 assignedInstance.getInstance().determineFinalLabel();
-                assignedInstance.getInstance().addUser(user);
+                //assignedInstance.getInstance().addUser(user); instance a artık user eklemiyoruz.
                 assignedInstance.getInstance().updateFrequencyLabelList(assignedInstance.getLabels());
-                user.addInstance(instance);
                 for (Instance datasetInstance : dataSet.getInstances()) {
                     if (datasetInstance.getId() == assignedInstance.getInstance().getId()) {
                         datasetInstance.determineFinalLabel();
-                        datasetInstance.addUser(user);
+                        // datasetInstance.addUser(user); instance a artık user eklemiyoruz.
                         datasetInstance.updateFrequencyLabelList(assignedInstance.getLabels());
                         break;
                     }
@@ -84,7 +87,7 @@ public class Main {
 
                 //writeToReportFile();
 
-                reportWriter.Write(dataSet, allUsers, allInstances);
+                reportWriter.Write(dataSet, allUsers, allInstances, allDatasets, allAssignedInstance);
             }
 
         }
