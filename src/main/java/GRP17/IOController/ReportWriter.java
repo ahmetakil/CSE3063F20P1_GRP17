@@ -101,16 +101,17 @@ public class ReportWriter {
         JsonArray jsonArray = new JsonArray();
         for (Map.Entry<Label, Double> entry : classDistributionsBasedFinalLabels.entrySet()) {
             jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
-            //jsonObject.addProperty("Label name and percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
         jsonObject.add("Label distributions: ", jsonArray);
 
 
         //3
         Map<Label, Integer> uniqueInstancesForLabels = dataSet.getUniqueInstancesForLabels();
+        jsonArray = new JsonArray();
         for (Map.Entry<Label, Integer> entry : uniqueInstancesForLabels.entrySet()) {
-            jsonObject.addProperty("Label name and percentage: ", entry.getKey().getName() + ", " + entry.getValue() + "%");
+            jsonArray.add(entry.getKey().getName() + ": " + entry.getValue());
         }
+        jsonObject.add("Number of unique instances for each class label: ",jsonArray);
 
         //4
         jsonObject.addProperty("Number of users assigned to this dataset: ", dataSet.noOfUsersAssignedToThisDataset());
