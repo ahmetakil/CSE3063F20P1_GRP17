@@ -54,7 +54,7 @@ public class ControllerDomain {
         if (maxEntry == null)
             return 0;
 
-        return (maxEntry.getValue() / sum) * 100;
+        return (int)((maxEntry.getValue() / sum) * 100 *100)/100.0;
     }
 
 

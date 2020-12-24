@@ -43,7 +43,7 @@ public class ReportWriter {
 
         JsonArray jsonArray = new JsonArray();
         for (Map.Entry<DataSet, Double> dataSetMap : controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets, user).entrySet()) {
-            jsonArray.add("dataset id" + dataSetMap.getKey().getId() + " : " + dataSetMap.getValue());
+            jsonArray.add("dataset id" + dataSetMap.getKey().getId() + " : " + (int)(dataSetMap.getValue() *100) /100.0);
         }
         jsonObject.add("List of datasets and their completeness percentage: ", jsonArray);
         //jsonObject.addProperty("List of datasets and their completeness percentage: ", controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).toString());
@@ -58,11 +58,11 @@ public class ReportWriter {
         jsonObject.addProperty("Consistency percentage :", controllerDomain.getConsistencyPercentage(allAssignedInstances, user));
         System.out.println("Consistency percentage :" + controllerDomain.getConsistencyPercentage(allAssignedInstances, user));
         //6
-        jsonObject.addProperty("Average time spent in labeling an instance :", user.getAverageTimeSpending());
-        System.out.println("Average time spent in labeling an instance :" + user.getAverageTimeSpending());
+        jsonObject.addProperty("Average time spent in labeling an instance :", (int)(user.getAverageTimeSpending()*100000)/100000.0);
+        System.out.println("Average time spent in labeling an instance :" + (int)(user.getAverageTimeSpending()*100000)/100000.0);
         //7
-        jsonObject.addProperty("Std. dev. of  time spent in labeling an instance : ", user.getStandardDeviation());
-        System.out.println("Std. dev. of  time spent in labeling an instance : " + user.getStandardDeviation());
+        jsonObject.addProperty("Std. dev. of  time spent in labeling an instance : ", (int)(user.getStandardDeviation()*100000)/100000.0);
+        System.out.println("Std. dev. of  time spent in labeling an instance : " + (int)(user.getStandardDeviation()*100000)/100000.0);
         return jsonObject;
     }
 
@@ -78,13 +78,13 @@ public class ReportWriter {
             jsonObject.addProperty("All class label percentage: ", 0);
         } else {
             jsonObject.addProperty("Most frequent class label and percentage: ",
-                    instance.mostFrequentLabel().getKey().getName() + ", " + instance.mostFrequentLabel().getValue() + "%");
+                    instance.mostFrequentLabel().getKey().getName() + ", " + (int)(instance.mostFrequentLabel().getValue()*100)/100.0 + "%");
         }
 
         Map<Label, Double> labelPercentage = instance.labelPercentage(); //5
         JsonArray jsonArray = new JsonArray();
         for (Map.Entry<Label, Double> entry : labelPercentage.entrySet()) {
-            jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
+            jsonArray.add(entry.getKey().getName() + ", " + (int)(entry.getValue() *100)/100.0 + "%");
         }
         jsonObject.add("label name and percentage: ", jsonArray);
 

@@ -137,7 +137,7 @@ public class Instance implements Serializable {
             double proportion = entry.getValue() / 100;
             entropy += -1 * (proportion) * Math.log(proportion) / Math.log(2);
         }
-        return entropy;
+        return (int)(entropy *100)/100.0;
     }
 
 
