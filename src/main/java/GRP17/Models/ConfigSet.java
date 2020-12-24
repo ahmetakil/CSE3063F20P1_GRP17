@@ -40,13 +40,4 @@ public class ConfigSet {
 
     }
 
-    public DataSet getDataset(Integer id){
-
-        for(DataSet dataSet: this.datasets){
-            if(dataSet.getId() == id){
-                return dataSet;
-            }
-        }
-        return null;
-    }
 }

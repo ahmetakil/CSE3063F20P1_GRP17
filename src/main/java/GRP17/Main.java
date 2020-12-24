@@ -20,8 +20,7 @@ public class Main {
 
         ConfigSet configSet = ((ConfigParser) configParser).parse();
 
-        int reportId = configSet.getCurrentDataset().getId();
-        String reportName = "assets/report" + reportId + ".json";
+        String reportName = "assets/report.json";
         ReportWriter reportWriter = new ReportWriter(reportName);
 
 
@@ -53,6 +52,7 @@ public class Main {
             for (User user : allUsersAssignedToCurrent) {
                 boolean consistency = (Math.random() < user.getConsistencyCheckProbability());
                 AssignedInstance assignedInstance;
+
                 if (consistency && user.hasLabelledInstance()) {
                     assignedInstance = user.relabelAlreadyLabelledInstance(allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
 
@@ -69,7 +69,6 @@ public class Main {
                 }
 
                 user.addDatasetID(dataSet.getId());
-                // TODO: CURRENTLARI OUTPUTA ATTRUBUTELARIYLA BIRLIKTE YAZDIR.
 
                 reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
 
