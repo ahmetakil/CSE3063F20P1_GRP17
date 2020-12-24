@@ -16,7 +16,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-
         Parser configParser = new ConfigParser("assets/config.json");
 
         OutputWriter outputWriter = new OutputWriter("assets/output.json");
@@ -34,8 +33,8 @@ public class Main {
         List<User> simulationUsers = new ArrayList<>();
         List<Instance> simulationInstances = new ArrayList<>();
 
-
         // TODO: ÖNCEKİ SİMULASYONUN OUTPUTUNU OKU. CURRENTLARA ATTRIBUTELARIYLA BİRLİKTE EKLE.
+
 
         DataSet dataSet = configSet.getCurrentDataset();
         dataSet.setId(configSet.getCurrentDatasetId());
@@ -49,6 +48,7 @@ public class Main {
         dataSet.setUsers(allUsersAssignedToCurrent);
         dataSet.setLabels(allLabelsOfCurrentDataset);
 
+
         if (!simulationDataSets.contains(dataSet)) {
             simulationDataSets.add(dataSet);
         }
@@ -56,6 +56,7 @@ public class Main {
 
         for (Instance instance : allInstancesOfCurrentDataset) {
             for (User user : allUsersAssignedToCurrent) {
+
                 boolean consistency = (Math.random() < user.getConsistencyCheckProbability());
                 AssignedInstance assignedInstance;
                 if (consistency && user.hasLabelledInstance()) {
@@ -77,7 +78,6 @@ public class Main {
                 // TODO: CURRENTLARI OUTPUTA ATTRUBUTELARIYLA BIRLIKTE YAZDIR.
 
                 reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
-                simulation.serialize(simulationDataSets,simulationInstances,simulationUsers,simulationAssignedInstances);
 
             }
         }
