@@ -10,15 +10,14 @@ public class Main {
 
         Parser configParser = new ConfigParser("assets/config.json");
         OutputWriter outputWriter = new OutputWriter("assets/output.json");
+        CacheManager cacheManager = new CacheManager("assets/cache.json");
+        ReportWriter reportWriter = new ReportWriter( "assets/report.json");
 
 
         ConfigSet configSet = ((ConfigParser) configParser).parse();
 
-        String reportName = "assets/report.json";
-        ReportWriter reportWriter = new ReportWriter(reportName);
 
-
-        LabellingMechanism labellingMechanism = new LabellingMechanism(configSet, reportWriter,outputWriter);
+        LabellingMechanism labellingMechanism = new LabellingMechanism(configSet, reportWriter, cacheManager, outputWriter);
 
         labellingMechanism.startLabeling();
 
