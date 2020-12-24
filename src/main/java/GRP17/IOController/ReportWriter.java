@@ -44,7 +44,7 @@ public class ReportWriter {
 
         JsonArray jsonArray = new JsonArray();
         for (Map.Entry<DataSet, Double> dataSetMap : controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets, user).entrySet()) {
-            jsonArray.add(dataSetMap.getKey() + " : " + dataSetMap.getValue());
+            jsonArray.add("dataset id" + dataSetMap.getKey().getId() + " : " + dataSetMap.getValue());
         }
         jsonObject.add("List of datasets and their completeness percentage: ", jsonArray);
         //jsonObject.addProperty("List of datasets and their completeness percentage: ", controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).toString());
