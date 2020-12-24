@@ -23,7 +23,7 @@ public class ReportWriter {
 
     public ReportWriter(String fileName) {
         this.controllerDomain = new ControllerDomain();
-        this.gson = new GsonBuilder().create();
+        this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.reportName = fileName;
     }
     private JsonObject UserMetrics(User user, List<DataSet> allDatasets, List<AssignedInstance> allAssignedInstances) {

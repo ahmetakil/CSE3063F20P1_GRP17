@@ -73,6 +73,7 @@ class LabellingMechanism {
                 }
 
                 simulationAssignedInstances.add(assignedInstance);
+                user.addDatasetID(dataSet.getId());
 
                 if (!contains(user)) {
 
@@ -83,7 +84,7 @@ class LabellingMechanism {
                     simulationInstances.add(instance);
                 }
 
-                user.addDatasetID(dataSet.getId());
+
 
                 reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
 
