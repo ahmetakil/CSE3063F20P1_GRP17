@@ -5,12 +5,13 @@ import GRP17.Models.Instance;
 import GRP17.Models.Label;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.*;
 
 import static java.lang.System.currentTimeMillis;
 
 
-public abstract class User {
+public abstract class User implements Serializable {
 
     @SerializedName("user id")
     private Integer id;

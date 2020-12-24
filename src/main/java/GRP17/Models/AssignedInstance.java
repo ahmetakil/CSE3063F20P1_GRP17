@@ -5,12 +5,13 @@ import GRP17.UserModels.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public class AssignedInstance {
+public class AssignedInstance implements Serializable {
 
     private Instance instance;
     private List<Label> labels;

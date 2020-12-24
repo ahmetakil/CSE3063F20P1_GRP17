@@ -2,7 +2,9 @@ package GRP17.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Label {
+import java.io.Serializable;
+
+public class Label implements Serializable {
 
     @SerializedName("label id") private Integer id;
     @SerializedName("label text")private String name;

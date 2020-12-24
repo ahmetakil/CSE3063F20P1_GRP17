@@ -4,9 +4,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Instance {
+public class Instance implements Serializable {
     @SerializedName("id")
     private Integer id;
     @Expose

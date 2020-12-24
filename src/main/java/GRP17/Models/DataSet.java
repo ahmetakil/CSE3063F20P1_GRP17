@@ -2,9 +2,11 @@ package GRP17.Models;
 
 import GRP17.UserModels.User;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.*;
 
-public class DataSet {
+public class DataSet implements Serializable {
 
     @SerializedName("dataset id")
     private Integer id;

@@ -1,36 +1,33 @@
 package GRP17.IOController;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.*;
 
 public class CacheManager {
 
     private String cachedFilePath;
-    private Gson gson;
 
     public CacheManager(String cacheFile) {
 
         this.cachedFilePath = cacheFile;
-        this.gson = new Gson();
     }
 
     public Cache readCache(){
 
 
-        try (Reader reader = new FileReader(cachedFilePath)) {
+        try{
+            FileInputStream file = new FileInputStream(cachedFilePath);
+            ObjectInputStream in = new ObjectInputStream(file);
 
-            Cache cache = gson.fromJson(reader,Cache.class );
+            Cache cache = (Cache) in.readObject();
 
-            if(cache == null){
-                return new Cache();
-            }
+            in.close();
+            file.close();
 
             return cache;
 
-        } catch (IOException e) {
-
+        }catch(Exception e){
+            System.out.println("CacheManager.readCache error: "+ e);
             return new Cache();
         }
 
@@ -38,16 +35,18 @@ public class CacheManager {
 
     public void saveCache(Cache cache){
 
-        try (Writer writer = new FileWriter(cachedFilePath)) {
+       try{
+           FileOutputStream file = new FileOutputStream(cachedFilePath);
+           ObjectOutputStream out = new ObjectOutputStream(file);
 
-            Gson gson = new GsonBuilder().create();
+           out.writeObject(cache);
 
-            gson.toJson(cache, writer);
-
-
-        } catch (IOException e) {
-            return;
-        }
+           out.close();
+           file.close();
+       }catch(Exception e){
+           System.out.println("saveCache error: "+ e);
+           return;
+       }
     }
 
 

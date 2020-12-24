@@ -5,12 +5,11 @@ import GRP17.Models.DataSet;
 import GRP17.Models.Instance;
 import GRP17.UserModels.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class Cache {
+public class Cache implements Serializable {
 
     private List<DataSet> cachedDatasets;
     private List<AssignedInstance> cachedAssignedInstances;

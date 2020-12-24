@@ -10,8 +10,10 @@ public class Main {
 
         Parser configParser = new ConfigParser("assets/config.json");
         OutputWriter outputWriter = new OutputWriter("assets/output.json");
-        CacheManager cacheManager = new CacheManager("assets/cache.json");
         ReportWriter reportWriter = new ReportWriter( "assets/report.json");
+
+        CacheManager cacheManager = new CacheManager("assets/cache.ser");
+
 
 
         ConfigSet configSet = ((ConfigParser) configParser).parse();
