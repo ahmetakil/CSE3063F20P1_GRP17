@@ -150,7 +150,7 @@ public class DataSet implements Serializable {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

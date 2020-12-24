@@ -22,7 +22,7 @@ class LabellingMechanism {
     private List<Instance> simulationInstances;
 
 
-    LabellingMechanism(ConfigSet configSet, ReportWriter reportWriter, CacheManager cacheManager,  OutputWriter outputWriter) {
+    LabellingMechanism(ConfigSet configSet, ReportWriter reportWriter, CacheManager cacheManager, OutputWriter outputWriter) {
         this.configSet = configSet;
         this.reportWriter = reportWriter;
         this.outputWriter = outputWriter;
@@ -47,7 +47,8 @@ class LabellingMechanism {
         dataSet.setUsers(allUsersAssignedToCurrent);
         dataSet.setLabels(allLabelsOfCurrentDataset);
 
-        if (!simulationDataSets.contains(dataSet)) {
+
+        if (!contains(dataSet)) {
             simulationDataSets.add(dataSet);
         }
 
@@ -77,14 +78,16 @@ class LabellingMechanism {
 
                 simulationAssignedInstances.add(assignedInstance);
 
-                if (!simulationUsers.contains(user)) {
+
+                if (!contains(user)) {
+
                     simulationUsers.add(user);
                 }
 
-
-                if (!simulationInstances.contains(instance)) {
+                if (!contains(instance)) {
                     simulationInstances.add(instance);
                 }
+
 
                 user.addDatasetID(dataSet.getId());
 
@@ -103,5 +106,41 @@ class LabellingMechanism {
 
         outputWriter.write(simulationAssignedInstances, dataSet, allUsersAssignedToCurrent);
 
+    }
+
+    boolean contains(DataSet dataSet) {
+
+
+        for (DataSet loopDataset : simulationDataSets) {
+
+            if (loopDataset.getId().equals(dataSet.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    boolean contains(Instance instance) {
+
+
+        for (Instance loopInstance : simulationInstances) {
+
+            if (loopInstance.getId().equals(instance.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean contains(User user) {
+
+        for (User loopUser : simulationUsers) {
+
+            if (loopUser.getId().equals(user.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

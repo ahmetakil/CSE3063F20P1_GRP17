@@ -27,7 +27,6 @@ public class CacheManager {
             return cache;
 
         }catch(Exception e){
-            System.out.println("CacheManager.readCache error: "+ e);
             return new Cache();
         }
 
