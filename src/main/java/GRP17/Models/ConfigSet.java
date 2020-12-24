@@ -5,12 +5,10 @@ import java.util.List;
 
 public class ConfigSet {
 
-    private List<User> users;
     private List<DataSet> datasets;
     private Integer currentDatasetId;
 
-    public ConfigSet(List<User> users,List<DataSet> dataSets, Integer currentDatasetId){
-        this.users = users;
+    public ConfigSet(List<DataSet> dataSets, Integer currentDatasetId){
         this.datasets = dataSets;
         this.currentDatasetId = currentDatasetId;
     }

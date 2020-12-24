@@ -25,7 +25,7 @@ public class Cache implements Serializable {
         this.cachedInstances = cachedInstances;
 
     }
-    public Cache() {
+    Cache() {
 
         cachedDatasets = new ArrayList<>();
         cachedAssignedInstances = new ArrayList<>();

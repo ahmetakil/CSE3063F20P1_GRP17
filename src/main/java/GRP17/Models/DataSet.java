@@ -51,7 +51,7 @@ public class DataSet implements Serializable {
 
 
     //C-1
-    public double getCompleteness() {
+    public Double getCompleteness() {
         double completeness = 0;
         for (Instance instance : instances) {
             if (instance.isLabelled()) {

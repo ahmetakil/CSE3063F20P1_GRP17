@@ -12,10 +12,10 @@ public class ControllerDomain {
 
     //B-3
     //This method returns size of the list of the user that labelled this particular instance
-    public int noOfUniqueUsersForInstance(List<AssignedInstance> allAssignedInstances, Instance instance) {
+    public Integer noOfUniqueUsersForInstance(List<AssignedInstance> allAssignedInstances, Instance instance) {
         List<User> users = new ArrayList<>();
         for (AssignedInstance assignedInstance : allAssignedInstances) {
-            if (assignedInstance.getInstance().getId() == instance.getId()) {
+            if (assignedInstance.getInstance().getId().equals(instance.getId())) {
                 User user = assignedInstance.getUser();
                 if (!users.contains(user)) {
                     users.add(user);
@@ -27,10 +27,10 @@ public class ControllerDomain {
     }
 
     //A-5
-    public double getConsistencyPercentage(List<AssignedInstance> assignedInstances, User user) {
+    public Double getConsistencyPercentage(List<AssignedInstance> assignedInstances, User user) {
         Map<Label, Integer> labelCount = new HashMap<>();
         for (AssignedInstance assignedInstance : assignedInstances) {
-            if (assignedInstance.getUser().getId() == user.getId()) {
+            if (assignedInstance.getUser().getId().equals(user.getId())) {
                 List<Label> labels = assignedInstance.getLabels();
                 for (Label label : labels) {
                     if (labelCount.containsKey(label)) {
@@ -51,7 +51,7 @@ public class ControllerDomain {
             }
         }
         if (maxEntry == null)
-            return 0;
+            return 0.0;
 
         return (int)((maxEntry.getValue() / sum) * 100 *100)/100.0;
     }
@@ -99,7 +99,7 @@ public class ControllerDomain {
     private List<Instance> getUniqueInstancesForUser(User user, List<AssignedInstance> allAssignedInstances) {
         ArrayList<Instance> Instances = new ArrayList<>();
         for (AssignedInstance assignedInstance : allAssignedInstances) {
-            if (assignedInstance.getUser().getId() == user.getId()) {
+            if (assignedInstance.getUser().getId().equals(user.getId())) {
                 if (!Instances.contains(assignedInstance.getInstance())) {
                     Instances.add(assignedInstance.getInstance());
                 }

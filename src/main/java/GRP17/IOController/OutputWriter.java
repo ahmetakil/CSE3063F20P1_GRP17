@@ -25,7 +25,7 @@ public class OutputWriter {
 
         try (Writer writer = new FileWriter(fileName)) {
 
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
 
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("dataset id ", dataSet.getId());

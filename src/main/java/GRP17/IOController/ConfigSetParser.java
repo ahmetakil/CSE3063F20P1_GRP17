@@ -30,21 +30,13 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             this.users = parseUsers(usersJsonArray);
             this.datasets = parseDatasets(datasetsJsonArray);
 
-            return new ConfigSet(users,datasets,currentDatasetId);
+            return new ConfigSet(datasets,currentDatasetId);
         } catch (Exception e) {
             System.out.println("ConfigSetParser.deserialize: "+ e);
             return null;
         }
     }
-    private List<DataSet> getDatasetIdsForUser(User user){
-        List<DataSet> datasets = new ArrayList<>();
-        for(DataSet dataSet: this.datasets){
-                if(dataSet.getUsers().contains(user)){
-                datasets.add(dataSet);
-            }
-        }
-        return datasets;
-    }
+
     private List<User> parseUsers(JsonArray userJsonArray) {
         try {
             List<User> users = new ArrayList<User>();

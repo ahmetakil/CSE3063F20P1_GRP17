@@ -52,7 +52,7 @@ public abstract class User implements Serializable {
             return 0;
         return datasetIds.size();
     }
-    public double getConsistencyCheckProbability() {
+    public Double getConsistencyCheckProbability() {
         return consistencyCheckProbability;
     }
 
@@ -89,7 +89,7 @@ public abstract class User implements Serializable {
         }
     }
     //A-6
-    public double getAverageTimeSpending() {
+    public Double getAverageTimeSpending() {
         double sumAllValues = 0;
         for (Double timeSpending : timeSpendings) {
             sumAllValues += timeSpending;
@@ -97,7 +97,7 @@ public abstract class User implements Serializable {
         return sumAllValues / timeSpendings.size();
     }
     //A-7
-    public double getStandardDeviation() {
+    public Double getStandardDeviation() {
         double var = 0;
         double averageTime = getAverageTimeSpending();
         for (Double timeSpending : timeSpendings) {

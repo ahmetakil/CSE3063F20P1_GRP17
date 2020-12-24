@@ -1,7 +1,5 @@
 package GRP17.Models;
 
-import com.google.gson.JsonObject;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -10,7 +8,6 @@ import java.util.*;
 public class Instance implements Serializable {
     @SerializedName("id")
     private Integer id;
-    @Expose
     @SerializedName("instance")
     private String instance;
     private Map<Label, Integer> frequency; // This name is not convenient. Change later.
@@ -60,7 +57,7 @@ public class Instance implements Serializable {
     }
     //B-1
     //This method assist from label hash-map and makes a summation of values corresponds to each label.
-    public int noOfLabelAssignments() {
+    public Integer noOfLabelAssignments() {
         int noOfLabelAssignments = 0;
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             noOfLabelAssignments += entry.getValue();
@@ -69,7 +66,7 @@ public class Instance implements Serializable {
     }
     //B-2
     //This method counts labels only if they have value of 1 in hash-map for differing unique labels.
-    public int noOfUniqueLabelAssignments() {
+    public Integer noOfUniqueLabelAssignments() {
         int noOfUniqueLabelAssignments = 0;
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             if (entry.getValue() == 1) {
@@ -125,7 +122,7 @@ public class Instance implements Serializable {
         return (int)(entropy *100)/100.0;
     }
 
-    public boolean isLabelled() {
+    boolean isLabelled() {
         return !frequency.isEmpty();
     }
 
@@ -149,7 +146,7 @@ public class Instance implements Serializable {
         return this.instance;
     }
 
-    public Label getFinalLabel() {
+    Label getFinalLabel() {
         return this.finalLabel;
     }
 

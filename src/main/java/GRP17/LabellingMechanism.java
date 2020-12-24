@@ -105,7 +105,8 @@ class LabellingMechanism {
         outputWriter.write(simulationAssignedInstances, dataSet, allUsersAssignedToCurrent);
     }
 
-    boolean contains(DataSet dataSet) {
+
+    private boolean contains(DataSet dataSet) {
         for (DataSet loopDataset : simulationDataSets) {
 
             if (loopDataset.getId().equals(dataSet.getId())) {
@@ -116,7 +117,7 @@ class LabellingMechanism {
     }
 
 
-    boolean contains(Instance instance) {
+    private boolean contains(Instance instance) {
         for (Instance loopInstance : simulationInstances) {
 
             if (loopInstance.getId().equals(instance.getId())) {
@@ -126,7 +127,7 @@ class LabellingMechanism {
         return false;
     }
 
-    boolean contains(User user) {
+    private boolean contains(User user) {
         for (User loopUser : simulationUsers) {
 
             if (loopUser.getId().equals(user.getId())) {
@@ -136,7 +137,7 @@ class LabellingMechanism {
         return false;
     }
 
-    User getCachedUser(User user) {
+    private User getCachedUser(User user) {
         for (User loopUser : simulationUsers) {
 
             if (loopUser.getId().equals(user.getId())) {
