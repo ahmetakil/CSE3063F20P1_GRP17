@@ -4,12 +4,9 @@ import GRP17.IOController.*;
 import GRP17.Models.*;
 import GRP17.UserModels.User;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Main {
 

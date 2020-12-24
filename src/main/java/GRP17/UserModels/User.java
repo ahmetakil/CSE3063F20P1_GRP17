@@ -1,7 +1,6 @@
 package GRP17.UserModels;
 
 import GRP17.Models.AssignedInstance;
-import GRP17.Models.DataSet;
 import GRP17.Models.Instance;
 import GRP17.Models.Label;
 import com.google.gson.annotations.SerializedName;

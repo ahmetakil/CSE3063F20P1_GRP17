@@ -1,8 +1,6 @@
 package GRP17.Models;
 
 import GRP17.UserModels.User;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigSet {
