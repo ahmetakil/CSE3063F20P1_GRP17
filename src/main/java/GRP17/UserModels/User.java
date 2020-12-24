@@ -140,20 +140,27 @@ public abstract class User {
     }
 
     public AssignedInstance assignLabel(Instance instance, List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
-        long timerStart = currentTimeMillis();
+        try {
+            long timerStart = currentTimeMillis();
 
-        List<Label> subset = pickLabel(allLabels, maxNumberOfLabelsPerInstance);
-        AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
-        instance.updateFrequencyLabelList(subset);
-        instance.determineFinalLabel();
-        this.addFrequencyLabelList(subset);
-        addInstance(instance);
+            List<Label> subset = pickLabel(allLabels, maxNumberOfLabelsPerInstance);
+            AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
+            instance.updateFrequencyLabelList(subset);
+            instance.determineFinalLabel();
+            this.addFrequencyLabelList(subset);
+            addInstance(instance);
 
-        long timerEnd = currentTimeMillis();
-        double timeSpending = (timerEnd - timerStart) / 1000.0;
-        this.addTimeSpending(timeSpending);
+            Thread.sleep(100);
+            long timerEnd = currentTimeMillis();
+            double timeSpending = (timerEnd - timerStart) / 1000.0;
+            this.addTimeSpending(timeSpending);
 
-        return assignedInstance;
+            return assignedInstance;
+
+        } catch (Exception e) {
+            System.out.println("Something went wrong with assignLabel");
+            return null;
+        }
     }
 
     private void addInstance(Instance instance) {
