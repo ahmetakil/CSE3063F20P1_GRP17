@@ -124,15 +124,15 @@ public class Instance {
         return percentage;
     }
 
+
     //B-6
     //This method calculates entropy and returns it.
     public Double entropy() {
         double entropy = 0.0;
         HashMap<Label, Double> percentage = labelPercentage();
-        int size = frequency.size();
-        for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
-            double proportion = (double) entry.getValue() / (double) size;
-            entropy += proportion * Math.log(proportion) / Math.log(2);
+        for (HashMap.Entry<Label, Double> entry : percentage.entrySet()) {
+            double proportion = entry.getValue() / 100;
+            entropy += -1 * (proportion) * Math.log(proportion) / Math.log(2);
         }
         return entropy;
     }
