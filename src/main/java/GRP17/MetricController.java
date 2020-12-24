@@ -8,7 +8,7 @@ import GRP17.UserModels.User;
 
 import java.util.*;
 
-public class ControllerDomain {
+public class MetricController {
 
     //B-3
     //This method returns size of the list of the user that labelled this particular instance

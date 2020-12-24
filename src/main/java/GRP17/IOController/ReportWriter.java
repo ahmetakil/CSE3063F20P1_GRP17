@@ -1,6 +1,6 @@
 package GRP17.IOController;
 
-import GRP17.ControllerDomain;
+import GRP17.MetricController;
 import GRP17.Models.AssignedInstance;
 import GRP17.Models.DataSet;
 import GRP17.Models.Instance;
@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 public class ReportWriter {
-    private ControllerDomain controllerDomain;
+    private MetricController metricController;
     private String reportName;
     private Gson gson;
 
     public ReportWriter(String fileName) {
-        this.controllerDomain = new ControllerDomain();
+        this.metricController = new MetricController();
         this.gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
         this.reportName = fileName;
     }
@@ -38,7 +38,7 @@ public class ReportWriter {
         System.out.println("Number of datasets: " + user.getNumberOfDatasets());
         //2
         JsonArray jsonArray = new JsonArray();
-        for (Map.Entry<DataSet, Double> dataSetMap : controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets, user).entrySet()) {
+        for (Map.Entry<DataSet, Double> dataSetMap : metricController.listUsersDatasetWithCompletenessPercentage(allDatasets, user).entrySet()) {
             jsonArray.add("dataset id" + dataSetMap.getKey().getId() + " : " + (int)(dataSetMap.getValue() *100) /100.0);
         }
         jsonObject.add("List of datasets and their completeness percentage: ", jsonArray);
@@ -51,8 +51,8 @@ public class ReportWriter {
         jsonObject.addProperty("Total number of unique instances labeled :", user.getUniqueInstances().size());
         System.out.println("Total number of unique instances labeled :" + user.getUniqueInstances().size());
         //5
-        jsonObject.addProperty("Consistency percentage :", controllerDomain.getConsistencyPercentage(allAssignedInstances, user));
-        System.out.println("Consistency percentage :" + controllerDomain.getConsistencyPercentage(allAssignedInstances, user));
+        jsonObject.addProperty("Consistency percentage :", metricController.getConsistencyPercentage(allAssignedInstances, user));
+        System.out.println("Consistency percentage :" + metricController.getConsistencyPercentage(allAssignedInstances, user));
         //6
         jsonObject.addProperty("Average time spent in labeling an instance :", (int)(user.getAverageTimeSpending()*100000)/100000.0);
         System.out.println("Average time spent in labeling an instance :" + (int)(user.getAverageTimeSpending()*100000)/100000.0);
@@ -70,7 +70,7 @@ public class ReportWriter {
         jsonObject.addProperty("instance: ", instance.getInstance());
         jsonObject.addProperty("Total number of label assignments: ", instance.noOfLabelAssignments()); //1
         jsonObject.addProperty("Number of unique label assignments: ", instance.noOfUniqueLabelAssignments());//2
-        jsonObject.addProperty("Number of unique users: ", controllerDomain.noOfUniqueUsersForInstance(allAssignedInstances, instance)); //3
+        jsonObject.addProperty("Number of unique users: ", metricController.noOfUniqueUsersForInstance(allAssignedInstances, instance)); //3
         if (instance.mostFrequentLabel() == null) {
             jsonObject.addProperty("All class label percentage: ", 0);
         } else {
@@ -113,7 +113,7 @@ public class ReportWriter {
         //4
         jsonObject.addProperty("Number of users assigned to this dataset: ", dataSet.noOfUsersAssignedToThisDataset());
         //5
-        Map<User, Double> usersWithCompletenessPercentage = controllerDomain.getUsersWithCompletenessPercentageForDataset(dataSet, allAssignedInstances);
+        Map<User, Double> usersWithCompletenessPercentage = metricController.getUsersWithCompletenessPercentageForDataset(dataSet, allAssignedInstances);
         jsonArray = new JsonArray();
         for (Map.Entry<User, Double> entry : usersWithCompletenessPercentage.entrySet()) {
             jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
@@ -121,7 +121,7 @@ public class ReportWriter {
         jsonObject.add("List of users assigned and their completeness percentage: ", jsonArray);
         //6
         jsonArray = new JsonArray();
-        Map<User, Double> userConsistencyPercentage = controllerDomain.getListOfUsersWithConsistencyPercentage(allAssignedInstances, dataSet);
+        Map<User, Double> userConsistencyPercentage = metricController.getListOfUsersWithConsistencyPercentage(allAssignedInstances, dataSet);
         for (Map.Entry<User, Double> entry : userConsistencyPercentage.entrySet()) {
             jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
