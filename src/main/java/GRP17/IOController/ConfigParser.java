@@ -10,18 +10,13 @@ import java.io.Reader;
 
 public class ConfigParser extends Parser {
 
-
     public ConfigParser(String fileName) {
         super(fileName);
     }
 
-
-
     @Override
     public ConfigSet parse() {
-
         GsonBuilder gsonBuilder = new GsonBuilder();
-
         /*
         The registerTyeAdapter allows us to customize the data parsing process
         by providing a Custom JsonDeserializer
@@ -35,10 +30,8 @@ public class ConfigParser extends Parser {
             return configSet;
 
         } catch (IOException e) {
-
             System.out.println("Something went wrong, please check your config file!!!!");
             return null;
         }
-
     }
 }

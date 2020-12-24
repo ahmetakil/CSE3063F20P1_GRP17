@@ -46,21 +46,17 @@ public abstract class User implements Serializable {
         if (!datasetIds.contains(id))
             datasetIds.add(id);
     }
-
+    //A-1
     public Integer getNumberOfDatasets() {
         if (datasetIds == null)
             return 0;
         return datasetIds.size();
     }
-
-
     public double getConsistencyCheckProbability() {
         return consistencyCheckProbability;
     }
 
-
     private void addFrequencyLabel(Label newLabel) {
-
         if (frequency.containsKey(newLabel)) {
             int currentFrequncy = frequency.get(newLabel);
             currentFrequncy++;
@@ -69,19 +65,25 @@ public abstract class User implements Serializable {
         }
         frequency.put(newLabel, 1);
     }
-
     //A-3
     public List<Instance> getInstances() {
         return labellingRequests;
     }
+    //A-4
+    private Instance getRandomLabelledInstance() {
+        Random random = new Random();
+        List<Instance> uniqueInstances = getUniqueInstances();
 
+        int length = uniqueInstances.size();
+        int randomlySelectedIndex = random.nextInt(length);
 
+        return uniqueInstances.get(randomlySelectedIndex);
+    }
     private void addFrequencyLabelList(List<Label> labels) {
         for (Label label : labels) {
             addFrequencyLabel(label);
         }
     }
-
     //A-6
     public double getAverageTimeSpending() {
         double sumAllValues = 0;
@@ -90,7 +92,6 @@ public abstract class User implements Serializable {
         }
         return sumAllValues / timeSpendings.size();
     }
-
     //A-7
     public double getStandardDeviation() {
         double var = 0;
@@ -100,7 +101,6 @@ public abstract class User implements Serializable {
         }
         return Math.sqrt((1.0 / timeSpendings.size()) * var);
     }
-
 
     private void addTimeSpending(double timeSpending) {
         this.timeSpendings.add(timeSpending);
@@ -118,28 +118,11 @@ public abstract class User implements Serializable {
         return name;
     }
 
-
-    //A-4
-
-    private Instance getRandomLabelledInstance() {
-        Random random = new Random();
-        List<Instance> uniqueInstances = getUniqueInstances();
-
-        int length = uniqueInstances.size();
-        int randomlySelectedIndex = random.nextInt(length);
-
-        return uniqueInstances.get(randomlySelectedIndex);
-    }
-
-
     public AssignedInstance relabelAlreadyLabelledInstance(List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
-
-
         Instance previouslyLabelledInstance = getRandomLabelledInstance();
         return assignLabel(previouslyLabelledInstance, allLabels, maxNumberOfLabelsPerInstance);
 
     }
-
     public AssignedInstance assignLabel(Instance instance, List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
         try {
             long timerStart = currentTimeMillis();
@@ -163,7 +146,6 @@ public abstract class User implements Serializable {
             return null;
         }
     }
-
     private void addInstance(Instance instance) {
         labellingRequests.add(instance);
     }

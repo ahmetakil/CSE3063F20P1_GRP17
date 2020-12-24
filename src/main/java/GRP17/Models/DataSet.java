@@ -33,7 +33,6 @@ public class DataSet implements Serializable {
         this.name = name;
     }
 
-
     public void setLabels(List<Label> labels) {
         this.labels = labels;
     }
@@ -61,9 +60,8 @@ public class DataSet implements Serializable {
         }
         return (completeness / instances.size()) * 100;
     }
-
+    //C-2
     public Map<Label, Double> getClassDistributionsBasedOnFinalInstanceLabels() {
-        //TODO [C-2] NEW
         Map<Label, Double> numOfLabels = new HashMap<>();
         Map<Label, Double> distributions = new HashMap<>();
 
@@ -80,56 +78,14 @@ public class DataSet implements Serializable {
                 total+=1;
             }
         }
-
-
         for(Map.Entry label: numOfLabels.entrySet()){
             Double dist = ((Double) label.getValue()/total)*100.0;
             distributions.put((Label) label.getKey(),dist);
         }
         return distributions;
     }
-
-    public String printLabelToReport(Map<Label, Integer> map) {
-        //TODO [C-2] Loop through the instances use final labels.
-        //noOfFinalLabels
-        int size = instances.size();
-        System.out.println();
-        int index = 0;
-        StringBuilder returnStr = new StringBuilder();
-        for (Map.Entry<Label, Integer> entry : map.entrySet()) {
-            index = getIndex(size, index, returnStr, map.entrySet().size(), entry.getValue(), (entry.getKey()).getName());
-        }
-        return returnStr.toString();
-    }
-
-    public String printUserToReport(Map<User, Integer> map) {
-        //TODO [C-2] Loop through the instances use final labels.
-        //noOfFinalLabels
-        int size = instances.size();
-        System.out.println();
-        int index = 0;
-        StringBuilder returnStr = new StringBuilder();
-        for (HashMap.Entry<User, Integer> entry : map.entrySet()) {
-            index = getIndex(size, index, returnStr, map.entrySet().size(), entry.getValue(), (entry.getKey()).getName());
-        }
-        return returnStr.toString();
-    }
-
-    private int getIndex(int size, int index, StringBuilder returnStr, int size2, Integer value, String name) {
-        if (size2 - 1 == index) {
-
-            returnStr.append("%").append((value / size) * 100).append(" ").append(name);
-
-        } else {
-            returnStr.append("%").append((value / size) * 100).append(" ").append(name).append(", ");
-        }
-        index++;
-        return index;
-    }
-
-
+    //C-3
     public Map<Label, Integer> getUniqueInstancesForLabels() {
-        // TODO [C-3]
         Map<Label, Integer> unique = new HashMap<>();
         for (Instance instance : instances) {
             Map<Label, Integer> frequency = instance.getFrequency();
@@ -143,12 +99,10 @@ public class DataSet implements Serializable {
         }
         return unique;
     }
-
     //C-4
     public int noOfUsersAssignedToThisDataset() {
         return users.size();
     }
-
 
     public Integer getId() {
         return id;

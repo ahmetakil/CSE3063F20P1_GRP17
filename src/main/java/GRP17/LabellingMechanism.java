@@ -51,11 +51,7 @@ class LabellingMechanism {
         if (!contains(dataSet)) {
             simulationDataSets.add(dataSet);
         }
-
-
     }
-
-
     void startLabeling() {
 
         DataSet dataSet = configSet.getCurrentDataset();
@@ -78,7 +74,6 @@ class LabellingMechanism {
 
                 simulationAssignedInstances.add(assignedInstance);
 
-
                 if (!contains(user)) {
 
                     simulationUsers.add(user);
@@ -88,7 +83,6 @@ class LabellingMechanism {
                     simulationInstances.add(instance);
                 }
 
-
                 user.addDatasetID(dataSet.getId());
 
                 reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
@@ -97,20 +91,15 @@ class LabellingMechanism {
                         simulationDataSets,
                         simulationAssignedInstances,
                         simulationUsers,
-                        simulationInstances
-                );
+                        simulationInstances);
 
                 cacheManager.saveCache(currentCache);
             }
         }
-
         outputWriter.write(simulationAssignedInstances, dataSet, allUsersAssignedToCurrent);
-
     }
 
     boolean contains(DataSet dataSet) {
-
-
         for (DataSet loopDataset : simulationDataSets) {
 
             if (loopDataset.getId().equals(dataSet.getId())) {
@@ -122,8 +111,6 @@ class LabellingMechanism {
 
 
     boolean contains(Instance instance) {
-
-
         for (Instance loopInstance : simulationInstances) {
 
             if (loopInstance.getId().equals(instance.getId())) {
@@ -134,7 +121,6 @@ class LabellingMechanism {
     }
 
     boolean contains(User user) {
-
         for (User loopUser : simulationUsers) {
 
             if (loopUser.getId().equals(user.getId())) {

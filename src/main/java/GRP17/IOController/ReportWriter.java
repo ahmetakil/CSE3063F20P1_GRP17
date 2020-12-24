@@ -26,8 +26,6 @@ public class ReportWriter {
         this.gson = new GsonBuilder().create();
         this.reportName = fileName;
     }
-
-
     private JsonObject UserMetrics(User user, List<DataSet> allDatasets, List<AssignedInstance> allAssignedInstances) {
         JsonObject jsonObject = new JsonObject();
 
@@ -38,15 +36,13 @@ public class ReportWriter {
         //1
         jsonObject.addProperty("Number of datasets: ", user.getNumberOfDatasets());
         System.out.println("Number of datasets: " + user.getNumberOfDatasets());
-        //TODO A-2 is now in experimental use need to check
         //2
-
         JsonArray jsonArray = new JsonArray();
         for (Map.Entry<DataSet, Double> dataSetMap : controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets, user).entrySet()) {
             jsonArray.add("dataset id" + dataSetMap.getKey().getId() + " : " + (int)(dataSetMap.getValue() *100) /100.0);
         }
         jsonObject.add("List of datasets and their completeness percentage: ", jsonArray);
-        //jsonObject.addProperty("List of datasets and their completeness percentage: ", controllerDomain.listUsersDatasetWithCompletenessPercentage(allDatasets,user).toString());
+
         System.out.println("List of datasets and their completeness percentage: " + jsonObject.get("List of datasets and their completeness percentage: ").toString());
         //3
         jsonObject.addProperty("Total number of instances labeled :", user.getInstances().size());
@@ -63,6 +59,7 @@ public class ReportWriter {
         //7
         jsonObject.addProperty("Std. dev. of  time spent in labeling an instance : ", (int)(user.getStandardDeviation()*100000)/100000.0);
         System.out.println("Std. dev. of  time spent in labeling an instance : " + (int)(user.getStandardDeviation()*100000)/100000.0);
+
         return jsonObject;
     }
 
@@ -97,17 +94,15 @@ public class ReportWriter {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("dataset id: ", dataSet.getId());
-        jsonObject.addProperty("Completeness percentage: ", dataSet.getCompleteness()); //1
+        //1
+        jsonObject.addProperty("Completeness percentage: ", dataSet.getCompleteness());
         //2
-
         Map<Label, Double> classDistributionsBasedFinalLabels = dataSet.getClassDistributionsBasedOnFinalInstanceLabels();
         JsonArray jsonArray = new JsonArray();
         for (Map.Entry<Label, Double> entry : classDistributionsBasedFinalLabels.entrySet()) {
             jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
         jsonObject.add("Label distributions: ", jsonArray);
-
-
         //3
         Map<Label, Integer> uniqueInstancesForLabels = dataSet.getUniqueInstancesForLabels();
         jsonArray = new JsonArray();
@@ -115,22 +110,16 @@ public class ReportWriter {
             jsonArray.add(entry.getKey().getName() + ": " + entry.getValue());
         }
         jsonObject.add("Number of unique instances for each class label: ", jsonArray);
-
         //4
         jsonObject.addProperty("Number of users assigned to this dataset: ", dataSet.noOfUsersAssignedToThisDataset());
-
         //5
-
         Map<User, Double> usersWithCompletenessPercentage = controllerDomain.getUsersWithCompletenessPercentageForDataset(dataSet, allAssignedInstances);
         jsonArray = new JsonArray();
         for (Map.Entry<User, Double> entry : usersWithCompletenessPercentage.entrySet()) {
             jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");
         }
         jsonObject.add("List of users assigned and their completeness percentage: ", jsonArray);
-
-
         //6
-        //TODO: CHANGE DOUBLE VALUES WITH PERCENTAGE
         jsonArray = new JsonArray();
         Map<User, Double> userConsistencyPercentage = controllerDomain.getListOfUsersWithConsistencyPercentage(allAssignedInstances, dataSet);
         for (Map.Entry<User, Double> entry : userConsistencyPercentage.entrySet()) {
@@ -138,33 +127,24 @@ public class ReportWriter {
         }
         jsonObject.add(" List of users assigned and their consistency percentage:  ", jsonArray);
 
-
         return jsonObject;
     }
 
     public void Write(List<DataSet> currentDataSets, List<User> users, List<Instance> instances, List<AssignedInstance> allAssignedInstances) {
-
-
         try (Writer writer = new FileWriter(reportName)) {
             JsonArray userArr = new JsonArray();
             JsonArray instanceArr = new JsonArray();
             JsonArray datasetArr = new JsonArray();
 
-
             for (User user : users) {
                 userArr.add(UserMetrics(user, currentDataSets, allAssignedInstances));
             }
-
             for (Instance instance : instances) {
                 instanceArr.add(InstanceMetrics(instance, allAssignedInstances));
             }
-
-
             for (DataSet currentDataset : currentDataSets) {
                 datasetArr.add(DatasetMetrics(currentDataset, allAssignedInstances));
             }
-
-
             JsonArray allMetrics = new JsonArray();
 
             allMetrics.add(userArr);

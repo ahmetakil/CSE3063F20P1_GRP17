@@ -30,42 +30,22 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             this.users = parseUsers(usersJsonArray);
             this.datasets = parseDatasets(datasetsJsonArray);
 
-
-
-
             return new ConfigSet(users,datasets,currentDatasetId);
-
-
         } catch (Exception e) {
-
             System.out.println("ConfigSetParser.deserialize: "+ e);
-            //System.out.println("Something went wrong with CustomUserParser. Please check config.json");
             return null;
         }
-
     }
-
-
-
     private List<DataSet> getDatasetIdsForUser(User user){
-
         List<DataSet> datasets = new ArrayList<>();
-
         for(DataSet dataSet: this.datasets){
-
-
-            if(dataSet.getUsers().contains(user)){
+                if(dataSet.getUsers().contains(user)){
                 datasets.add(dataSet);
             }
-
         }
         return datasets;
-
-
     }
-
     private List<User> parseUsers(JsonArray userJsonArray) {
-
         try {
             List<User> users = new ArrayList<User>();
             Iterator userIterator = userJsonArray.iterator();
@@ -80,8 +60,6 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
 
                 double consistencyCheckProbability = userObject.get("consistencyCheckProbability").getAsDouble();
 
-
-
                 User user;
                 switch (type) {
                     case "RandomBot":
@@ -95,24 +73,19 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                         break;
 
                 }
-
                 if (user == null) {
                     continue;
                 }
-
-
                 users.add(user);
                 Logger.getInstance().logUserCreation(user);
             }
             return users;
-
         } catch (Exception e) {
             System.out.println("Something went wrong in config file please check your users");
             System.exit(0);
             return null;
         }
     }
-
     private List<DataSet> parseDatasets(JsonArray datasetJsonArray) {
 
         List<DataSet> datasets = new ArrayList<DataSet>();
@@ -134,16 +107,12 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             dataSet.addUsers(datasetUsers);
 
             datasets.add(dataSet);
-
-
         }
         return datasets;
-
     }
 
 
     private List<Integer> getUserIds(JsonArray userIdsJsonArray) {
-
         try {
             List<Integer> userIds = new ArrayList<>();
 
@@ -153,8 +122,6 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
 
                 JsonPrimitive value = (JsonPrimitive) userIdsIterator.next();
                 userIds.add(value.getAsInt());
-
-
             }
             return userIds;
 
@@ -163,24 +130,17 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             System.exit(0);
             return null;
         }
-
     }
-
     private List<User> getUsersFromIds(List<Integer> userIds) {
-
         List<User> selectedUsers = new ArrayList<>();
 
         for (Integer userId : userIds) {
 
             selectedUsers.add(getUserFromId(userId));
-
         }
         return selectedUsers;
-
     }
-
     private User getUserFromId(Integer userId) {
-
         for (User user : this.users) {
             if (user.getId() == userId) {
                 return user;
@@ -188,6 +148,4 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
         }
         return null;
     }
-
-
 }

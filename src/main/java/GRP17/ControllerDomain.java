@@ -15,7 +15,6 @@ public class ControllerDomain {
     public int noOfUniqueUsersForInstance(List<AssignedInstance> allAssignedInstances, Instance instance) {
         List<User> users = new ArrayList<>();
         for (AssignedInstance assignedInstance : allAssignedInstances) {
-
             if (assignedInstance.getInstance().getId() == instance.getId()) {
                 User user = assignedInstance.getUser();
                 if (!users.contains(user)) {
@@ -56,7 +55,6 @@ public class ControllerDomain {
 
         return (int)((maxEntry.getValue() / sum) * 100 *100)/100.0;
     }
-
 
     //A-2
     public Map<DataSet, Double> listUsersDatasetWithCompletenessPercentage(List<DataSet> allDatasets, User user) {
@@ -109,7 +107,6 @@ public class ControllerDomain {
         }
         return Instances;
     }
-
     // [C-5]
     public Map<User, Double> getUsersWithCompletenessPercentageForDataset(DataSet dataSet, List<AssignedInstance> allAssignedInstances) {
         Map<User, Double> completenessPercentages = new HashMap<>();
@@ -118,9 +115,8 @@ public class ControllerDomain {
         }
         return completenessPercentages;
     }
-
+    // [C-6]
     public Map<User, Double> getListOfUsersWithConsistencyPercentage(List<AssignedInstance> allAssignedInstances, DataSet dataSet) {
-        // [C-6]
         List<User> users = dataSet.getUsers();
         Map<User, Double> consistencyPercentage = new HashMap<>();
 

@@ -25,7 +25,6 @@ public class Cache implements Serializable {
         this.cachedInstances = cachedInstances;
 
     }
-
     public Cache() {
 
         cachedDatasets = new ArrayList<>();
@@ -33,11 +32,9 @@ public class Cache implements Serializable {
         cachedUsers = new ArrayList<>();
         cachedInstances = new ArrayList<>();
     }
-
     public List<DataSet> getDatasets() {
         return this.cachedDatasets;
     }
-
 
     public List<AssignedInstance> getAssignedInstances() {
         return this.cachedAssignedInstances;
@@ -50,5 +47,4 @@ public class Cache implements Serializable {
     public List<Instance> getInstances() {
         return this.cachedInstances;
     }
-
 }
