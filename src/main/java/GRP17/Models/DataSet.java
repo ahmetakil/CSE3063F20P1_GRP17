@@ -7,7 +7,7 @@ import java.util.*;
 public class DataSet {
 
     @SerializedName("dataset id")
-    private int id;
+    private Integer id;
     @SerializedName("dataset name")
     private String name;
     @SerializedName("maximum number of labels per instance")
@@ -23,7 +23,7 @@ public class DataSet {
         this.instances = new ArrayList<>();
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class DataSet {
         this.name = name;
     }
 
-    public void setMAX_NUMBER_OF_LABELS_PER_INSTANCE(int MAX_NUMBER_OF_LABELS_PER_INSTANCE) {
+    public void setMAX_NUMBER_OF_LABELS_PER_INSTANCE(Integer MAX_NUMBER_OF_LABELS_PER_INSTANCE) {
         this.MAX_NUMBER_OF_LABELS_PER_INSTANCE = MAX_NUMBER_OF_LABELS_PER_INSTANCE;
     }
 

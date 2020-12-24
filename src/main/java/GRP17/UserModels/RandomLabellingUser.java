@@ -7,7 +7,7 @@ import java.util.*;
 
 public class RandomLabellingUser extends User {
 
-    public RandomLabellingUser(int id, String name, String type, double consistencyCheckProbability) {
+    public RandomLabellingUser(Integer id, String name, String type, double consistencyCheckProbability) {
         super(id, name, type, consistencyCheckProbability);
     }
     @Override

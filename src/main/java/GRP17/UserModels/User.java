@@ -13,7 +13,7 @@ import static java.lang.System.currentTimeMillis;
 public abstract class User {
 
     @SerializedName("user id")
-    private int id;
+    private Integer id;
     @SerializedName("user name")
     private String name;
     @SerializedName("user type")
@@ -26,7 +26,7 @@ public abstract class User {
     private List<Double> timeSpendings;
     private List<Integer> datasetIds;
 
-    public User(int id, String name, String type, double consistencyCheckProbability) {
+    public User(Integer id, String name, String type, double consistencyCheckProbability) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -105,7 +105,7 @@ public abstract class User {
         this.timeSpendings.add(timeSpending);
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

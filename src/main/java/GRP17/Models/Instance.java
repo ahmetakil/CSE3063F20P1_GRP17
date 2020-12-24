@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Instance {
     @SerializedName("id")
-    private int id;
+    private Integer id;
     @Expose
     @SerializedName("instance")
     private String instance;
@@ -44,6 +44,7 @@ public class Instance {
     //This method takes all labels in the instance at the map and changes the value of finalLabel to most recurring label. (If equal selects randomly).
     public void determineFinalLabel() {
         int max = 0;
+
         //For find max value we loop once.
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
             //System.out.println(entry.getKey() + ":" + entry.getValue());
@@ -51,6 +52,7 @@ public class Instance {
                 max = entry.getValue();
             }
         }
+
         // Another loop for put the labels that have value of max frequency to array list
         ArrayList<Label> maxlabels = new ArrayList<>();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
@@ -59,6 +61,7 @@ public class Instance {
                 maxlabels.add(entry.getKey());
             }
         }
+
         //Select random from Array List
         Random random = new Random();
         finalLabel = maxlabels.get(random.nextInt(maxlabels.size()));

@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Label {
 
-    @SerializedName("label id") private int id;
+    @SerializedName("label id") private Integer id;
     @SerializedName("label text")private String name;
 
-    public Label(int id, String name) {
+    public Label(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
