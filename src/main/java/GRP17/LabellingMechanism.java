@@ -52,6 +52,7 @@ class LabellingMechanism {
             simulationDataSets.add(dataSet);
         }
     }
+
     void startLabeling() {
 
         DataSet dataSet = configSet.getCurrentDataset();
@@ -61,6 +62,12 @@ class LabellingMechanism {
 
         for (Instance instance : allInstancesOfCurrentDataset) {
             for (User user : allUsersAssignedToCurrent) {
+
+                User cachedUser = getCachedUser(user);
+                if (cachedUser != null) {
+                    cachedUser.setConsistencyCheckProbability(user.getConsistencyCheckProbability());
+                    user = cachedUser;
+                }
 
                 boolean consistency = (Math.random() < user.getConsistencyCheckProbability());
                 AssignedInstance assignedInstance;
@@ -76,14 +83,12 @@ class LabellingMechanism {
                 user.addDatasetID(dataSet.getId());
 
                 if (!contains(user)) {
-
                     simulationUsers.add(user);
                 }
 
                 if (!contains(instance)) {
                     simulationInstances.add(instance);
                 }
-
 
 
                 reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
@@ -129,5 +134,15 @@ class LabellingMechanism {
             }
         }
         return false;
+    }
+
+    User getCachedUser(User user) {
+        for (User loopUser : simulationUsers) {
+
+            if (loopUser.getId().equals(user.getId())) {
+                return loopUser;
+            }
+        }
+        return null;
     }
 }

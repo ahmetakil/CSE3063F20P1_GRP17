@@ -56,6 +56,10 @@ public abstract class User implements Serializable {
         return consistencyCheckProbability;
     }
 
+    public void setConsistencyCheckProbability(double consistencyCheckProbability) {
+        this.consistencyCheckProbability = consistencyCheckProbability;
+    }
+
     private void addFrequencyLabel(Label newLabel) {
         if (frequency.containsKey(newLabel)) {
             int currentFrequncy = frequency.get(newLabel);
