@@ -1,5 +1,8 @@
 title SEQUENCE DIAGRAM
 
+participant LabellingMechanism
+participant MetricController
+participant CacheManager
 participant InputParser
 participant ConfigParser
 participant Dataset
@@ -9,18 +12,72 @@ participant Label
 participant AssignedInstances
 participant OutputWriter
 participant Logger
+participant ReportWriter
 
-entryspacing 1.3
-InputParser->Dataset:Create Dataset
-ConfigParser->User:Create Users
-ConfigParser->Logger: Log User Creation
-Dataset->Instance: Create Instances
-Dataset->Label: Create Labels
-Instance->User: Get Instance
-Label->User: Get Labels
-User->AssignedInstances: Assign Labels
-AssignedInstances->Logger:Log Label Assignments
-AssignedInstances->OutputWriter: Write Output
-User->OutputWriter: Write Output
-Dataset->OutputWriter:Write Output
+
+entryspacing 1.5
+
+LabellingMechanism->CacheManager:read Cache
+CacheManager-->>LabellingMechanism:return cache
+
+LabellingMechanism->ConfigParser:get Config
+
+ConfigParser->User:create Users
+User->Logger:Log User Creation
+User-->>ConfigParser:return Users
+
+ConfigParser-->>LabellingMechanism:return Config
+
+LabellingMechanism->InputParser:get Input
+
+InputParser->Dataset:create Dataset
+
+Dataset->Instance:create Instances
+Instance-->>Dataset:retrun Instances
+
+Dataset->Label:create Labels
+Label-->>Dataset:retrun Labels
+
+Dataset-->>InputParser:retrun Dataset
+
+InputParser-->>LabellingMechanism:return Input
+
+LabellingMechanism->User:Assign Labels
+User->AssignedInstances:create AssignedInstance
+AssignedInstances-->>User:return
+User-->>LabellingMechanism:return Assigned Instances
+
+
+
+
+
+
+
+LabellingMechanism->CacheManager:Save Cache
+
+
+LabellingMechanism->ReportWriter:get Report
+LabellingMechanism->OutputWriter:write Output
+
+ReportWriter->ControllerDomain:get Metrics
+
+ControllerDomain->Instance: get Metric Data
+Instance-->>ControllerDomain: return Metric Data
+
+ControllerDomain->Label: get Metric Data
+Label-->>ControllerDomain: return Metric Data
+
+ControllerDomain->User: get Metric Data
+User-->>ControllerDomain: return Metric Data
+
+ControllerDomain->Dataset: get Metric Data
+Dataset-->>ControllerDomain: return Metric Data
+
+ControllerDomain-->>ReportWriter:return Metrics
+
+ReportWriter-->>LabellingMechanism:return Report
+
+
+
+
 
