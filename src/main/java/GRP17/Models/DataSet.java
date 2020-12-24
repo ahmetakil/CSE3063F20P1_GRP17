@@ -31,9 +31,6 @@ public class DataSet {
         this.name = name;
     }
 
-    public void setMAX_NUMBER_OF_LABELS_PER_INSTANCE(Integer MAX_NUMBER_OF_LABELS_PER_INSTANCE) {
-        this.MAX_NUMBER_OF_LABELS_PER_INSTANCE = MAX_NUMBER_OF_LABELS_PER_INSTANCE;
-    }
 
     public void setLabels(List<Label> labels) {
         this.labels = labels;

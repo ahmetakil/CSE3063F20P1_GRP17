@@ -20,7 +20,7 @@ public class Instance {
     }
 
 
-    public Map<Label, Integer> getFrequency() {
+    Map<Label, Integer> getFrequency() {
         return frequency;
     }
 

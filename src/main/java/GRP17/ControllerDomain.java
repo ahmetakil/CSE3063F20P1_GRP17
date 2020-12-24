@@ -70,7 +70,7 @@ public class ControllerDomain {
         return consistencies;
     }
 
-    public Double getCompletenessPercentage(DataSet dataSet, User user, List<AssignedInstance> allAssignedInstances) {
+    private Double getCompletenessPercentage(DataSet dataSet, User user, List<AssignedInstance> allAssignedInstances) {
         List<Instance> datasetInstances = dataSet.getInstances();
         List<Instance> userInstances = getUniqueInstancesForUser(user, allAssignedInstances);
 
@@ -85,7 +85,7 @@ public class ControllerDomain {
     }
 
 
-    public List<DataSet> getDatasetsFromIDS(List<Integer> datasetIDS, List<DataSet> allDatasets) {
+    private List<DataSet> getDatasetsFromIDS(List<Integer> datasetIDS, List<DataSet> allDatasets) {
         List<DataSet> datasets = new ArrayList<>();
 
         for (DataSet dataSet : allDatasets) {
@@ -98,7 +98,7 @@ public class ControllerDomain {
     }
 
 
-    public List<Instance> getUniqueInstancesForUser(User user, List<AssignedInstance> allAssignedInstances) {
+    private List<Instance> getUniqueInstancesForUser(User user, List<AssignedInstance> allAssignedInstances) {
         ArrayList<Instance> Instances = new ArrayList<>();
         for (AssignedInstance assignedInstance : allAssignedInstances) {
             if (assignedInstance.getUser().getId() == user.getId()) {

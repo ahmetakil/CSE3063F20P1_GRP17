@@ -12,14 +12,14 @@ import java.util.Date;
 
 
 public class Logger {
-    final String logFile = "log.log";
+    private final String logFile = "log.log";
 
     private Logger() {
         //Because this constructor is called only once (at the first invocation of Logger.getInstance() we can safely clear the previous log file.
         clearLogFile();
     }
 
-    static Logger instance = null; //We use Singleton pattern here.
+    private static Logger instance = null; //We use Singleton pattern here.
 
     //In Singleton Pattern we always access the object via getInstance() and the first invocation creates the object and then the other invocations simply returns the previously created object.
     public static Logger getInstance() {
@@ -53,12 +53,12 @@ public class Logger {
         log(output);
     }
     //All log functions invokes this function in order to display the log.
-    public void log(String log){
+    private void log(String log){
         System.out.println(log);
         addLogToFile(log);
     }
 
-    public void addLogToFile(String log) {
+    private void addLogToFile(String log) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(logFile, true));
             writer.append(log);
@@ -69,7 +69,8 @@ public class Logger {
             System.out.println("Something went wrong, please check your log file!");
         }
     }
-    void clearLogFile(){
+
+    private void clearLogFile(){
         try {
            File file = new File(logFile);
            file.delete();

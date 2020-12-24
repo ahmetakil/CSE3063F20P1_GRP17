@@ -12,25 +12,23 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ReportWriter {
-    ControllerDomain controllerDomain;
-    String reportName;
-    Gson gson;
+    private ControllerDomain controllerDomain;
+    private String reportName;
+    private Gson gson;
 
-    public ReportWriter(String fileName) throws IOException {
-        controllerDomain = new ControllerDomain();
-        gson = new GsonBuilder().create();
+    public ReportWriter(String fileName) {
+        this.controllerDomain = new ControllerDomain();
+        this.gson = new GsonBuilder().create();
         this.reportName = fileName;
     }
 
 
-    public JsonObject UserMetrics(User user, List<DataSet> allDatasets, List<AssignedInstance> allAssignedInstances) {
+    private JsonObject UserMetrics(User user, List<DataSet> allDatasets, List<AssignedInstance> allAssignedInstances) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("user id: ", user.getId());
@@ -68,7 +66,7 @@ public class ReportWriter {
         return jsonObject;
     }
 
-    public JsonObject InstanceMetrics(Instance instance, List<AssignedInstance> allAssignedInstances) {
+    private JsonObject InstanceMetrics(Instance instance, List<AssignedInstance> allAssignedInstances) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("instance id: ", instance.getId());
@@ -95,7 +93,7 @@ public class ReportWriter {
         return jsonObject;
     }
 
-    public JsonObject DatasetMetrics(DataSet dataSet, List<AssignedInstance> allAssignedInstances) {
+    private JsonObject DatasetMetrics(DataSet dataSet, List<AssignedInstance> allAssignedInstances) {
         JsonObject jsonObject = new JsonObject();
 
         jsonObject.addProperty("dataset id: ", dataSet.getId());
@@ -158,7 +156,6 @@ public class ReportWriter {
             }
 
             for (Instance instance : instances) {
-
                 instanceArr.add(InstanceMetrics(instance, allAssignedInstances));
             }
 

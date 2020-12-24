@@ -75,7 +75,7 @@ public abstract class User {
     }
 
 
-    public void addFrequencyLabelList(List<Label> labels) {
+    private void addFrequencyLabelList(List<Label> labels) {
         for (Label label : labels) {
             addFrequencyLabel(label);
         }
@@ -101,7 +101,7 @@ public abstract class User {
     }
 
 
-    public void addTimeSpending(double timeSpending) {
+    private void addTimeSpending(double timeSpending) {
         this.timeSpendings.add(timeSpending);
     }
 
@@ -117,13 +117,10 @@ public abstract class User {
         return name;
     }
 
-    public List<Instance> getLabellingRequests() {
-        return labellingRequests;
-    }
 
     //A-4
 
-    public Instance getRandomLabelledInstance() {
+    private Instance getRandomLabelledInstance() {
         Random random = new Random();
         List<Instance> uniqueInstances = getUniqueInstances();
 
