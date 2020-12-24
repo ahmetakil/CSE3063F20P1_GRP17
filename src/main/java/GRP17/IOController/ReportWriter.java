@@ -76,7 +76,7 @@ public class ReportWriter {
         jsonObject.addProperty("Number of unique label assignments: ", instance.noOfUniqueLabelAssignments());//2
         jsonObject.addProperty("Number of unique users: ", controllerDomain.noOfUniqueUsersForInstance(allAssignedInstances, instance)); //3
         if (instance.mostFrequentLabel() == null) {
-            jsonObject.addProperty("Number of labels", 0);
+            jsonObject.addProperty("All class label percentage: ", 0);
         } else {
             jsonObject.addProperty("Most frequent class label and percentage: ",
                     instance.mostFrequentLabel().getKey().getName() + ", " + instance.mostFrequentLabel().getValue() + "%");

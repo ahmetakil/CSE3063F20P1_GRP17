@@ -87,8 +87,6 @@ public class Instance {
         return noOfUniqueLabelAssignments;
     }
 
-
-
     //B-4
     //This method returns most recurring label(s)? with using labelpercentage method.
     public Map.Entry<Label, Double> mostFrequentLabel() {
@@ -103,22 +101,26 @@ public class Instance {
             }
         }
 
-
         for (HashMap.Entry<Label, Double> entry : mostFrequent.entrySet()) {
             return entry;
         }
         return null;
-
     }
 
     //B-5
     //This method returns recurring percentages of assigned labels to a instance as in hashmap format.
     public HashMap<Label, Double> labelPercentage() {
-        double totalSize = frequency.size();
+        double totalSize = 0;
         HashMap<Label, Double> percentage = new HashMap<>();
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
-            percentage.put(entry.getKey(), (entry.getValue() / totalSize) * 100);
+            totalSize += entry.getValue();
+            percentage.put(entry.getKey(), entry.getValue() * 100.0);
         }
+
+        for (HashMap.Entry<Label, Double> entry : percentage.entrySet()) {
+            percentage.put(entry.getKey(), entry.getValue() / totalSize);
+        }
+
         return percentage;
     }
 
@@ -139,7 +141,6 @@ public class Instance {
     public boolean isLabelled() {
         return !frequency.isEmpty();
     }
-
 
 
     public int getId() {
