@@ -23,7 +23,7 @@
     {
       "datasetId": 1,
       "datasetName": "Dataset 1",
-      "path": "input.json",
+      "path": "input1.json",
       "users": [
         0,
         1
@@ -34,7 +34,9 @@
       "datasetName": "Dataset 2",
       "path": "input2.json",
       "users": [
-        0
+        0,
+        1,
+        2
       ]
     }
   ],
