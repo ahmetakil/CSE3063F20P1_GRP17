@@ -38,6 +38,8 @@ public abstract class User implements Serializable {
         datasetIds = new ArrayList<>();
     }
 
+
+
     public List<Integer> getDatasetIds() {
         return datasetIds;
     }
@@ -166,6 +168,13 @@ public abstract class User implements Serializable {
 
     public boolean hasLabelledInstance() {
         return getUniqueInstances().size() > 0;
+    }
+
+    public void setUserFields(User otherUser){
+        this.labellingRequests = otherUser.labellingRequests;
+        this.frequency = otherUser.frequency;
+        this.datasetIds = otherUser.datasetIds;
+        this.timeSpendings = otherUser.timeSpendings;
     }
 
     public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance);

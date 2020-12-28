@@ -53,6 +53,7 @@ class LabellingMechanism {
         }
     }
 
+
     void startLabeling() {
 
         DataSet dataSet = configSet.getCurrentDataset();
@@ -61,13 +62,31 @@ class LabellingMechanism {
         List<Instance> allInstancesOfCurrentDataset = dataSet.getInstances();
 
         for (Instance instance : allInstancesOfCurrentDataset) {
+            Instance cachedInstance = getCachedInstance(instance);
+            if (cachedInstance != null) {
+                cachedInstance.setFrequency(cachedInstance.getFrequency());
+            }
+        }
+
+
+        for(User user : allUsersAssignedToCurrent) {
+            User cachedUser = getCachedUser(user);
+            if (cachedUser != null) {
+                user.setUserFields(cachedUser);
+            }
+        }
+
+        DataSet cachedDataset = getCachedDataset(dataSet);
+        if(cachedDataset != null) {
+            dataSet.setFields(cachedDataset);
+        }
+
+
+
+        for (Instance instance : allInstancesOfCurrentDataset) {
             for (User user : allUsersAssignedToCurrent) {
 
-                User cachedUser = getCachedUser(user);
-                if (cachedUser != null) {
-                    cachedUser.setConsistencyCheckProbability(user.getConsistencyCheckProbability());
-                    user = cachedUser;
-                }
+
 
                 boolean consistency = (Math.random() < user.getConsistencyCheckProbability());
                 AssignedInstance assignedInstance;
@@ -100,9 +119,10 @@ class LabellingMechanism {
                         simulationInstances);
 
                 cacheManager.saveCache(currentCache);
+                outputWriter.write(simulationAssignedInstances, dataSet, allUsersAssignedToCurrent);
             }
         }
-        outputWriter.write(simulationAssignedInstances, dataSet, allUsersAssignedToCurrent);
+
     }
 
 
@@ -137,11 +157,31 @@ class LabellingMechanism {
         return false;
     }
 
+    private Instance getCachedInstance(Instance instance) {
+        for (Instance loopInstance : simulationInstances) {
+
+            if (loopInstance.getId().equals(instance.getId())) {
+                return loopInstance;
+            }
+        }
+        return null;
+    }
+
     private User getCachedUser(User user) {
         for (User loopUser : simulationUsers) {
 
             if (loopUser.getId().equals(user.getId())) {
                 return loopUser;
+            }
+        }
+        return null;
+    }
+
+    private DataSet getCachedDataset(DataSet dataset){
+        for(DataSet loopDataset : simulationDataSets){
+
+            if (loopDataset.getId().equals(dataset.getId())) {
+                return loopDataset;
             }
         }
         return null;

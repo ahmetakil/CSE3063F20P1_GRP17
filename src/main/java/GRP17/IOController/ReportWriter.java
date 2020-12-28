@@ -114,6 +114,7 @@ public class ReportWriter {
         jsonObject.addProperty("Number of users assigned to this dataset: ", dataSet.noOfUsersAssignedToThisDataset());
         //5
         Map<User, Double> usersWithCompletenessPercentage = metricController.getUsersWithCompletenessPercentageForDataset(dataSet, allAssignedInstances);
+
         jsonArray = new JsonArray();
         for (Map.Entry<User, Double> entry : usersWithCompletenessPercentage.entrySet()) {
             jsonArray.add(entry.getKey().getName() + ", " + entry.getValue() + "%");

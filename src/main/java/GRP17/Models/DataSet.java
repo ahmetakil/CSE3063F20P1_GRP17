@@ -133,4 +133,9 @@ public class DataSet implements Serializable {
         return this.getName();
     }
 
+    public void setFields(DataSet cachedDataset) {
+        this.labels = cachedDataset.getLabels();
+        this.users = cachedDataset.getUsers();
+        this.instances = cachedDataset.getInstances();
+    }
 }

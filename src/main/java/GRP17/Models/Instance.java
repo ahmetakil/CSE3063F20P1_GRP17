@@ -17,7 +17,7 @@ public class Instance implements Serializable {
         this.frequency = new HashMap<Label, Integer>();
     }
 
-    Map<Label, Integer> getFrequency() {
+   public  Map<Label, Integer> getFrequency() {
         return frequency;
     }
 
@@ -69,7 +69,7 @@ public class Instance implements Serializable {
     public Integer noOfUniqueLabelAssignments() {
         int noOfUniqueLabelAssignments = 0;
         for (HashMap.Entry<Label, Integer> entry : frequency.entrySet()) {
-            if (entry.getValue() == 1) {
+            if (entry.getValue() >= 1) {
                 noOfUniqueLabelAssignments++;
             }
         }
@@ -150,4 +150,8 @@ public class Instance implements Serializable {
         return this.finalLabel;
     }
 
+
+    public void setFrequency( Map<Label, Integer> frequency) {
+        this.frequency = frequency;
+    }
 }
