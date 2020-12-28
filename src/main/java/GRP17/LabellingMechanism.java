@@ -7,6 +7,7 @@ import GRP17.IOController.ReportWriter;
 import GRP17.Models.*;
 import GRP17.UserModels.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class LabellingMechanism {
@@ -20,6 +21,8 @@ class LabellingMechanism {
     private List<AssignedInstance> simulationAssignedInstances;
     private List<User> simulationUsers;
     private List<Instance> simulationInstances;
+
+    private DataSet dataSet;
 
 
     LabellingMechanism(ConfigSet configSet, ReportWriter reportWriter, CacheManager cacheManager, OutputWriter outputWriter) {
@@ -35,41 +38,52 @@ class LabellingMechanism {
         this.simulationUsers = cache.getUsers();
         this.simulationInstances = cache.getInstances();
 
-        DataSet dataSet = configSet.getCurrentDataset();
-        dataSet.setId(configSet.getCurrentDatasetId());
 
-        List<User> allUsersAssignedToCurrent = configSet.getUsers();
+        DataSet configDataset = configSet.getCurrentDataset();
+        int datasetId = configDataset.getId();
 
-        List<Instance> allInstancesOfCurrentDataset = dataSet.getInstances();
-        List<Label> allLabelsOfCurrentDataset = dataSet.getLabels();
-
-        dataSet.setInstances(allInstancesOfCurrentDataset);
-        dataSet.setUsers(allUsersAssignedToCurrent);
-        dataSet.setLabels(allLabelsOfCurrentDataset);
-
-
-        if (!contains(dataSet)) {
-            simulationDataSets.add(dataSet);
+        for (DataSet dataSet : simulationDataSets) {
+            if (dataSet.getId() == datasetId) {
+                dataSet.updateDataset(configDataset);
+                this.dataSet = dataSet;
+            }
         }
+
+        if (!contains(configDataset)) {
+            simulationDataSets.add(configDataset);
+        }
+
+       if(this.dataSet == null){
+           this.dataSet = configSet.getCurrentDataset();
+       }
+
     }
 
 
     void startLabeling() {
 
-        DataSet dataSet = configSet.getCurrentDataset();
-        List<User> allUsersAssignedToCurrent = configSet.getUsers();
+
+        List<User> allUsersAssignedToCurrent = dataSet.getUsers();
         List<Label> allLabelsOfCurrentDataset = dataSet.getLabels();
         List<Instance> allInstancesOfCurrentDataset = dataSet.getInstances();
+
+        List<Instance> allUnlabelledInstancesOfCurrent = new ArrayList<>();
+        for(Instance instance: allInstancesOfCurrentDataset){
+
+            if(instance.getFrequency().isEmpty()){
+                allUnlabelledInstancesOfCurrent.add(instance);
+            }
+        }
 
         for (Instance instance : allInstancesOfCurrentDataset) {
             Instance cachedInstance = getCachedInstance(instance);
             if (cachedInstance != null) {
-                cachedInstance.setFrequency(cachedInstance.getFrequency());
+                instance.setFrequency(cachedInstance.getFrequency());
             }
         }
 
 
-        for(User user : allUsersAssignedToCurrent) {
+        for (User user : allUsersAssignedToCurrent) {
             User cachedUser = getCachedUser(user);
             if (cachedUser != null) {
                 user.setUserFields(cachedUser);
@@ -77,21 +91,28 @@ class LabellingMechanism {
         }
 
         DataSet cachedDataset = getCachedDataset(dataSet);
-        if(cachedDataset != null) {
+        if (cachedDataset != null) {
             dataSet.setFields(cachedDataset);
         }
 
 
+        for (User configUser : allUsersAssignedToCurrent) {
+            for (User simulationUser : simulationUsers) {
 
-        for (Instance instance : allInstancesOfCurrentDataset) {
+                if (configUser.getId().equals(simulationUser.getId())) {
+                    configUser.setUserFields(simulationUser);
+                }
+            }
+        }
+
+        for (Instance instance : allUnlabelledInstancesOfCurrent) {
             for (User user : allUsersAssignedToCurrent) {
-
 
 
                 boolean consistency = (Math.random() < user.getConsistencyCheckProbability());
                 AssignedInstance assignedInstance;
 
-                if (consistency && user.hasLabelledInstance()) {
+                if (consistency && user.hasLabelledInstance(dataSet)) {
                     assignedInstance = user.relabelAlreadyLabelledInstance(allLabelsOfCurrentDataset, dataSet.getMaxNumberLabels());
 
                 } else {
@@ -108,6 +129,8 @@ class LabellingMechanism {
                 if (!contains(instance)) {
                     simulationInstances.add(instance);
                 }
+
+                dataSet.updateInstance(instance);
 
 
                 reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
@@ -177,8 +200,8 @@ class LabellingMechanism {
         return null;
     }
 
-    private DataSet getCachedDataset(DataSet dataset){
-        for(DataSet loopDataset : simulationDataSets){
+    private DataSet getCachedDataset(DataSet dataset) {
+        for (DataSet loopDataset : simulationDataSets) {
 
             if (loopDataset.getId().equals(dataset.getId())) {
                 return loopDataset;

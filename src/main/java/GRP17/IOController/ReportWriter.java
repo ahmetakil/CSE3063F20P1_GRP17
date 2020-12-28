@@ -31,7 +31,7 @@ public class ReportWriter {
 
         jsonObject.addProperty("user id: ", user.getId());
         jsonObject.addProperty("user name: ", user.getName());
-        System.out.println("USER METRICS");
+        System.out.println("\nUSER METRICS");
         System.out.println("user id : " + user.getId() + " user name: " + user.getName());
         //1
         jsonObject.addProperty("Number of datasets: ", user.getNumberOfDatasets());

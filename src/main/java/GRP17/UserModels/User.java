@@ -1,6 +1,7 @@
 package GRP17.UserModels;
 
 import GRP17.Models.AssignedInstance;
+import GRP17.Models.DataSet;
 import GRP17.Models.Instance;
 import GRP17.Models.Label;
 import com.google.gson.annotations.SerializedName;
@@ -9,6 +10,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import static java.lang.System.currentTimeMillis;
+import static java.lang.System.in;
 
 
 public abstract class User implements Serializable {
@@ -166,8 +168,18 @@ public abstract class User implements Serializable {
         return uniqueInstances;
     }
 
-    public boolean hasLabelledInstance() {
-        return getUniqueInstances().size() > 0;
+    public boolean hasLabelledInstance(DataSet dataset) {
+        List<Instance> allUniqueInstances = getUniqueInstances();
+
+        for(Instance instance : allUniqueInstances){
+            for(Instance datasetInstance : dataset.getInstances()) {
+
+                if(datasetInstance.getInstance().equals(instance.getInstance())){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void setUserFields(User otherUser){

@@ -22,13 +22,26 @@ public class Instance implements Serializable {
     }
 
     private void updateFrequency(Label newLabel) {
-        if (frequency.containsKey(newLabel)) {
-            int currentFrequency = frequency.get(newLabel);
-            currentFrequency++;
-            frequency.put(newLabel, currentFrequency);
-            return;
-        }
-        frequency.put(newLabel, 1);
+       try{
+           if (containsKey(newLabel)) {
+               Label correctLabel = null;
+               for(Label label : frequency.keySet()){
+                 if(label.getName().equals(newLabel.getName())){
+                     correctLabel = label;
+                 }
+               }
+
+               int currentFrequency = frequency.get(correctLabel);
+
+               currentFrequency++;
+               frequency.put(newLabel, currentFrequency);
+               return;
+           }
+           frequency.put(newLabel, 1);
+       }catch(Exception e){
+           System.out.println("Instance.updateFrequency" + e);
+           return;
+       }
     }
     public void updateFrequencyLabelList(List<Label> labels) {
         for (Label label : labels) {
@@ -117,7 +130,7 @@ public class Instance implements Serializable {
         HashMap<Label, Double> percentage = labelPercentage();
         for (HashMap.Entry<Label, Double> entry : percentage.entrySet()) {
             double proportion = entry.getValue() / 100;
-            entropy += -1 * (proportion) * Math.log(proportion) / Math.log(2);
+            entropy += -1 * (proportion) * Math.log(proportion) / Math.log(percentage.size());
         }
         return (int)(entropy *100)/100.0;
     }
@@ -153,5 +166,14 @@ public class Instance implements Serializable {
 
     public void setFrequency( Map<Label, Integer> frequency) {
         this.frequency = frequency;
+    }
+
+    boolean containsKey(Label newLabel){
+        for(Label label:  frequency.keySet()){
+            if(label.getName().equals(newLabel.getName())){
+                return true;
+            }
+        }
+        return false;
     }
 }

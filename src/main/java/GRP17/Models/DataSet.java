@@ -60,12 +60,13 @@ public class DataSet implements Serializable {
         }
         return (completeness / instances.size()) * 100;
     }
+
     //C-2
     public Map<Label, Double> getClassDistributionsBasedOnFinalInstanceLabels() {
         Map<Label, Double> numOfLabels = new HashMap<>();
         Map<Label, Double> distributions = new HashMap<>();
 
-        double total=0;
+        double total = 0;
 
         for (Instance instance : instances) {
             Label finalLabel = instance.getFinalLabel();
@@ -75,15 +76,16 @@ public class DataSet implements Serializable {
                 } else {
                     numOfLabels.put(finalLabel, numOfLabels.get(finalLabel) + 1);
                 }
-                total+=1;
+                total += 1;
             }
         }
-        for(Map.Entry label: numOfLabels.entrySet()){
-            Double dist = ((Double) label.getValue()/total)*100.0;
-            distributions.put((Label) label.getKey(),dist);
+        for (Map.Entry label : numOfLabels.entrySet()) {
+            Double dist = ((Double) label.getValue() / total) * 100.0;
+            distributions.put((Label) label.getKey(), dist);
         }
         return distributions;
     }
+
     //C-3
     public Map<Label, Integer> getUniqueInstancesForLabels() {
         Map<Label, Integer> unique = new HashMap<>();
@@ -99,6 +101,7 @@ public class DataSet implements Serializable {
         }
         return unique;
     }
+
     //C-4
     public int noOfUsersAssignedToThisDataset() {
         return users.size();
@@ -129,7 +132,7 @@ public class DataSet implements Serializable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return this.getName();
     }
 
@@ -138,4 +141,52 @@ public class DataSet implements Serializable {
         this.users = cachedDataset.getUsers();
         this.instances = cachedDataset.getInstances();
     }
+
+    public void updateInstance(Instance updatedInstance) {
+        for (Instance instance : instances) {
+            if (updatedInstance.getId().equals(instance.getId())) {
+                instance.setFrequency(updatedInstance.getFrequency());
+            }
+        }
+    }
+
+    public void updateDataset(DataSet configDataset) {
+        MAX_NUMBER_OF_LABELS_PER_INSTANCE = configDataset.getMaxNumberLabels();
+        List<User> existingUsers = configDataset.getUsers();
+
+        for (User user : existingUsers) {
+            if (!containsUser(user)) {
+                this.users.add(user);
+            }
+        }
+
+        List<Instance> existingInstances = configDataset.getInstances();
+
+        for(Instance instance: existingInstances){
+            if(!containsInstance(instance)){
+                this.instances.add(instance);
+            }
+        }
+
+    }
+
+    private boolean containsUser(User user) {
+        for (User loopUser : this.users) {
+            if (loopUser.getId().equals(user.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsInstance(Instance instance) {
+        for (Instance loopInstance : this.instances) {
+            if (loopInstance.getId().equals(instance.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }
