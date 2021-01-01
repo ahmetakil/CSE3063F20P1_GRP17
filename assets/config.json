@@ -17,6 +17,12 @@
       "userName": "ABC2",
       "type": "RandomBot",
       "consistencyCheckProbability" : 0.1
+    },
+    {
+      "userId": 3,
+      "userName": "ABC3",
+      "type": "RandomBot",
+      "consistencyCheckProbability" : 0.5
     }
   ],
   "datasets": [
@@ -26,7 +32,9 @@
       "path": "input1.json",
       "users": [
         0,
-        1
+        1,
+        2,
+        3
       ]
     },
     {
@@ -40,5 +48,5 @@
       ]
     }
   ],
-  "currentDatasetId": 2
+  "currentDatasetId": 1
 }

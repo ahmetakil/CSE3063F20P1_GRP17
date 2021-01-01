@@ -12,7 +12,6 @@ public class RandomLabellingUser extends User {
         super(id, name, type, consistencyCheckProbability);
     }
 
-    @Override
     public List<Label> pickLabel(List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
         Collections.shuffle(allLabels);
         Random random = new Random();
