@@ -12,17 +12,17 @@ public class LoginController {
     private static ConfigSet configSet = null;
     private static User loggedInUser = null;
 
-    public static LoginController getInstance(ConfigSet configset) {
+    public static LoginController getInstance() {
         if (loginInstance == null)
             loginInstance = new LoginController();
-        if (configSet == null) {
-            configSet = configset;
-        }
         return loginInstance;
     }
 
     public User getUser() {
         return loggedInUser;
+    }
+    public void setConfigSet(ConfigSet cSet){
+        configSet = cSet;
     }
     public void login() {
         Scanner scanner = new Scanner(System.in);
