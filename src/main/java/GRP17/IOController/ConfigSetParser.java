@@ -4,6 +4,7 @@ import GRP17.Logger;
 import GRP17.Models.ConfigSet;
 import GRP17.Models.DataSet;
 import GRP17.UserModels.HumanUser;
+import GRP17.UserModels.LazyUser;
 import GRP17.UserModels.RandomLabellingUser;
 import GRP17.UserModels.User;
 import com.google.gson.*;
@@ -65,8 +66,8 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                     case "RandomBot":
                         user = new RandomLabellingUser(id, name, type, consistencyCheckProbability);
                         break;
-                    case "MachineLearningBot":
-                        user = null;
+                    case "Lazybot":
+                        user = new LazyUser(id,name,type,consistencyCheckProbability);
                         break;
                     case "HumanUser":
                         user = new HumanUser(id,name,type,consistencyCheckProbability,userObject.get("password").getAsString());

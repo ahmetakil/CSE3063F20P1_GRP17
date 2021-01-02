@@ -30,6 +30,12 @@
       "type": "HumanUser",
       "consistencyCheckProbability" : 0.5,
       "password": "zeynep"
+    },
+    {
+      "userId": 5,
+      "userName": "Lazy Guy",
+      "type": "Lazybot",
+      "consistencyCheckProbability" : 0.1
     }
   ],
   "datasets": [
@@ -38,10 +44,6 @@
       "datasetName": "Dataset 1",
       "path": "input1.json",
       "users": [
-        0,
-        1,
-        2,
-        3,
         4
       ]
     },
@@ -50,11 +52,9 @@
       "datasetName": "Dataset 2",
       "path": "input2.json",
       "users": [
-        0,
-        1,
-        2
+        4
       ]
     }
   ],
-  "currentDatasetId": 1
+  "currentDatasetId": 2
 }
