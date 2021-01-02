@@ -11,11 +11,11 @@ import java.util.Map;
 
 public class UserWriter implements Writable {
 
-    User user;
-    List<DataSet> dataSets;
-    List<AssignedInstance> assignedInstances;
+    private User user;
+    private List<DataSet> dataSets;
+    private List<AssignedInstance> assignedInstances;
 
-     public UserWriter(List<DataSet> dataSets, List<AssignedInstance> assignedInstances){
+     UserWriter(List<DataSet> dataSets, List<AssignedInstance> assignedInstances){
          this.dataSets = dataSets;
          this.assignedInstances = assignedInstances;
      }
