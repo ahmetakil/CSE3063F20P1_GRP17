@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Label implements Serializable {
+public class Label implements Serializable, Comparable<Label> {
 
     @SerializedName("label id")
     private Integer id;
@@ -44,5 +44,10 @@ public class Label implements Serializable {
         Label label = (Label) o;
         return label.name.equals(this.name) && label.id.equals(this.id);
 
+    }
+
+    @Override
+    public int compareTo(Label o) {
+        return this.id - o.id;
     }
 }
