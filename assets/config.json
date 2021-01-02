@@ -27,9 +27,9 @@
     {
       "userId": 4,
       "userName": "zeynep",
-      "type": "Human",
-      "consistencyCheckProbability" : 0.1,
-      "password": "abcdefg4"
+      "type": "HumanUser",
+      "consistencyCheckProbability" : 0.5,
+      "password": "zeynep"
     }
   ],
   "datasets": [
@@ -41,7 +41,8 @@
         0,
         1,
         2,
-        3
+        3,
+        4
       ]
     },
     {
@@ -55,5 +56,5 @@
       ]
     }
   ],
-  "currentDatasetId": 2
+  "currentDatasetId": 1
 }

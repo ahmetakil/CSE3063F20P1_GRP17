@@ -3,9 +3,9 @@ package GRP17;
 import GRP17.IOController.Cache;
 import GRP17.IOController.CacheManager;
 import GRP17.IOController.OutputWriter;
-import GRP17.IOController.ReportWriter;
 import GRP17.Models.*;
 import GRP17.UserModels.User;
+import GRP17.ReportWriters.ReportWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,12 +54,11 @@ class LabellingMechanism {
             simulationDataSets.add(configDataset);
         }
 
-       if(this.dataSet == null){
-           this.dataSet = configSet.getCurrentDataset();
-       }
+        if (this.dataSet == null) {
+            this.dataSet = configSet.getCurrentDataset();
+        }
 
     }
-
 
     void startLabeling() {
 
@@ -69,9 +68,9 @@ class LabellingMechanism {
         List<Instance> allInstancesOfCurrentDataset = dataSet.getInstances();
 
         List<Instance> allUnlabelledInstancesOfCurrent = new ArrayList<>();
-        for(Instance instance: allInstancesOfCurrentDataset){
+        for (Instance instance : allInstancesOfCurrentDataset) {
 
-            if(instance.getFrequency().isEmpty()){
+            if (instance.getFrequency().isEmpty()) {
                 allUnlabelledInstancesOfCurrent.add(instance);
             }
         }
@@ -135,7 +134,7 @@ class LabellingMechanism {
                 dataSet.updateInstance(instance);
 
 
-                reportWriter.Write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
+                reportWriter.write(simulationDataSets, simulationUsers, simulationInstances, simulationAssignedInstances);
 
                 Cache currentCache = new Cache(
                         simulationDataSets,
