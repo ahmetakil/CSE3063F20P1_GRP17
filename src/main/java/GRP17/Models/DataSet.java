@@ -14,7 +14,7 @@ public class DataSet implements Serializable {
     @SerializedName("dataset name")
     private String name;
     @SerializedName("maximum number of labels per instance")
-    private int MAX_NUMBER_OF_LABELS_PER_INSTANCE;
+    private Integer MAX_NUMBER_OF_LABELS_PER_INSTANCE;
     @SerializedName("class labels")
     private List<Label> labels;
 
@@ -104,7 +104,7 @@ public class DataSet implements Serializable {
     }
 
     //C-4
-    public int noOfUsersAssignedToThisDataset() {
+    public Integer noOfUsersAssignedToThisDataset() {
         return users.size();
     }
 
@@ -116,7 +116,7 @@ public class DataSet implements Serializable {
         return name;
     }
 
-    public int getMaxNumberLabels() {
+    public Integer getMaxNumberLabels() {
         return MAX_NUMBER_OF_LABELS_PER_INSTANCE;
     }
 

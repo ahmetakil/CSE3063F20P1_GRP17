@@ -38,10 +38,10 @@ class LabellingMechanism {
 
 
         DataSet configDataset = configSet.getCurrentDataset();
-        int datasetId = configDataset.getId();
+        Integer datasetId = configDataset.getId();
 
         for (DataSet dataSet : simulationDataSets) {
-            if (dataSet.getId() == datasetId) {
+            if (dataSet.getId().equals(datasetId)) {
                 dataSet.updateDataset(configDataset);
                 this.dataSet = dataSet;
             }
