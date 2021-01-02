@@ -11,7 +11,7 @@ public class Instance implements Serializable {
     private Integer id;
     @SerializedName("instance")
     private String instance;
-    private Map<Label, Integer> frequency; // This name is not convenient. Change later.
+    private Map<Label, Integer> frequency;
     private Label finalLabel;
 
     public Instance() {

@@ -1,4 +1,7 @@
-02/01/2021, 06:16:24 [ConfigSetParser] created user with id: 0, name: ABC as RandomBot
-02/01/2021, 06:16:24 [ConfigSetParser] created user with id: 1, name: ABC1 as RandomBot
-02/01/2021, 06:16:24 [ConfigSetParser] created user with id: 2, name: ABC2 as RandomBot
-02/01/2021, 06:16:24 [ConfigSetParser] created user with id: 3, name: ABC3 as RandomBot
+02/01/2021, 07:53:24 [ConfigSetParser] created user with id: 0, name: ABC as RandomBot
+02/01/2021, 07:53:24 [ConfigSetParser] created user with id: 1, name: ABC1 as RandomBot
+02/01/2021, 07:53:24 [ConfigSetParser] created user with id: 2, name: ABC2 as RandomBot
+02/01/2021, 07:53:24 [ConfigSetParser] created user with id: 3, name: ABC3 as RandomBot
+02/01/2021, 07:53:24 [ConfigSetParser] created user with id: 4, name: zeynep as HumanUser
+02/01/2021, 07:53:24 [ConfigSetParser] created user with id: 5, name: Lazy Guy as Lazybot
+02/01/2021, 07:53:37 [AssignmentInstance] INFO user id:4, user name: zeynep assigned instance id: 2 with class label: [taraf] instance: "2.INSTANCE"
