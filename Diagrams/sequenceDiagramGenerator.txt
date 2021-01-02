@@ -14,6 +14,7 @@ participant OutputWriter
 participant Logger
 participant ReportWriter
 
+participant LoginController
 
 entryspacing 1.5
 
@@ -28,6 +29,8 @@ User-->>ConfigParser:return Users
 
 ConfigParser-->>LabellingMechanism:return Config
 
+
+
 LabellingMechanism->InputParser:get Input
 
 InputParser->Dataset:create Dataset
@@ -36,48 +39,16 @@ Dataset->Instance:create Instances
 Instance-->>Dataset:retrun Instances
 
 Dataset->Label:create Labels
-Label-->>Dataset:retrun Labels
+Label-->>Dataset:return Labels
 
 Dataset-->>InputParser:retrun Dataset
 
 InputParser-->>LabellingMechanism:return Input
 
+LabellingMechanism->LoginController:get Logged in User
+LoginController-->>LabellingMechanism:return Logged in user
+
 LabellingMechanism->User:Assign Labels
 User->AssignedInstances:create AssignedInstance
 AssignedInstances-->>User:return
 User-->>LabellingMechanism:return Assigned Instances
-
-
-
-
-
-
-
-LabellingMechanism->CacheManager:Save Cache
-
-
-LabellingMechanism->ReportWriter:get Report
-LabellingMechanism->OutputWriter:write Output
-
-ReportWriter->ControllerDomain:get Metrics
-
-ControllerDomain->Instance: get Metric Data
-Instance-->>ControllerDomain: return Metric Data
-
-ControllerDomain->Label: get Metric Data
-Label-->>ControllerDomain: return Metric Data
-
-ControllerDomain->User: get Metric Data
-User-->>ControllerDomain: return Metric Data
-
-ControllerDomain->Dataset: get Metric Data
-Dataset-->>ControllerDomain: return Metric Data
-
-ControllerDomain-->>ReportWriter:return Metrics
-
-ReportWriter-->>LabellingMechanism:return Report
-
-
-
-
-
