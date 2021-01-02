@@ -6,6 +6,7 @@ import java.util.List;
 
 public class HumanUser extends User {
     String password;
+
     public HumanUser(Integer id, String name, String type, double consistencyCheckProbability, String password) {
         super(id, name, type, consistencyCheckProbability);
         this.password = password;
@@ -14,5 +15,9 @@ public class HumanUser extends User {
     @Override
     public List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance) {
         return null;
+    }
+
+    private boolean checkAccount(String username, String password) {
+        return this.getName().equals(username) && this.password.equals(password);
     }
 }

@@ -3,6 +3,7 @@ package GRP17.IOController;
 import GRP17.Logger;
 import GRP17.Models.ConfigSet;
 import GRP17.Models.DataSet;
+import GRP17.UserModels.HumanUser;
 import GRP17.UserModels.RandomLabellingUser;
 import GRP17.UserModels.User;
 import com.google.gson.*;
@@ -59,6 +60,9 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                         break;
                     case "MachineLearningBot":
                         user = null;
+                        break;
+                    case "HumanUser":
+                        user = new HumanUser(id,name,type,consistencyCheckProbability,userObject.get("password").getAsString());
                         break;
                     default:
                         user = null;
