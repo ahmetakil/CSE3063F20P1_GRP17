@@ -1,5 +1,6 @@
 package GRP17.Models;
 
+import GRP17.UserModels.HumanUser;
 import GRP17.UserModels.User;
 import com.google.gson.annotations.SerializedName;
 
@@ -131,6 +132,17 @@ public class DataSet implements Serializable {
         return users;
     }
 
+    public List<User> getBotUsers() {
+        List<User> botUsers = new ArrayList<>();
+        for (User user : users) {
+            if (user instanceof HumanUser) {
+                continue;
+            }
+            botUsers.add(user);
+        }
+        return botUsers;
+    }
+
     @Override
     public String toString() {
         return this.getName();
@@ -162,8 +174,8 @@ public class DataSet implements Serializable {
 
         List<Instance> existingInstances = configDataset.getInstances();
 
-        for(Instance instance: existingInstances){
-            if(!this.instances.contains(instance)){
+        for (Instance instance : existingInstances) {
+            if (!this.instances.contains(instance)) {
                 this.instances.add(instance);
             }
         }
@@ -171,9 +183,8 @@ public class DataSet implements Serializable {
     }
 
 
-
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
 
         if (o == this) {
             return true;

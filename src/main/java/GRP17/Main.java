@@ -20,8 +20,8 @@ public class Main {
 
         ConfigSet configSet = ((ConfigParser) configParser).parse();
 
-
-        LoginController.getInstance(configSet).login();
+        LoginController.getInstance().setConfigSet(configSet);
+        LoginController.getInstance().login();
 
         LabellingMechanism labellingMechanism = new LabellingMechanism(configSet, reportWriter, cacheManager, outputWriter);
 

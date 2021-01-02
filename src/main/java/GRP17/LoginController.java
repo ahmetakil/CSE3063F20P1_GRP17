@@ -4,7 +4,7 @@ import GRP17.Models.ConfigSet;
 import GRP17.UserModels.HumanUser;
 import GRP17.UserModels.User;
 
-import java.util.List;
+
 import java.util.Scanner;
 
 public class LoginController {
@@ -12,19 +12,21 @@ public class LoginController {
     private static ConfigSet configSet = null;
     private static User loggedInUser = null;
 
-    public static LoginController getInstance(ConfigSet configset) {
+    public static LoginController getInstance() {
         if (loginInstance == null)
             loginInstance = new LoginController();
-        if (configSet == null) {
-            configSet = configset;
-        }
         return loginInstance;
     }
 
     public User getUser() {
         return loggedInUser;
     }
-    public void login() {
+
+    void setConfigSet(ConfigSet cSet) {
+        configSet = cSet;
+    }
+
+    void login() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter username: ");
         String username = scanner.nextLine();
@@ -44,7 +46,7 @@ public class LoginController {
         login();
     }
 
-    public boolean isLoggedIn(){
+    boolean isLoggedIn() {
         return loggedInUser != null;
     }
 }

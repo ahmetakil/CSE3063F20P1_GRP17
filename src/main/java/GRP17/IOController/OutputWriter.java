@@ -57,7 +57,6 @@ public class OutputWriter {
 
         } catch (IOException e) {
             System.out.println("Something went wrong with OutputWriter, Please check your input files. ");
-            return;
         }
 
     }

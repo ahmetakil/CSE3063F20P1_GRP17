@@ -1,6 +1,5 @@
 package GRP17.Models;
 
-import GRP17.UserModels.User;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;

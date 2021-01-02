@@ -12,7 +12,6 @@ import java.util.List;
 
 class LabellingMechanism {
 
-    private ConfigSet configSet;
     private ReportWriter reportWriter;
     private OutputWriter outputWriter;
     private CacheManager cacheManager;
@@ -26,7 +25,6 @@ class LabellingMechanism {
 
 
     LabellingMechanism(ConfigSet configSet, ReportWriter reportWriter, CacheManager cacheManager, OutputWriter outputWriter) {
-        this.configSet = configSet;
         this.reportWriter = reportWriter;
         this.outputWriter = outputWriter;
         this.cacheManager = cacheManager;
@@ -62,8 +60,15 @@ class LabellingMechanism {
 
     void startLabeling() {
 
+        List<User> allUsersAssignedToCurrent = new ArrayList<>();
 
-        List<User> allUsersAssignedToCurrent = dataSet.getUsers();
+
+        if (LoginController.getInstance().isLoggedIn()) {
+            allUsersAssignedToCurrent.add(LoginController.getInstance().getUser());
+        } else {
+            allUsersAssignedToCurrent = dataSet.getBotUsers();
+        }
+
         List<Label> allLabelsOfCurrentDataset = dataSet.getLabels();
         List<Instance> allInstancesOfCurrentDataset = dataSet.getInstances();
 
@@ -122,11 +127,11 @@ class LabellingMechanism {
                 simulationAssignedInstances.add(assignedInstance);
                 user.addDatasetID(dataSet.getId());
 
-                if(!simulationUsers.contains(user)){
+                if (!simulationUsers.contains(user)) {
                     simulationUsers.add(user);
                 }
 
-                if(!simulationInstances.contains(instance)){
+                if (!simulationInstances.contains(instance)) {
                     simulationInstances.add(instance);
                 }
 
