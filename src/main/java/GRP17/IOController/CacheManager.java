@@ -22,7 +22,6 @@ public class CacheManager {
             return cache;
 
         }catch(Exception e){
-            e.printStackTrace();
             return new Cache();
         }
     }
