@@ -1,5 +1,6 @@
 package GRP17.Models;
 
+import GRP17.UserModels.User;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -17,37 +18,34 @@ public class Instance implements Serializable {
         this.frequency = new HashMap<Label, Integer>();
     }
 
-   public  Map<Label, Integer> getFrequency() {
+    public Map<Label, Integer> getFrequency() {
         return frequency;
     }
 
-    private void updateFrequency(Label newLabel) {
-       try{
-           if (containsKey(newLabel)) {
-               Label correctLabel = null;
-               for(Label label : frequency.keySet()){
-                 if(label.getName().equals(newLabel.getName())){
-                     correctLabel = label;
-                 }
-               }
+    private void updateFrequency(Label label) {
+        try {
+            if (this.frequency.containsKey(label)) {
 
-               int currentFrequency = frequency.get(correctLabel);
+                int currentFrequency = frequency.get(label);
 
-               currentFrequency++;
-               frequency.put(newLabel, currentFrequency);
-               return;
-           }
-           frequency.put(newLabel, 1);
-       }catch(Exception e){
-           System.out.println("Instance.updateFrequency" + e);
-           return;
-       }
+                currentFrequency++;
+                frequency.put(label, currentFrequency);
+                return;
+            }
+
+            frequency.put(label, 1);
+        } catch (Exception e) {
+            System.out.println("Instance.updateFrequency" + e);
+            return;
+        }
     }
+
     public void updateFrequencyLabelList(List<Label> labels) {
         for (Label label : labels) {
             updateFrequency(label);
         }
     }
+
     //This method takes all labels in the instance at the map and changes the value of finalLabel to most recurring label. (If equal selects randomly).
     public void determineFinalLabel() {
         int max = 0;
@@ -68,6 +66,7 @@ public class Instance implements Serializable {
         Random random = new Random();
         finalLabel = maxlabels.get(random.nextInt(maxlabels.size()));
     }
+
     //B-1
     //This method assist from label hash-map and makes a summation of values corresponds to each label.
     public Integer noOfLabelAssignments() {
@@ -77,6 +76,7 @@ public class Instance implements Serializable {
         }
         return noOfLabelAssignments;
     }
+
     //B-2
     //This method counts labels only if they have value of 1 in hash-map for differing unique labels.
     public Integer noOfUniqueLabelAssignments() {
@@ -88,6 +88,7 @@ public class Instance implements Serializable {
         }
         return noOfUniqueLabelAssignments;
     }
+
     //B-4
     //This method returns most recurring label(s)? with using label percentage method.
     public Map.Entry<Label, Double> mostFrequentLabel() {
@@ -107,6 +108,7 @@ public class Instance implements Serializable {
         }
         return null;
     }
+
     //B-5
     //This method returns recurring percentages of assigned labels to a instance as in hash-map format.
     public HashMap<Label, Double> labelPercentage() {
@@ -123,6 +125,7 @@ public class Instance implements Serializable {
 
         return percentage;
     }
+
     //B-6
     //This method calculates entropy and returns it.
     public Double entropy() {
@@ -132,7 +135,7 @@ public class Instance implements Serializable {
             double proportion = entry.getValue() / 100;
             entropy += -1 * (proportion) * Math.log(proportion) / Math.log(percentage.size());
         }
-        return (int)(entropy *100)/100.0;
+        return (int) (entropy * 100) / 100.0;
     }
 
     boolean isLabelled() {
@@ -164,16 +167,23 @@ public class Instance implements Serializable {
     }
 
 
-    public void setFrequency( Map<Label, Integer> frequency) {
+    public void setFrequency(Map<Label, Integer> frequency) {
         this.frequency = frequency;
     }
 
-    boolean containsKey(Label newLabel){
-        for(Label label:  frequency.keySet()){
-            if(label.getName().equals(newLabel.getName())){
-                return true;
-            }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
         }
-        return false;
+
+        if (!(o instanceof Instance)) {
+            return false;
+        }
+
+        return ((Instance) o).id.equals(this.id);
+
     }
 }

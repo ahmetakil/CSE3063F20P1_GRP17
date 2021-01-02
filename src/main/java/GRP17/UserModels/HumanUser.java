@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class HumanUser extends User {
-    String password;
+    private String password;
 
     public HumanUser(Integer id, String name, String type, double consistencyCheckProbability, String password) {
         super(id, name, type, consistencyCheckProbability);

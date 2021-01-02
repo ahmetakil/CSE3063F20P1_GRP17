@@ -155,7 +155,7 @@ public class DataSet implements Serializable {
         List<User> existingUsers = configDataset.getUsers();
 
         for (User user : existingUsers) {
-            if (!containsUser(user)) {
+            if (!this.users.contains(user)) {
                 this.users.add(user);
             }
         }
@@ -163,30 +163,28 @@ public class DataSet implements Serializable {
         List<Instance> existingInstances = configDataset.getInstances();
 
         for(Instance instance: existingInstances){
-            if(!containsInstance(instance)){
+            if(!this.instances.contains(instance)){
                 this.instances.add(instance);
             }
         }
 
     }
 
-    private boolean containsUser(User user) {
-        for (User loopUser : this.users) {
-            if (loopUser.getId().equals(user.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
-    private boolean containsInstance(Instance instance) {
-        for (Instance loopInstance : this.instances) {
-            if (loopInstance.getId().equals(instance.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
+    @Override
+    public boolean equals(Object o){
+
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof DataSet)) {
+            return false;
+        }
+
+        return ((DataSet) o).getId().equals(this.id);
+
+    }
 
 }

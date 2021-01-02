@@ -49,7 +49,8 @@ class LabellingMechanism {
             }
         }
 
-        if (!contains(configDataset)) {
+
+        if (!simulationDataSets.contains(configDataset)) {
             simulationDataSets.add(configDataset);
         }
 
@@ -122,13 +123,14 @@ class LabellingMechanism {
                 simulationAssignedInstances.add(assignedInstance);
                 user.addDatasetID(dataSet.getId());
 
-                if (!contains(user)) {
+                if(!simulationUsers.contains(user)){
                     simulationUsers.add(user);
                 }
 
-                if (!contains(instance)) {
+                if(!simulationInstances.contains(instance)){
                     simulationInstances.add(instance);
                 }
+
 
                 dataSet.updateInstance(instance);
 
@@ -148,37 +150,6 @@ class LabellingMechanism {
 
     }
 
-
-    private boolean contains(DataSet dataSet) {
-        for (DataSet loopDataset : simulationDataSets) {
-
-            if (loopDataset.getId().equals(dataSet.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    private boolean contains(Instance instance) {
-        for (Instance loopInstance : simulationInstances) {
-
-            if (loopInstance.getId().equals(instance.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean contains(User user) {
-        for (User loopUser : simulationUsers) {
-
-            if (loopUser.getId().equals(user.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     private Instance getCachedInstance(Instance instance) {
         for (Instance loopInstance : simulationInstances) {
