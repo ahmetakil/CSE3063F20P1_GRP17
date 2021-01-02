@@ -30,7 +30,6 @@ public class Label implements Serializable, Comparable<Label> {
         return this.name;
     }
 
-    @Override
     public boolean equals(Object o) {
 
         if (o == this) {
@@ -46,7 +45,6 @@ public class Label implements Serializable, Comparable<Label> {
 
     }
 
-    @Override
     public int compareTo(Label o) {
         return this.id - o.id;
     }

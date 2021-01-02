@@ -182,8 +182,6 @@ public class DataSet implements Serializable {
 
     }
 
-
-    @Override
     public boolean equals(Object o) {
 
         if (o == this) {

@@ -199,7 +199,6 @@ public abstract class User implements Serializable {
 
     public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance, Instance instance);
 
-    @Override
     public boolean equals(Object o) {
 
         if (o == this) {

@@ -172,7 +172,6 @@ public class Instance implements Serializable {
     }
 
 
-    @Override
     public boolean equals(Object o) {
 
         if (o == this) {

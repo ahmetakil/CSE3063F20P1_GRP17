@@ -14,7 +14,6 @@ public class ConfigParser extends Parser {
         super(fileName);
     }
 
-    @Override
     public ConfigSet parse() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         /*

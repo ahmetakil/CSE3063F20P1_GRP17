@@ -3,10 +3,7 @@ package GRP17.IOController;
 import GRP17.Logger;
 import GRP17.Models.ConfigSet;
 import GRP17.Models.DataSet;
-import GRP17.UserModels.HumanUser;
-import GRP17.UserModels.LazyUser;
-import GRP17.UserModels.RandomLabellingUser;
-import GRP17.UserModels.User;
+import GRP17.UserModels.*;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
@@ -19,7 +16,6 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
     private List<User> users; // Storing users as an attribute because multiple functions will access it.
     private List<DataSet> datasets;
 
-    @Override
     public ConfigSet deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context) {
 
         try {
