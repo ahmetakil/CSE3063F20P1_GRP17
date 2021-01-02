@@ -31,7 +31,14 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
             this.users = parseUsers(usersJsonArray);
             this.datasets = parseDatasets(datasetsJsonArray);
 
-            return new ConfigSet(datasets,currentDatasetId);
+            DataSet currentDataset = null;
+            for(DataSet dataset : datasets){
+                if(dataset.getId().equals(currentDatasetId)){
+                    currentDataset = dataset;
+                }
+            }
+
+            return new ConfigSet(datasets,currentDataset);
         } catch (Exception e) {
             System.out.println("ConfigSetParser.deserialize: "+ e);
             return null;
