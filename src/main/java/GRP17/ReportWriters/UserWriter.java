@@ -24,7 +24,7 @@ public class UserWriter implements Writable {
         this.user = user;
     }
 
-    @Override
+
     public JsonObject getMetrics() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("user id: ", user.getId());

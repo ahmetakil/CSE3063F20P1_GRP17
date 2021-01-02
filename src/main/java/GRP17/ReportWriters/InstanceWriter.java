@@ -22,7 +22,7 @@ public class InstanceWriter implements Writable {
         this.instance = instance;
     }
 
-    @Override
+
     public JsonObject getMetrics() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("instance id: ", instance.getId());
