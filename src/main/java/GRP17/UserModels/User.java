@@ -135,7 +135,7 @@ public abstract class User implements Serializable {
         try {
             long timerStart = currentTimeMillis();
 
-            List<Label> subset = pickLabel(allLabels, maxNumberOfLabelsPerInstance);
+            List<Label> subset = pickLabel(allLabels, maxNumberOfLabelsPerInstance, instance);
             AssignedInstance assignedInstance = new AssignedInstance(this, instance, subset, new Date());
             instance.updateFrequencyLabelList(subset);
             instance.determineFinalLabel();
@@ -189,7 +189,7 @@ public abstract class User implements Serializable {
         this.timeSpendings = otherUser.timeSpendings;
     }
 
-    public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance);
+    public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance, Instance instance);
 
 
 }
