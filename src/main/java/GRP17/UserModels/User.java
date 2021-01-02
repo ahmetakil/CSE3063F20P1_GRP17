@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.*;
 
 import static java.lang.System.currentTimeMillis;
-import static java.lang.System.in;
 
 
 public abstract class User implements Serializable {
