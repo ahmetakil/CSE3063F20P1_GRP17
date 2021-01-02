@@ -23,6 +23,13 @@
       "userName": "ABC3",
       "type": "RandomBot",
       "consistencyCheckProbability" : 0.5
+    },
+    {
+      "userId": 4,
+      "userName": "zeynep",
+      "type": "Human",
+      "consistencyCheckProbability" : 0.1,
+      "password": "abcdefg4"
     }
   ],
   "datasets": [
@@ -48,5 +55,5 @@
       ]
     }
   ],
-  "currentDatasetId": 1
+  "currentDatasetId": 2
 }
