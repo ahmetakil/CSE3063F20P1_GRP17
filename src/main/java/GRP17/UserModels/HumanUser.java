@@ -17,7 +17,7 @@ public class HumanUser extends User {
 
 
         try{
-            System.out.println(instance.getInstance());
+            System.out.println("\nInstance: " + instance.getInstance());
             System.out.println("Which labels do you want to label?");
             Collections.sort(allLabels);
             int i = 1;
