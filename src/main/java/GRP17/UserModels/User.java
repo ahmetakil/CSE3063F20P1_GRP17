@@ -41,7 +41,6 @@ public abstract class User implements Serializable {
     }
 
 
-
     public List<Integer> getDatasetIds() {
         return datasetIds;
     }
@@ -50,12 +49,14 @@ public abstract class User implements Serializable {
         if (!datasetIds.contains(id))
             datasetIds.add(id);
     }
+
     //A-1
     public Integer getNumberOfDatasets() {
         if (datasetIds == null)
             return 0;
         return datasetIds.size();
     }
+
     public Double getConsistencyCheckProbability() {
         return consistencyCheckProbability;
     }
@@ -73,10 +74,12 @@ public abstract class User implements Serializable {
         }
         frequency.put(newLabel, 1);
     }
+
     //A-3
     public List<Instance> getInstances() {
         return labellingRequests;
     }
+
     //A-4
     private Instance getRandomLabelledInstance() {
         Random random = new Random();
@@ -87,11 +90,13 @@ public abstract class User implements Serializable {
 
         return uniqueInstances.get(randomlySelectedIndex);
     }
+
     private void addFrequencyLabelList(List<Label> labels) {
         for (Label label : labels) {
             addFrequencyLabel(label);
         }
     }
+
     //A-6
     public Double getAverageTimeSpending() {
         double sumAllValues = 0;
@@ -100,6 +105,7 @@ public abstract class User implements Serializable {
         }
         return sumAllValues / timeSpendings.size();
     }
+
     //A-7
     public Double getStandardDeviation() {
         double var = 0;
@@ -131,6 +137,7 @@ public abstract class User implements Serializable {
         return assignLabel(previouslyLabelledInstance, allLabels, maxNumberOfLabelsPerInstance);
 
     }
+
     public AssignedInstance assignLabel(Instance instance, List<Label> allLabels, int maxNumberOfLabelsPerInstance) {
         try {
             long timerStart = currentTimeMillis();
@@ -154,6 +161,7 @@ public abstract class User implements Serializable {
             return null;
         }
     }
+
     private void addInstance(Instance instance) {
         labellingRequests.add(instance);
     }
@@ -171,10 +179,10 @@ public abstract class User implements Serializable {
     public boolean hasLabelledInstance(DataSet dataset) {
         List<Instance> allUniqueInstances = getUniqueInstances();
 
-        for(Instance instance : allUniqueInstances){
-            for(Instance datasetInstance : dataset.getInstances()) {
+        for (Instance instance : allUniqueInstances) {
+            for (Instance datasetInstance : dataset.getInstances()) {
 
-                if(datasetInstance.getInstance().equals(instance.getInstance())){
+                if (datasetInstance.getInstance().equals(instance.getInstance())) {
                     return true;
                 }
             }
@@ -182,7 +190,7 @@ public abstract class User implements Serializable {
         return false;
     }
 
-    public void setUserFields(User otherUser){
+    public void setUserFields(User otherUser) {
         this.labellingRequests = otherUser.labellingRequests;
         this.frequency = otherUser.frequency;
         this.datasetIds = otherUser.datasetIds;
@@ -192,7 +200,7 @@ public abstract class User implements Serializable {
     public abstract List<Label> pickLabel(List<Label> labels, int maxNumberOfLabelsPerInstance, Instance instance);
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
 
         if (o == this) {
             return true;

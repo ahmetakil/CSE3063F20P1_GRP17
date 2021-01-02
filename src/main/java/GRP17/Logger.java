@@ -23,37 +23,38 @@ public class Logger {
 
     //In Singleton Pattern we always access the object via getInstance() and the first invocation creates the object and then the other invocations simply returns the previously created object.
     public static Logger getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new Logger();
         }
         return instance;
     }
 
-    private String getCurrentTime(){
+    private String getCurrentTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy, hh:mm:ss");
         Date date = new Date();
         return dateFormat.format(date);
     }
 
-    public void logUserCreation(User user){
-        String output=getCurrentTime();
-        output +=" [ConfigSetParser] ";
+    public void logUserCreation(User user) {
+        String output = getCurrentTime();
+        output += " [ConfigSetParser] ";
         output += "created user with id: " + user.getId() + ", name: " + user.getName();
         output += " as " + user.getType();
         log(output);
     }
 
-    public void logLabelAssignment(AssignedInstance labelAssignment){
+    public void logLabelAssignment(AssignedInstance labelAssignment) {
         String output = getCurrentTime();
         output += " [AssignmentInstance] INFO";
-        output += " user id:" + labelAssignment.getUser().getId() +", user name: " +labelAssignment.getUser().getName();
-        output += " assigned instance id: " + labelAssignment.getInstance().getId() + " "+
-        "with class label: " + labelAssignment.getLabels().toString() +
+        output += " user id:" + labelAssignment.getUser().getId() + ", user name: " + labelAssignment.getUser().getName();
+        output += " assigned instance id: " + labelAssignment.getInstance().getId() + " " +
+                "with class label: " + labelAssignment.getLabels().toString() +
                 " instance: \"" + labelAssignment.getInstance().toString() + "\"";
         log(output);
     }
+
     //All log functions invokes this function in order to display the log.
-    private void log(String log){
+    private void log(String log) {
         System.out.println(log);
         addLogToFile(log);
     }
@@ -64,18 +65,16 @@ public class Logger {
             writer.append(log);
             writer.append('\n');
             writer.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Something went wrong, please check your log file!");
         }
     }
 
-    private void clearLogFile(){
+    private void clearLogFile() {
         try {
-           File file = new File(logFile);
-           file.delete();
-        }
-        catch (Exception e){
+            File file = new File(logFile);
+            file.delete();
+        } catch (Exception e) {
             System.out.println("Something went wrong, please check your log file!");
         }
     }

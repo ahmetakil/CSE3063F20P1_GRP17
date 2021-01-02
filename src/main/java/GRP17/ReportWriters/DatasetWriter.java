@@ -11,15 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 public class DatasetWriter implements Writable {
-    DataSet dataSet;
-    List<AssignedInstance> assignedInstances;
+    private DataSet dataSet;
+    private List<AssignedInstance> assignedInstances;
 
-    public DatasetWriter(List<AssignedInstance> assignedInstances){
+    DatasetWriter(List<AssignedInstance> assignedInstances) {
         this.assignedInstances = assignedInstances;
 
     }
 
-    public void setDataSet(DataSet dataSet) {
+    void setDataSet(DataSet dataSet) {
         this.dataSet = dataSet;
     }
 

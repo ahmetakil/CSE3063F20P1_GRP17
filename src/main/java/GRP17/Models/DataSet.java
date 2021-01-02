@@ -1,7 +1,6 @@
 package GRP17.Models;
 
 import GRP17.UserModels.HumanUser;
-import GRP17.UserModels.RandomLabellingUser;
 import GRP17.UserModels.User;
 import com.google.gson.annotations.SerializedName;
 

@@ -15,9 +15,9 @@ public class LazyUser extends User {
 
     public List<Label> pickLabel(List<Label> allLabels, int maxNumberOfLabelsPerInstance, Instance instance) {
         List<Label> picks = new ArrayList<>();
-        Label shortest =  allLabels.get(0);
-        for(Label label: allLabels){
-            if(label.getName().length() < shortest.getName().length()){
+        Label shortest = allLabels.get(0);
+        for (Label label : allLabels) {
+            if (label.getName().length() < shortest.getName().length()) {
                 shortest = label;
             }
         }

@@ -63,7 +63,6 @@ class LabellingMechanism {
         List<User> allUsersAssignedToCurrent = new ArrayList<>();
 
 
-
         if (LoginController.getInstance().isLoggedIn()) {
             allUsersAssignedToCurrent.add(LoginController.getInstance().getUser());
         } else {

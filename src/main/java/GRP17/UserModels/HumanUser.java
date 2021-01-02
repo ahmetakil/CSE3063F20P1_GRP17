@@ -17,10 +17,10 @@ public class HumanUser extends User {
 
     public List<Label> pickLabel(List<Label> allLabels, int maxNumberOfLabelsPerInstance, Instance instance) {
 
-        System.out.println(instance.getInstance());
-        System.out.println("Which label do you want to label?");
+        System.out.println("\nInstance: "+ instance.getInstance());
+        System.out.println("Which label do you want to assign?");
         int i = 1;
-        for (Label label:allLabels){
+        for (Label label : allLabels) {
             System.out.println(i++ + ": " + label.getName());
         }
         List<Label> picks = new ArrayList<>();
@@ -29,12 +29,12 @@ public class HumanUser extends User {
         String[] args = line.split(" ");
         Integer[] ids = new Integer[args.length];
 
-        for(int j = 0;j<args.length;j++){
+        for (int j = 0; j < args.length; j++) {
             ids[j] = Integer.parseInt(args[j]);
         }
-        for (int id:ids){
-            for (Label label:allLabels){
-                if (label.getId() == id){
+        for (int id : ids) {
+            for (Label label : allLabels) {
+                if (label.getId() == id) {
                     picks.add(label);
                 }
             }

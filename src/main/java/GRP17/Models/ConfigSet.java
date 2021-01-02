@@ -5,11 +5,9 @@ import java.util.List;
 
 public class ConfigSet {
 
-    private List<DataSet> datasets;
     private DataSet currentDataset;
 
-    public ConfigSet(List<DataSet> dataSets,DataSet currentDataset){
-        this.datasets = dataSets;
+    public ConfigSet(DataSet currentDataset){
         this.currentDataset = currentDataset;
     }
     /*

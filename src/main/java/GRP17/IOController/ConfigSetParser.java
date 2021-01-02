@@ -39,7 +39,7 @@ public class ConfigSetParser implements JsonDeserializer<ConfigSet> {
                 }
             }
 
-            return new ConfigSet(datasets,currentDataset);
+            return new ConfigSet(currentDataset);
         } catch (Exception e) {
             System.out.println("ConfigSetParser.deserialize: "+ e);
             return null;

@@ -13,7 +13,7 @@ public class InstanceWriter implements Writable {
     private Instance instance;
     private List<AssignedInstance> assignedInstances;
 
-    public InstanceWriter(List<AssignedInstance> assignedInstances){
+    InstanceWriter(List<AssignedInstance> assignedInstances){
         this.assignedInstances = assignedInstances;
 
     }
