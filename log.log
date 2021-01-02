@@ -1,16 +1,4 @@
-02/01/2021, 03:31:29 [ConfigSetParser] created user with id: 0, name: ABC as RandomBot
-02/01/2021, 03:31:29 [ConfigSetParser] created user with id: 1, name: ABC1 as RandomBot
-02/01/2021, 03:31:29 [ConfigSetParser] created user with id: 2, name: ABC2 as RandomBot
-02/01/2021, 03:31:29 [ConfigSetParser] created user with id: 3, name: ABC3 as RandomBot
-02/01/2021, 03:31:29 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 1 with class label: [müşteri, numara ] instance: "1.INSTANCE"
-02/01/2021, 03:31:30 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 1 with class label: [paket, işlem] instance: "1.INSTANCE"
-02/01/2021, 03:31:30 [AssignmentInstance] INFO user id:2, user name: ABC2 assigned instance id: 1 with class label: [borç , konu , paket, işlem, hat , müşteri, numara , hat , taraf, fatura ] instance: "1.INSTANCE"
-02/01/2021, 03:31:31 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 2 with class label: [paket, bilgi , konu ] instance: "2.INSTANCE"
-02/01/2021, 03:31:31 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 2 with class label: [numara , paket, fatura , bilgi , taraf, işlem, müşteri, borç ] instance: "2.INSTANCE"
-02/01/2021, 03:31:31 [AssignmentInstance] INFO user id:2, user name: ABC2 assigned instance id: 2 with class label: [bayi , işlem, borç ] instance: "2.INSTANCE"
-02/01/2021, 03:31:31 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 3 with class label: [konu , numara , müşteri, fatura , işlem, borç ] instance: "3.INSTANCE"
-02/01/2021, 03:31:32 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 3 with class label: [cihaz, borç ] instance: "3.INSTANCE"
-02/01/2021, 03:31:32 [AssignmentInstance] INFO user id:2, user name: ABC2 assigned instance id: 3 with class label: [borç , bayi , işlem, taraf, borç , telefon, hat ] instance: "3.INSTANCE"
-02/01/2021, 03:31:32 [AssignmentInstance] INFO user id:0, user name: ABC assigned instance id: 4 with class label: [hat , hat ] instance: "4.INSTANCE"
-02/01/2021, 03:31:33 [AssignmentInstance] INFO user id:1, user name: ABC1 assigned instance id: 4 with class label: [borç , borç ] instance: "4.INSTANCE"
-02/01/2021, 03:31:33 [AssignmentInstance] INFO user id:2, user name: ABC2 assigned instance id: 4 with class label: [bayi ] instance: "4.INSTANCE"
+02/01/2021, 06:16:24 [ConfigSetParser] created user with id: 0, name: ABC as RandomBot
+02/01/2021, 06:16:24 [ConfigSetParser] created user with id: 1, name: ABC1 as RandomBot
+02/01/2021, 06:16:24 [ConfigSetParser] created user with id: 2, name: ABC2 as RandomBot
+02/01/2021, 06:16:24 [ConfigSetParser] created user with id: 3, name: ABC3 as RandomBot

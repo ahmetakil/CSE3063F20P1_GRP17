@@ -183,7 +183,7 @@ public class Instance implements Serializable {
             return false;
         }
 
-        return ((Instance) o).id.equals(this.id);
+        return ((Instance) o).instance.equals(this.instance);
 
     }
 }

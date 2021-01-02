@@ -154,7 +154,7 @@ class LabellingMechanism {
     private Instance getCachedInstance(Instance instance) {
         for (Instance loopInstance : simulationInstances) {
 
-            if (loopInstance.getId().equals(instance.getId())) {
+            if (loopInstance.getInstance().equals(instance.getInstance())) {
                 return loopInstance;
             }
         }
